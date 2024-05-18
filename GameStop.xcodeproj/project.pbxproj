@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		10CB1CF52BF8E97D006D5C04 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10CB1CF42BF8E97D006D5C04 /* AppDelegate.swift */; };
 		10CB1CF72BF8E97D006D5C04 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10CB1CF62BF8E97D006D5C04 /* SceneDelegate.swift */; };
-		10CB1CF92BF8E97D006D5C04 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10CB1CF82BF8E97D006D5C04 /* ViewController.swift */; };
+		10CB1CF92BF8E97D006D5C04 /* HomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10CB1CF82BF8E97D006D5C04 /* HomeController.swift */; };
 		10CB1CFE2BF8E97E006D5C04 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 10CB1CFD2BF8E97E006D5C04 /* Assets.xcassets */; };
 		10CB1D012BF8E97E006D5C04 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = 10CB1D002BF8E97E006D5C04 /* Base */; };
 /* End PBXBuildFile section */
@@ -18,7 +18,7 @@
 		10CB1CF12BF8E97D006D5C04 /* GameStop.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GameStop.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		10CB1CF42BF8E97D006D5C04 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		10CB1CF62BF8E97D006D5C04 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		10CB1CF82BF8E97D006D5C04 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		10CB1CF82BF8E97D006D5C04 /* HomeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeController.swift; sourceTree = "<group>"; };
 		10CB1CFD2BF8E97E006D5C04 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		10CB1D002BF8E97E006D5C04 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		10CB1D022BF8E97E006D5C04 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -56,7 +56,7 @@
 			children = (
 				10CB1CF42BF8E97D006D5C04 /* AppDelegate.swift */,
 				10CB1CF62BF8E97D006D5C04 /* SceneDelegate.swift */,
-				10CB1CF82BF8E97D006D5C04 /* ViewController.swift */,
+				10CB1CF82BF8E97D006D5C04 /* HomeController.swift */,
 				10CB1CFD2BF8E97E006D5C04 /* Assets.xcassets */,
 				10CB1CFF2BF8E97E006D5C04 /* LaunchScreen.storyboard */,
 				10CB1D022BF8E97E006D5C04 /* Info.plist */,
@@ -161,7 +161,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				10CB1CF92BF8E97D006D5C04 /* ViewController.swift in Sources */,
+				10CB1CF92BF8E97D006D5C04 /* HomeController.swift in Sources */,
 				10CB1CF52BF8E97D006D5C04 /* AppDelegate.swift in Sources */,
 				10CB1CF72BF8E97D006D5C04 /* SceneDelegate.swift in Sources */,
 			);
