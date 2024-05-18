@@ -7,21 +7,37 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		104BB1C12BF923310049E7F5 /* UIImageViewFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 104BB1BC2BF923310049E7F5 /* UIImageViewFactory.swift */; };
+		104BB1C22BF923310049E7F5 /* UILabelFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 104BB1BD2BF923310049E7F5 /* UILabelFactory.swift */; };
+		104BB1C32BF923310049E7F5 /* UIStackViewFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 104BB1BE2BF923310049E7F5 /* UIStackViewFactory.swift */; };
+		104BB1C42BF923310049E7F5 /* UIViewFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 104BB1BF2BF923310049E7F5 /* UIViewFactory.swift */; };
+		104BB1C62BF926C40049E7F5 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 104BB1C52BF926C40049E7F5 /* HomeViewModel.swift */; };
+		104BB1C82BF933970049E7F5 /* UICollectionViewFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 104BB1C72BF933970049E7F5 /* UICollectionViewFactory.swift */; };
 		10CB1CF52BF8E97D006D5C04 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10CB1CF42BF8E97D006D5C04 /* AppDelegate.swift */; };
 		10CB1CF72BF8E97D006D5C04 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10CB1CF62BF8E97D006D5C04 /* SceneDelegate.swift */; };
-		10CB1CF92BF8E97D006D5C04 /* HomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10CB1CF82BF8E97D006D5C04 /* HomeController.swift */; };
+		10CB1CF92BF8E97D006D5C04 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10CB1CF82BF8E97D006D5C04 /* HomeViewController.swift */; };
 		10CB1CFE2BF8E97E006D5C04 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 10CB1CFD2BF8E97E006D5C04 /* Assets.xcassets */; };
 		10CB1D012BF8E97E006D5C04 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = 10CB1D002BF8E97E006D5C04 /* Base */; };
+		10F788482BF91588003F5B67 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10F788472BF91588003F5B67 /* Theme.swift */; };
+		10F7884A2BF91947003F5B67 /* HomeGameCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10F788492BF91947003F5B67 /* HomeGameCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		104BB1BC2BF923310049E7F5 /* UIImageViewFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIImageViewFactory.swift; sourceTree = "<group>"; };
+		104BB1BD2BF923310049E7F5 /* UILabelFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UILabelFactory.swift; sourceTree = "<group>"; };
+		104BB1BE2BF923310049E7F5 /* UIStackViewFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIStackViewFactory.swift; sourceTree = "<group>"; };
+		104BB1BF2BF923310049E7F5 /* UIViewFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewFactory.swift; sourceTree = "<group>"; };
+		104BB1C52BF926C40049E7F5 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
+		104BB1C72BF933970049E7F5 /* UICollectionViewFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UICollectionViewFactory.swift; sourceTree = "<group>"; };
 		10CB1CF12BF8E97D006D5C04 /* GameStop.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GameStop.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		10CB1CF42BF8E97D006D5C04 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		10CB1CF62BF8E97D006D5C04 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		10CB1CF82BF8E97D006D5C04 /* HomeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeController.swift; sourceTree = "<group>"; };
+		10CB1CF82BF8E97D006D5C04 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		10CB1CFD2BF8E97E006D5C04 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		10CB1D002BF8E97E006D5C04 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		10CB1D022BF8E97E006D5C04 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		10F788472BF91588003F5B67 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
+		10F788492BF91947003F5B67 /* HomeGameCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeGameCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -35,6 +51,37 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		104BB1BA2BF921FB0049E7F5 /* Supportings */ = {
+			isa = PBXGroup;
+			children = (
+				10CB1CF42BF8E97D006D5C04 /* AppDelegate.swift */,
+				10CB1CF62BF8E97D006D5C04 /* SceneDelegate.swift */,
+				10CB1CFD2BF8E97E006D5C04 /* Assets.xcassets */,
+				10CB1CFF2BF8E97E006D5C04 /* LaunchScreen.storyboard */,
+			);
+			path = Supportings;
+			sourceTree = "<group>";
+		};
+		104BB1BB2BF923160049E7F5 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				104BB1C02BF923310049E7F5 /* Factory Pattern */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
+		104BB1C02BF923310049E7F5 /* Factory Pattern */ = {
+			isa = PBXGroup;
+			children = (
+				104BB1BC2BF923310049E7F5 /* UIImageViewFactory.swift */,
+				104BB1BD2BF923310049E7F5 /* UILabelFactory.swift */,
+				104BB1BE2BF923310049E7F5 /* UIStackViewFactory.swift */,
+				104BB1BF2BF923310049E7F5 /* UIViewFactory.swift */,
+				104BB1C72BF933970049E7F5 /* UICollectionViewFactory.swift */,
+			);
+			path = "Factory Pattern";
+			sourceTree = "<group>";
+		};
 		10CB1CE82BF8E97D006D5C04 = {
 			isa = PBXGroup;
 			children = (
@@ -54,14 +101,31 @@
 		10CB1CF32BF8E97D006D5C04 /* GameStop */ = {
 			isa = PBXGroup;
 			children = (
-				10CB1CF42BF8E97D006D5C04 /* AppDelegate.swift */,
-				10CB1CF62BF8E97D006D5C04 /* SceneDelegate.swift */,
-				10CB1CF82BF8E97D006D5C04 /* HomeController.swift */,
-				10CB1CFD2BF8E97E006D5C04 /* Assets.xcassets */,
-				10CB1CFF2BF8E97E006D5C04 /* LaunchScreen.storyboard */,
+				104BB1BB2BF923160049E7F5 /* Helpers */,
+				10F788462BF91573003F5B67 /* Theme */,
+				10F7884B2BF91DBA003F5B67 /* Home */,
+				104BB1BA2BF921FB0049E7F5 /* Supportings */,
 				10CB1D022BF8E97E006D5C04 /* Info.plist */,
 			);
 			path = GameStop;
+			sourceTree = "<group>";
+		};
+		10F788462BF91573003F5B67 /* Theme */ = {
+			isa = PBXGroup;
+			children = (
+				10F788472BF91588003F5B67 /* Theme.swift */,
+			);
+			path = Theme;
+			sourceTree = "<group>";
+		};
+		10F7884B2BF91DBA003F5B67 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				104BB1C52BF926C40049E7F5 /* HomeViewModel.swift */,
+				10CB1CF82BF8E97D006D5C04 /* HomeViewController.swift */,
+				10F788492BF91947003F5B67 /* HomeGameCell.swift */,
+			);
+			path = Home;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -161,9 +225,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				10CB1CF92BF8E97D006D5C04 /* HomeController.swift in Sources */,
+				10F7884A2BF91947003F5B67 /* HomeGameCell.swift in Sources */,
+				104BB1C42BF923310049E7F5 /* UIViewFactory.swift in Sources */,
+				104BB1C22BF923310049E7F5 /* UILabelFactory.swift in Sources */,
+				104BB1C62BF926C40049E7F5 /* HomeViewModel.swift in Sources */,
+				104BB1C32BF923310049E7F5 /* UIStackViewFactory.swift in Sources */,
+				10CB1CF92BF8E97D006D5C04 /* HomeViewController.swift in Sources */,
+				10F788482BF91588003F5B67 /* Theme.swift in Sources */,
 				10CB1CF52BF8E97D006D5C04 /* AppDelegate.swift in Sources */,
 				10CB1CF72BF8E97D006D5C04 /* SceneDelegate.swift in Sources */,
+				104BB1C12BF923310049E7F5 /* UIImageViewFactory.swift in Sources */,
+				104BB1C82BF933970049E7F5 /* UICollectionViewFactory.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
