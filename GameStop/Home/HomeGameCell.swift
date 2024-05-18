@@ -19,7 +19,7 @@ final class HomeGameCell: UICollectionViewCell {
         .build()
     
     let gameLabel = UILabelFactory(text: "Error")
-        .fontSize(of: 22, weight: .medium)
+        .fontSize(of: 10, weight: .medium)
         .textColor(with: Theme.tintColor)
         .build()
     
@@ -37,16 +37,16 @@ final class HomeGameCell: UICollectionViewCell {
         addSubview(gameLabel)
         
         NSLayoutConstraint.activate([
-            gameImageView.topAnchor.constraint(equalTo: topAnchor, constant: 10),
-            gameImageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10),
-            gameImageView.heightAnchor.constraint(equalToConstant: 100)
+            gameImageView.topAnchor.constraint(equalTo: topAnchor),
+            gameImageView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            gameImageView.heightAnchor.constraint(equalToConstant: 100),
+            gameImageView.widthAnchor.constraint(equalToConstant: 100),
         ])
         
         NSLayoutConstraint.activate([
             gameLabel.topAnchor.constraint(equalTo: topAnchor, constant: 10),
-            gameLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
             gameLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
-            gameLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -10)
+            gameLabel.leadingAnchor.constraint(equalTo: gameImageView.trailingAnchor, constant: 10)
         ])
     }
 }

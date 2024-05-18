@@ -13,6 +13,14 @@
 		104BB1C42BF923310049E7F5 /* UIViewFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 104BB1BF2BF923310049E7F5 /* UIViewFactory.swift */; };
 		104BB1C62BF926C40049E7F5 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 104BB1C52BF926C40049E7F5 /* HomeViewModel.swift */; };
 		104BB1C82BF933970049E7F5 /* UICollectionViewFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 104BB1C72BF933970049E7F5 /* UICollectionViewFactory.swift */; };
+		104BB1CB2BF9397B0049E7F5 /* GameModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 104BB1CA2BF9397B0049E7F5 /* GameModel.swift */; };
+		104BB1CD2BF94B500049E7F5 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 104BB1CC2BF94B500049E7F5 /* NetworkService.swift */; };
+		104BB1CF2BF94BFE0049E7F5 /* GameAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 104BB1CE2BF94BFE0049E7F5 /* GameAPI.swift */; };
+		104BB1D12BF94C400049E7F5 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 104BB1D02BF94C400049E7F5 /* Constants.swift */; };
+		104BB1D32BF94DC90049E7F5 /* NetworkServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 104BB1D22BF94DC90049E7F5 /* NetworkServiceProtocol.swift */; };
+		104BB1D52BF94DF70049E7F5 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 104BB1D42BF94DF70049E7F5 /* NetworkError.swift */; };
+		104BB1DC2BF951780049E7F5 /* Collection+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 104BB1DB2BF951780049E7F5 /* Collection+Extension.swift */; };
+		104BB1DF2BF954C50049E7F5 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 104BB1DE2BF954C50049E7F5 /* Kingfisher */; };
 		10CB1CF52BF8E97D006D5C04 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10CB1CF42BF8E97D006D5C04 /* AppDelegate.swift */; };
 		10CB1CF72BF8E97D006D5C04 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10CB1CF62BF8E97D006D5C04 /* SceneDelegate.swift */; };
 		10CB1CF92BF8E97D006D5C04 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10CB1CF82BF8E97D006D5C04 /* HomeViewController.swift */; };
@@ -29,6 +37,13 @@
 		104BB1BF2BF923310049E7F5 /* UIViewFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewFactory.swift; sourceTree = "<group>"; };
 		104BB1C52BF926C40049E7F5 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		104BB1C72BF933970049E7F5 /* UICollectionViewFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UICollectionViewFactory.swift; sourceTree = "<group>"; };
+		104BB1CA2BF9397B0049E7F5 /* GameModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameModel.swift; sourceTree = "<group>"; };
+		104BB1CC2BF94B500049E7F5 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
+		104BB1CE2BF94BFE0049E7F5 /* GameAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameAPI.swift; sourceTree = "<group>"; };
+		104BB1D02BF94C400049E7F5 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		104BB1D22BF94DC90049E7F5 /* NetworkServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkServiceProtocol.swift; sourceTree = "<group>"; };
+		104BB1D42BF94DF70049E7F5 /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
+		104BB1DB2BF951780049E7F5 /* Collection+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Collection+Extension.swift"; sourceTree = "<group>"; };
 		10CB1CF12BF8E97D006D5C04 /* GameStop.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GameStop.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		10CB1CF42BF8E97D006D5C04 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		10CB1CF62BF8E97D006D5C04 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -45,6 +60,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				104BB1DF2BF954C50049E7F5 /* Kingfisher in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -65,6 +81,7 @@
 		104BB1BB2BF923160049E7F5 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				104BB1DA2BF951690049E7F5 /* Extensions */,
 				104BB1C02BF923310049E7F5 /* Factory Pattern */,
 			);
 			path = Helpers;
@@ -80,6 +97,42 @@
 				104BB1C72BF933970049E7F5 /* UICollectionViewFactory.swift */,
 			);
 			path = "Factory Pattern";
+			sourceTree = "<group>";
+		};
+		104BB1C92BF939640049E7F5 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				104BB1CA2BF9397B0049E7F5 /* GameModel.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		104BB1DA2BF951690049E7F5 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				104BB1DB2BF951780049E7F5 /* Collection+Extension.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		104BB1E02BF95B140049E7F5 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				104BB1E12BF95B320049E7F5 /* Constants */,
+				104BB1CC2BF94B500049E7F5 /* NetworkService.swift */,
+				104BB1CE2BF94BFE0049E7F5 /* GameAPI.swift */,
+				104BB1D22BF94DC90049E7F5 /* NetworkServiceProtocol.swift */,
+				104BB1D42BF94DF70049E7F5 /* NetworkError.swift */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		104BB1E12BF95B320049E7F5 /* Constants */ = {
+			isa = PBXGroup;
+			children = (
+				104BB1D02BF94C400049E7F5 /* Constants.swift */,
+			);
+			path = Constants;
 			sourceTree = "<group>";
 		};
 		10CB1CE82BF8E97D006D5C04 = {
@@ -101,6 +154,8 @@
 		10CB1CF32BF8E97D006D5C04 /* GameStop */ = {
 			isa = PBXGroup;
 			children = (
+				104BB1E02BF95B140049E7F5 /* Network */,
+				104BB1C92BF939640049E7F5 /* Models */,
 				104BB1BB2BF923160049E7F5 /* Helpers */,
 				10F788462BF91573003F5B67 /* Theme */,
 				10F7884B2BF91DBA003F5B67 /* Home */,
@@ -146,6 +201,9 @@
 				10D7494D2BF8F2D700393400 /* PBXTargetDependency */,
 			);
 			name = GameStop;
+			packageProductDependencies = (
+				104BB1DE2BF954C50049E7F5 /* Kingfisher */,
+			);
 			productName = GameStop;
 			productReference = 10CB1CF12BF8E97D006D5C04 /* GameStop.app */;
 			productType = "com.apple.product-type.application";
@@ -176,6 +234,7 @@
 			mainGroup = 10CB1CE82BF8E97D006D5C04;
 			packageReferences = (
 				10D7494A2BF8F27B00393400 /* XCRemoteSwiftPackageReference "SwiftLint" */,
+				104BB1DD2BF954C50049E7F5 /* XCRemoteSwiftPackageReference "Kingfisher" */,
 			);
 			productRefGroup = 10CB1CF22BF8E97D006D5C04 /* Products */;
 			projectDirPath = "";
@@ -225,16 +284,23 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				104BB1D52BF94DF70049E7F5 /* NetworkError.swift in Sources */,
 				10F7884A2BF91947003F5B67 /* HomeGameCell.swift in Sources */,
 				104BB1C42BF923310049E7F5 /* UIViewFactory.swift in Sources */,
 				104BB1C22BF923310049E7F5 /* UILabelFactory.swift in Sources */,
 				104BB1C62BF926C40049E7F5 /* HomeViewModel.swift in Sources */,
+				104BB1D32BF94DC90049E7F5 /* NetworkServiceProtocol.swift in Sources */,
 				104BB1C32BF923310049E7F5 /* UIStackViewFactory.swift in Sources */,
+				104BB1DC2BF951780049E7F5 /* Collection+Extension.swift in Sources */,
+				104BB1D12BF94C400049E7F5 /* Constants.swift in Sources */,
+				104BB1CB2BF9397B0049E7F5 /* GameModel.swift in Sources */,
 				10CB1CF92BF8E97D006D5C04 /* HomeViewController.swift in Sources */,
 				10F788482BF91588003F5B67 /* Theme.swift in Sources */,
+				104BB1CF2BF94BFE0049E7F5 /* GameAPI.swift in Sources */,
 				10CB1CF52BF8E97D006D5C04 /* AppDelegate.swift in Sources */,
 				10CB1CF72BF8E97D006D5C04 /* SceneDelegate.swift in Sources */,
 				104BB1C12BF923310049E7F5 /* UIImageViewFactory.swift in Sources */,
+				104BB1CD2BF94B500049E7F5 /* NetworkService.swift in Sources */,
 				104BB1C82BF933970049E7F5 /* UICollectionViewFactory.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -457,6 +523,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		104BB1DD2BF954C50049E7F5 /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/onevcat/Kingfisher.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.11.0;
+			};
+		};
 		10D7494A2BF8F27B00393400 /* XCRemoteSwiftPackageReference "SwiftLint" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/realm/SwiftLint.git";
@@ -468,6 +542,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		104BB1DE2BF954C50049E7F5 /* Kingfisher */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 104BB1DD2BF954C50049E7F5 /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			productName = Kingfisher;
+		};
 		10D7494C2BF8F2D700393400 /* SwiftLintBuildToolPlugin */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 10D7494A2BF8F27B00393400 /* XCRemoteSwiftPackageReference "SwiftLint" */;

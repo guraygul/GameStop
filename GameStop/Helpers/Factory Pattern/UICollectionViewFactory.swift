@@ -26,7 +26,7 @@ final class UICollectionViewFactory {
         collectionView.register(cellClass, forCellWithReuseIdentifier: identifier)
         return self
     }
-        
+    
     func delegate(_ delegate: UICollectionViewDelegate?) -> Self {
         collectionView.delegate = delegate
         return self

@@ -6,30 +6,29 @@
 //
 
 import UIKit
+import Kingfisher
 
 protocol HomeViewInterface: AnyObject {
     func prepareCollectionView()
-    
     func reloadData()
 }
 
 final class HomeViewController: UIViewController {
     
-    private lazy var viewModel = HomeViewModel()
+    private lazy var viewModel: HomeViewModelInterface = HomeViewModel()
     
     private let sectionInsets = UIEdgeInsets(top: 20.0, left: 10.0, bottom: 20.0, right: 10.0)
     
-    
-    let navigationTitleLabel = UILabelFactory(text: "GameStop")
+    private let navigationTitleLabel = UILabelFactory(text: "GameStop")
         .fontSize(of: 20, weight: .bold)
         .textColor(with: Theme.tintColor)
         .build()
-        
+    
     private lazy var collectionView = UICollectionViewFactory()
         .backgroundColor(.clear)
         .registerCellClass(HomeGameCell.self, forCellWithReuseIdentifier: "GameCell")
         .build()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         viewModel.view = self
@@ -65,7 +64,7 @@ final class HomeViewController: UIViewController {
     
     func setupCollectionView() {
         view.addSubview(collectionView)
-
+        
         NSLayoutConstraint.activate([
             collectionView.topAnchor.constraint(equalTo: view.topAnchor),
             collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
@@ -77,21 +76,34 @@ final class HomeViewController: UIViewController {
 }
 
 extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSource {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        10
+    func collectionView(_ collectionView: UICollectionView,
+                        numberOfItemsInSection section: Int) -> Int {
+        return viewModel.gamesCount
     }
     
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HomeGameCell.identifier, for: indexPath) as! HomeGameCell
-        cell.gameLabel.text = "sdşflksdşflksşdlfk"
-        cell.gameImageView.image = UIImage(systemName: "trash.circle.fill")
+    func collectionView(_ collectionView: UICollectionView,
+                        cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HomeGameCell.identifier,
+                                                      for: indexPath) as! HomeGameCell
+        
+        if let game = viewModel.cellForItem(at: indexPath) {
+            cell.gameLabel.text = game.name
+            if let imageUrl = game.backgroundImage, let url = URL(string: imageUrl) {
+                cell.gameImageView.kf.setImage(with: url)
+            }
+        }
+        
         return cell
     }
     
 }
 
 extension HomeViewController: UICollectionViewDelegateFlowLayout {
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+    func collectionView(
+        _ collectionView: UICollectionView,
+        layout collectionViewLayout: UICollectionViewLayout,
+        sizeForItemAt indexPath: IndexPath
+    ) -> CGSize {
         
         let itemsPerRow: CGFloat = 1
         let paddingSpace = sectionInsets.left * (itemsPerRow + 1)
@@ -102,12 +114,18 @@ extension HomeViewController: UICollectionViewDelegateFlowLayout {
     }
     
     func collectionView(
-        _ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        _ collectionView: UICollectionView,
+        layout collectionViewLayout: UICollectionViewLayout,
+        insetForSectionAt section: Int
+    ) -> UIEdgeInsets {
             return sectionInsets
         }
     
     func collectionView(
-        _ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        _ collectionView: UICollectionView,
+        layout collectionViewLayout: UICollectionViewLayout,
+        minimumLineSpacingForSectionAt section: Int
+    ) -> CGFloat {
             return sectionInsets.left
         }
 }
@@ -117,7 +135,7 @@ extension HomeViewController: HomeViewInterface {
     func prepareCollectionView() {
         collectionView.delegate = self
         collectionView.dataSource = self
-
+        
         collectionView.reloadData()
     }
     
