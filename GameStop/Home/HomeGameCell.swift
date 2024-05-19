@@ -49,4 +49,12 @@ final class HomeGameCell: UICollectionViewCell {
             gameLabel.leadingAnchor.constraint(equalTo: gameImageView.trailingAnchor, constant: 10)
         ])
     }
+    
+    func configure(with game: Result) {
+        gameLabel.text = game.name
+        if let imageUrl = game.backgroundImage, let url = URL(string: imageUrl) {
+            gameImageView.kf.setImage(with: url)
+        }
+    }
+    
 }

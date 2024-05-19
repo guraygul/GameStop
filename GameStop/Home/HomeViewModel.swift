@@ -29,15 +29,22 @@ final class HomeViewModel {
     private func fetchGames() {
         Task {
             do {
-                let gameModel = try await networkService.fetchData(from: GameAPI.games(page: 1),
-                                                                   as: GameModel.self)
+                let gameModel = try await networkService.fetchData(
+                    from: GameAPI.games(
+                        page: 1
+                    ),
+                    as: GameModel.self
+                )
                 self.games = gameModel.results ?? []
                 DispatchQueue.main.async { [weak self] in
                     guard let self = self else { return }
                     self.view?.reloadData()
                 }
             } catch {
-                debugPrint("Error fetching games: \(error.localizedDescription)")
+                DispatchQueue.main.async { [weak self] in
+                    guard let self = self else { return }
+                    self.view?.showError("Error fetching games: \(error.localizedDescription)")
+                }
             }
         }
     }

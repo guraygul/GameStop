@@ -11,6 +11,7 @@ import Kingfisher
 protocol HomeViewInterface: AnyObject {
     func prepareCollectionView()
     func reloadData()
+    func showError(_ message: String)
 }
 
 final class HomeViewController: UIViewController {
@@ -87,10 +88,11 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
                                                       for: indexPath) as! HomeGameCell
         
         if let game = viewModel.cellForItem(at: indexPath) {
-            cell.gameLabel.text = game.name
-            if let imageUrl = game.backgroundImage, let url = URL(string: imageUrl) {
-                cell.gameImageView.kf.setImage(with: url)
-            }
+//            cell.gameLabel.text = game.name
+//            if let imageUrl = game.backgroundImage, let url = URL(string: imageUrl) {
+//                cell.gameImageView.kf.setImage(with: url)
+//            }
+            cell.configure(with: game)
         }
         
         return cell
@@ -141,6 +143,17 @@ extension HomeViewController: HomeViewInterface {
     
     func reloadData() {
         collectionView.reloadData()
+    }
+    
+    func showError(_ message: String) {
+        let alert = UIAlertController(
+            title: "Error",
+            message: message,
+            preferredStyle: .alert
+        )
+        let okay = UIAlertAction(title: "OK", style: .default)
+        alert.addAction(okay)
+        present(alert, animated: true)
     }
 }
 
