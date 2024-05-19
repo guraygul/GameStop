@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1001C2FE2BFA41B500F61C24 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1001C2FD2BFA41B500F61C24 /* TabBarViewController.swift */; };
+		1001C3012BFA436300F61C24 /* FavoriteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1001C3002BFA436300F61C24 /* FavoriteViewController.swift */; };
+		1001C3042BFA628300F61C24 /* AlertPresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1001C3032BFA628300F61C24 /* AlertPresentable.swift */; };
 		104BB1C12BF923310049E7F5 /* UIImageViewFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 104BB1BC2BF923310049E7F5 /* UIImageViewFactory.swift */; };
 		104BB1C22BF923310049E7F5 /* UILabelFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 104BB1BD2BF923310049E7F5 /* UILabelFactory.swift */; };
 		104BB1C32BF923310049E7F5 /* UIStackViewFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 104BB1BE2BF923310049E7F5 /* UIStackViewFactory.swift */; };
@@ -31,6 +34,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1001C2FD2BFA41B500F61C24 /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
+		1001C3002BFA436300F61C24 /* FavoriteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteViewController.swift; sourceTree = "<group>"; };
+		1001C3032BFA628300F61C24 /* AlertPresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertPresentable.swift; sourceTree = "<group>"; };
 		104BB1BC2BF923310049E7F5 /* UIImageViewFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIImageViewFactory.swift; sourceTree = "<group>"; };
 		104BB1BD2BF923310049E7F5 /* UILabelFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UILabelFactory.swift; sourceTree = "<group>"; };
 		104BB1BE2BF923310049E7F5 /* UIStackViewFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIStackViewFactory.swift; sourceTree = "<group>"; };
@@ -67,6 +73,31 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1001C2FC2BFA419700F61C24 /* TabBar */ = {
+			isa = PBXGroup;
+			children = (
+				1001C2FD2BFA41B500F61C24 /* TabBarViewController.swift */,
+			);
+			path = TabBar;
+			sourceTree = "<group>";
+		};
+		1001C2FF2BFA434500F61C24 /* Favorite */ = {
+			isa = PBXGroup;
+			children = (
+				1001C3002BFA436300F61C24 /* FavoriteViewController.swift */,
+			);
+			path = Favorite;
+			sourceTree = "<group>";
+		};
+		1001C3022BFA480100F61C24 /* Scenes */ = {
+			isa = PBXGroup;
+			children = (
+				10F7884B2BF91DBA003F5B67 /* Home */,
+				1001C2FF2BFA434500F61C24 /* Favorite */,
+			);
+			path = Scenes;
+			sourceTree = "<group>";
+		};
 		104BB1BA2BF921FB0049E7F5 /* Supportings */ = {
 			isa = PBXGroup;
 			children = (
@@ -111,6 +142,7 @@
 			isa = PBXGroup;
 			children = (
 				104BB1DB2BF951780049E7F5 /* Collection+Extension.swift */,
+				1001C3032BFA628300F61C24 /* AlertPresentable.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -158,7 +190,8 @@
 				104BB1C92BF939640049E7F5 /* Models */,
 				104BB1BB2BF923160049E7F5 /* Helpers */,
 				10F788462BF91573003F5B67 /* Theme */,
-				10F7884B2BF91DBA003F5B67 /* Home */,
+				1001C2FC2BFA419700F61C24 /* TabBar */,
+				1001C3022BFA480100F61C24 /* Scenes */,
 				104BB1BA2BF921FB0049E7F5 /* Supportings */,
 				10CB1D022BF8E97E006D5C04 /* Info.plist */,
 			);
@@ -190,7 +223,6 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 10CB1D052BF8E97E006D5C04 /* Build configuration list for PBXNativeTarget "GameStop" */;
 			buildPhases = (
-				10D7494B2BF8F2A000393400 /* SwiftLint */,
 				10CB1CED2BF8E97D006D5C04 /* Sources */,
 				10CB1CEE2BF8E97D006D5C04 /* Frameworks */,
 				10CB1CEF2BF8E97D006D5C04 /* Resources */,
@@ -198,7 +230,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				10D7494D2BF8F2D700393400 /* PBXTargetDependency */,
 			);
 			name = GameStop;
 			packageProductDependencies = (
@@ -233,7 +264,6 @@
 			);
 			mainGroup = 10CB1CE82BF8E97D006D5C04;
 			packageReferences = (
-				10D7494A2BF8F27B00393400 /* XCRemoteSwiftPackageReference "SwiftLint" */,
 				104BB1DD2BF954C50049E7F5 /* XCRemoteSwiftPackageReference "Kingfisher" */,
 			);
 			productRefGroup = 10CB1CF22BF8E97D006D5C04 /* Products */;
@@ -257,28 +287,6 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
-/* Begin PBXShellScriptBuildPhase section */
-		10D7494B2BF8F2A000393400 /* SwiftLint */ = {
-			isa = PBXShellScriptBuildPhase;
-			alwaysOutOfDate = 1;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			name = SwiftLint;
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "if command -v swiftlint >/dev/null 2>&1\nthen\n    swiftlint\nfi\n";
-		};
-/* End PBXShellScriptBuildPhase section */
-
 /* Begin PBXSourcesBuildPhase section */
 		10CB1CED2BF8E97D006D5C04 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -291,12 +299,15 @@
 				104BB1C62BF926C40049E7F5 /* HomeViewModel.swift in Sources */,
 				104BB1D32BF94DC90049E7F5 /* NetworkServiceProtocol.swift in Sources */,
 				104BB1C32BF923310049E7F5 /* UIStackViewFactory.swift in Sources */,
+				1001C3042BFA628300F61C24 /* AlertPresentable.swift in Sources */,
 				104BB1DC2BF951780049E7F5 /* Collection+Extension.swift in Sources */,
 				104BB1D12BF94C400049E7F5 /* Constants.swift in Sources */,
 				104BB1CB2BF9397B0049E7F5 /* GameModel.swift in Sources */,
 				10CB1CF92BF8E97D006D5C04 /* HomeViewController.swift in Sources */,
 				10F788482BF91588003F5B67 /* Theme.swift in Sources */,
 				104BB1CF2BF94BFE0049E7F5 /* GameAPI.swift in Sources */,
+				1001C2FE2BFA41B500F61C24 /* TabBarViewController.swift in Sources */,
+				1001C3012BFA436300F61C24 /* FavoriteViewController.swift in Sources */,
 				10CB1CF52BF8E97D006D5C04 /* AppDelegate.swift in Sources */,
 				10CB1CF72BF8E97D006D5C04 /* SceneDelegate.swift in Sources */,
 				104BB1C12BF923310049E7F5 /* UIImageViewFactory.swift in Sources */,
@@ -306,13 +317,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		10D7494D2BF8F2D700393400 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			productRef = 10D7494C2BF8F2D700393400 /* SwiftLintBuildToolPlugin */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		10CB1CFF2BF8E97E006D5C04 /* LaunchScreen.storyboard */ = {
@@ -531,14 +535,6 @@
 				minimumVersion = 7.11.0;
 			};
 		};
-		10D7494A2BF8F27B00393400 /* XCRemoteSwiftPackageReference "SwiftLint" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/realm/SwiftLint.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 0.55.1;
-			};
-		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -546,11 +542,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 104BB1DD2BF954C50049E7F5 /* XCRemoteSwiftPackageReference "Kingfisher" */;
 			productName = Kingfisher;
-		};
-		10D7494C2BF8F2D700393400 /* SwiftLintBuildToolPlugin */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 10D7494A2BF8F27B00393400 /* XCRemoteSwiftPackageReference "SwiftLint" */;
-			productName = "plugin:SwiftLintBuildToolPlugin";
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

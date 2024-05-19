@@ -8,26 +8,24 @@
 import UIKit
 import Kingfisher
 
-protocol HomeViewInterface: AnyObject {
+protocol HomeViewInterface: AnyObject, AlertPresentable {
     func prepareCollectionView()
     func reloadData()
-    func showError(_ message: String)
 }
 
 final class HomeViewController: UIViewController {
-    
-    private lazy var viewModel: HomeViewModelInterface = HomeViewModel()
-    
-    private let sectionInsets = UIEdgeInsets(top: 20.0, left: 10.0, bottom: 20.0, right: 10.0)
-    
-    private let navigationTitleLabel = UILabelFactory(text: "GameStop")
-        .fontSize(of: 20, weight: .bold)
-        .textColor(with: Theme.tintColor)
-        .build()
+    private var viewModel: HomeViewModelInterface = HomeViewModel()
+    private let sectionInsets = UIEdgeInsets(top: 20.0,
+                                             left: 10.0,
+                                             bottom: 20.0,
+                                             right: 10.0)
     
     private lazy var collectionView = UICollectionViewFactory()
         .backgroundColor(.clear)
         .registerCellClass(HomeGameCell.self, forCellWithReuseIdentifier: "GameCell")
+        .build()
+    
+    private let titleView = UIViewFactory()
         .build()
     
     override func viewDidLoad() {
@@ -36,31 +34,13 @@ final class HomeViewController: UIViewController {
         viewModel.viewDidLoad()
         
         view.backgroundColor = Theme.backgroundColor
-        setupLeftAlignedTitle()
+        navigationItem.title = "GameStop"
         setupCollectionView()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         viewModel.viewWillAppear()
-    }
-    
-    func setupLeftAlignedTitle() {
-        let titleView = UIView()
-        titleView.addSubview(navigationTitleLabel)
-        
-        NSLayoutConstraint.activate([
-            navigationTitleLabel.leadingAnchor.constraint(equalTo: titleView.leadingAnchor),
-            navigationTitleLabel.centerYAnchor.constraint(equalTo: titleView.centerYAnchor),
-            navigationTitleLabel.trailingAnchor.constraint(equalTo: titleView.trailingAnchor)
-        ])
-        
-        self.navigationItem.titleView = titleView
-        
-        NSLayoutConstraint.activate([
-            titleView.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width),
-            titleView.heightAnchor.constraint(equalToConstant: 44)
-        ])
     }
     
     func setupCollectionView() {
@@ -87,13 +67,7 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HomeGameCell.identifier,
                                                       for: indexPath) as! HomeGameCell
         
-        if let game = viewModel.cellForItem(at: indexPath) {
-//            cell.gameLabel.text = game.name
-//            if let imageUrl = game.backgroundImage, let url = URL(string: imageUrl) {
-//                cell.gameImageView.kf.setImage(with: url)
-//            }
-            cell.configure(with: game)
-        }
+        if let game = viewModel.cellForItem(at: indexPath) { cell.configure(with: game) }
         
         return cell
     }
@@ -101,11 +75,9 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
 }
 
 extension HomeViewController: UICollectionViewDelegateFlowLayout {
-    func collectionView(
-        _ collectionView: UICollectionView,
-        layout collectionViewLayout: UICollectionViewLayout,
-        sizeForItemAt indexPath: IndexPath
-    ) -> CGSize {
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        sizeForItemAt indexPath: IndexPath) -> CGSize {
         
         let itemsPerRow: CGFloat = 1
         let paddingSpace = sectionInsets.left * (itemsPerRow + 1)
@@ -115,25 +87,20 @@ extension HomeViewController: UICollectionViewDelegateFlowLayout {
         return CGSize(width: widthPerItem, height: widthPerItem / 4)
     }
     
-    func collectionView(
-        _ collectionView: UICollectionView,
-        layout collectionViewLayout: UICollectionViewLayout,
-        insetForSectionAt section: Int
-    ) -> UIEdgeInsets {
-            return sectionInsets
-        }
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        insetForSectionAt section: Int) -> UIEdgeInsets {
+        return sectionInsets
+    }
     
-    func collectionView(
-        _ collectionView: UICollectionView,
-        layout collectionViewLayout: UICollectionViewLayout,
-        minimumLineSpacingForSectionAt section: Int
-    ) -> CGFloat {
-            return sectionInsets.left
-        }
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return sectionInsets.left
+    }
 }
 
 extension HomeViewController: HomeViewInterface {
-    
     func prepareCollectionView() {
         collectionView.delegate = self
         collectionView.dataSource = self
@@ -145,16 +112,6 @@ extension HomeViewController: HomeViewInterface {
         collectionView.reloadData()
     }
     
-    func showError(_ message: String) {
-        let alert = UIAlertController(
-            title: "Error",
-            message: message,
-            preferredStyle: .alert
-        )
-        let okay = UIAlertAction(title: "OK", style: .default)
-        alert.addAction(okay)
-        present(alert, animated: true)
-    }
 }
 
 #Preview {
