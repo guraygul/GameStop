@@ -7,8 +7,8 @@
 
 import Foundation
 
-protocol HomeViewModelInterface {
-    var view: HomeViewInterface? { get set }
+protocol HomeViewModelProtocol {
+    var view: HomeViewControllerProtocol? { get set }
     var gamesCount: Int { get }
     var games: [Result] { get }
     
@@ -16,24 +16,33 @@ protocol HomeViewModelInterface {
     func viewWillAppear()
     func didSelectItem(at indexPath: IndexPath)
     func cellForItem(at indexPath: IndexPath) -> Result?
+    func fetchNextPage()
 }
 
 final class HomeViewModel {
-    weak var view: HomeViewInterface?
+    weak var view: HomeViewControllerProtocol?
     private let networkService: NetworkServiceProtocol
     
     private(set) var games: [Result] = []
+    
+    private var currentPage: Int = 1
+    private var isFetching: Bool = false
+    private var hasMoreGames: Bool = true
     
     init(networkService: NetworkServiceProtocol = NetworkService.shared) {
         self.networkService = networkService
     }
     
-    private func fetchGames() {
+    private func fetchGames(page: Int) {
+        guard !isFetching, hasMoreGames else { return }
+        isFetching = true
         Task {
             do {
-                let gameModel = try await networkService.fetchData(from: GameAPI.games(page: 1),
+                let gameModel = try await networkService.fetchData(from: GameAPI.games(page: page),
                                                                    as: GameModel.self)
-                self.games = gameModel.results ?? []
+                self.games += gameModel.results ?? []
+                self.hasMoreGames = gameModel.next != nil
+                self.currentPage += 1
                 DispatchQueue.main.async { [weak self] in
                     self?.view?.reloadData()
                 }
@@ -45,19 +54,24 @@ final class HomeViewModel {
                                          openSettings: true)
                 }
             }
+            isFetching = false
         }
+    }
+    
+    func fetchNextPage() {
+        fetchGames(page: currentPage)
     }
     
 }
 
-extension HomeViewModel: HomeViewModelInterface {
+extension HomeViewModel: HomeViewModelProtocol {
     var gamesCount: Int {
         return games.count
     }
     
     func viewDidLoad() {
         view?.prepareCollectionView()
-        fetchGames()
+        fetchGames(page: currentPage)
     }
     
     func viewWillAppear() {
@@ -65,7 +79,7 @@ extension HomeViewModel: HomeViewModelInterface {
     }
     
     func cellForItem(at indexPath: IndexPath) -> Result? {
-        return games[safe: indexPath.row]
+        return games[safe: indexPath.item]
     }
     
     func didSelectItem(at indexPath: IndexPath) {

@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 protocol HomeGameCellInterface: AnyObject {
     
@@ -53,8 +54,18 @@ final class HomeGameCell: UICollectionViewCell {
     func configure(with game: Result) {
         gameLabel.text = game.name
         if let imageUrl = game.backgroundImage, let url = URL(string: imageUrl) {
-            gameImageView.kf.setImage(with: url)
+            gameImageView.kf.setImage(with: url, options: [
+                .transition(.fade(0.2)),
+                .cacheOriginalImage,
+                .downloader(KingfisherManager.shared.downloader)
+            ])
         }
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        gameImageView.kf.cancelDownloadTask()
+        gameImageView.image = nil
     }
     
 }

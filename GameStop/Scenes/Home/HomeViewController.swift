@@ -8,13 +8,13 @@
 import UIKit
 import Kingfisher
 
-protocol HomeViewInterface: AnyObject, AlertPresentable {
+protocol HomeViewControllerProtocol: AnyObject, AlertPresentable {
     func prepareCollectionView()
     func reloadData()
 }
 
 final class HomeViewController: UIViewController {
-    private var viewModel: HomeViewModelInterface
+    private var viewModel: HomeViewModelProtocol
     private let sectionInsets = UIEdgeInsets(top: 20.0,
                                              left: 10.0,
                                              bottom: 20.0,
@@ -25,7 +25,7 @@ final class HomeViewController: UIViewController {
         .registerCellClass(HomeGameCell.self, forCellWithReuseIdentifier: "GameCell")
         .build()
     
-    init(viewModel: HomeViewModelInterface) {
+    init(viewModel: HomeViewModelProtocol) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
@@ -33,7 +33,7 @@ final class HomeViewController: UIViewController {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+        
     override func viewDidLoad() {
         super.viewDidLoad()
         viewModel.view = self
@@ -50,7 +50,7 @@ final class HomeViewController: UIViewController {
         super.viewWillAppear(animated)
         viewModel.viewWillAppear()
     }
-    
+        
     func setupCollectionView() {
         view.addSubview(collectionView)
         
@@ -102,6 +102,17 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
 
 // MARK: - Configuring collection view cells size
 extension HomeViewController: UICollectionViewDelegateFlowLayout {
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let offsetY = scrollView.contentOffset.y
+        let contentHeight = scrollView.contentSize.height
+        let height = scrollView.frame.size.height
+        
+        if offsetY > contentHeight - height * 2 {
+            viewModel.fetchNextPage()
+        }
+    }
+    
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -127,7 +138,7 @@ extension HomeViewController: UICollectionViewDelegateFlowLayout {
     }
 }
 
-extension HomeViewController: HomeViewInterface {
+extension HomeViewController: HomeViewControllerProtocol {
     func prepareCollectionView() {
         collectionView.delegate = self
         collectionView.dataSource = self

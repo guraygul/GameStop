@@ -22,7 +22,7 @@ extension AlertPresentable where Self: UIViewController {
                                       message: message,
                                       preferredStyle: .alert)
         
-        let OKAction = UIAlertAction(title: "OK", style: .cancel)
+        let okAction = UIAlertAction(title: "OK", style: .cancel)
         
         if openSettings == true {
             let settingsAction = UIAlertAction(title: "Settings",
@@ -35,8 +35,7 @@ extension AlertPresentable where Self: UIViewController {
             alert.addAction(settingsAction)
         }
         
-        alert.addAction(OKAction)
+        alert.addAction(okAction)
         present(alert, animated: true, completion: nil)
-        
     }
 }

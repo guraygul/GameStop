@@ -17,11 +17,15 @@ final class HomePageViewController: UIViewController {
     }
     
     private func setupPageViewController() {
-        pageViewController = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
+        pageViewController = UIPageViewController(transitionStyle: .scroll,
+                                                  navigationOrientation: .horizontal,
+                                                  options: nil)
         pageViewController.dataSource = self
         
         if let firstViewController = viewController(at: 0) {
-            pageViewController.setViewControllers([firstViewController], direction: .forward, animated: true, completion: nil)
+            pageViewController.setViewControllers([firstViewController], direction: .forward,
+                                                  animated: true,
+                                                  completion: nil)
         }
         
         addChild(pageViewController)
@@ -51,14 +55,16 @@ final class HomePageViewController: UIViewController {
 
 // MARK: - UIPageViewControllerDataSource Methods
 extension HomePageViewController: UIPageViewControllerDataSource {
-    func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
+    func pageViewController(_ pageViewController: UIPageViewController,
+                            viewControllerBefore viewController: UIViewController) -> UIViewController? {
         guard let viewController = viewController as? HomePageImageViewController,
               let index = viewController.pageIndex,
               index > 0 else { return nil }
         return self.viewController(at: index - 1)
     }
     
-    func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
+    func pageViewController(_ pageViewController: UIPageViewController,
+                            viewControllerAfter viewController: UIViewController) -> UIViewController? {
         guard let viewController = viewController as? HomePageImageViewController,
               let index = viewController.pageIndex,
               index < games.count - 1 else { return nil }

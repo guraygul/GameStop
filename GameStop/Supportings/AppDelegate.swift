@@ -6,12 +6,17 @@
 //
 
 import UIKit
+import Kingfisher
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+
+        let cache = KingfisherManager.shared.cache
+        cache.memoryStorage.config.totalCostLimit = 50 * 1024 * 1024 // 50 MB
+        cache.memoryStorage.config.expiration = .seconds(60 * 10) // 10 minutes
+
         return true
     }
 

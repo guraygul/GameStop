@@ -8,7 +8,7 @@
 import Foundation
 
 // MARK: - GameModel
-struct GameModel: Codable {
+struct GameModel: Decodable {
     let count: Int?
     let next: String?
     let previous: String?
@@ -16,7 +16,7 @@ struct GameModel: Codable {
 }
 
 // MARK: - Result
-struct Result: Codable {
+struct Result: Decodable {
     let id: Int?
     let name: String?
     let released: String?
