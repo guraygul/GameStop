@@ -9,7 +9,8 @@ import UIKit
 
 final class TabBarViewController: UITabBarController {
     private lazy var homeViewController: UINavigationController = {
-        let vc = HomeViewController()
+        let viewModel = HomeViewModel(networkService: NetworkService.shared)
+        let vc = HomeViewController(viewModel: viewModel)
         let item = UITabBarItem(title: "Home",
                                 image: UIImage(systemName: "house.fill"),
                                 tag: 0)
@@ -30,7 +31,7 @@ final class TabBarViewController: UITabBarController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         view.backgroundColor = .red
         UITabBar.appearance().barTintColor = .green
         tabBar.tintColor = .blue

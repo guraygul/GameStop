@@ -10,6 +10,7 @@ import Foundation
 protocol HomeViewModelInterface {
     var view: HomeViewInterface? { get set }
     var gamesCount: Int { get }
+    var games: [Result] { get }
     
     func viewDidLoad()
     func viewWillAppear()
@@ -19,41 +20,34 @@ protocol HomeViewModelInterface {
 
 final class HomeViewModel {
     weak var view: HomeViewInterface?
-    private var games: [Result] = []
     private let networkService: NetworkServiceProtocol
+    
+    private(set) var games: [Result] = []
     
     init(networkService: NetworkServiceProtocol = NetworkService.shared) {
         self.networkService = networkService
     }
-        
-    private func fetchGames(retryCount: Int = 0) {
+    
+    private func fetchGames() {
         Task {
             do {
                 let gameModel = try await networkService.fetchData(from: GameAPI.games(page: 1),
                                                                    as: GameModel.self)
                 self.games = gameModel.results ?? []
                 DispatchQueue.main.async { [weak self] in
-                    guard let self = self else { return }
-                    self.view?.reloadData()
+                    self?.view?.reloadData()
                 }
             } catch {
-                if retryCount < 3 {
-                    let delay = pow(2.0, Double(retryCount))
-                    view?.showAlert(title: "Error fetching games",
-                                         message: "Retrying in \(delay) seconds...")
-                    try await Task.sleep(nanoseconds: UInt64(delay * 1_000_000_000))
-                    fetchGames(retryCount: retryCount + 1)
-                } else {
-                    DispatchQueue.main.async { [weak self] in
-                        guard let self = self else { return }
-                        self.view?.showAlert(title: "Error fetching games",
-                                             message: error.localizedDescription)
-                    }
+                DispatchQueue.main.async { [weak self] in
+                    guard let self = self else { return }
+                    self.view?.showAlert(title: "Error fetching games",
+                                         message: "You're not connected to the internet. Please check your connection and try again.",
+                                         openSettings: true)
                 }
             }
         }
     }
-
+    
 }
 
 extension HomeViewModel: HomeViewModelInterface {

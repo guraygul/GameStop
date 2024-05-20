@@ -9,19 +9,34 @@ import UIKit
 
 protocol AlertPresentable {
     func showAlert(title: String,
-                   message: String)
+                   message: String,
+                   openSettings: Bool?)
 }
 
 extension AlertPresentable where Self: UIViewController {
     func showAlert(title: String,
-                   message: String) {
+                   message: String,
+                   openSettings: Bool? = false) {
+        
         let alert = UIAlertController(title: title,
                                       message: message,
                                       preferredStyle: .alert)
-        let action = UIAlertAction(title: "OK",
-                                   style: .default)
         
-        alert.addAction(action)
-        present(alert, animated: true)
+        let OKAction = UIAlertAction(title: "OK", style: .cancel)
+        
+        if openSettings == true {
+            let settingsAction = UIAlertAction(title: "Settings",
+                                               style: .default) { _ in
+                guard let settingsURL = URL(string: UIApplication.openSettingsURLString) else { return }
+                if UIApplication.shared.canOpenURL(settingsURL) {
+                    UIApplication.shared.open(settingsURL, options: [:], completionHandler: nil)
+                }
+            }
+            alert.addAction(settingsAction)
+        }
+        
+        alert.addAction(OKAction)
+        present(alert, animated: true, completion: nil)
+        
     }
 }

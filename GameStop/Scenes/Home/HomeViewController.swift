@@ -14,7 +14,7 @@ protocol HomeViewInterface: AnyObject, AlertPresentable {
 }
 
 final class HomeViewController: UIViewController {
-    private var viewModel: HomeViewModelInterface = HomeViewModel()
+    private var viewModel: HomeViewModelInterface
     private let sectionInsets = UIEdgeInsets(top: 20.0,
                                              left: 10.0,
                                              bottom: 20.0,
@@ -25,8 +25,14 @@ final class HomeViewController: UIViewController {
         .registerCellClass(HomeGameCell.self, forCellWithReuseIdentifier: "GameCell")
         .build()
     
-    private let titleView = UIViewFactory()
-        .build()
+    init(viewModel: HomeViewModelInterface) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,7 +41,9 @@ final class HomeViewController: UIViewController {
         
         view.backgroundColor = Theme.backgroundColor
         navigationItem.title = "GameStop"
+        
         setupCollectionView()
+        setupPageViewController()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -47,15 +55,33 @@ final class HomeViewController: UIViewController {
         view.addSubview(collectionView)
         
         NSLayoutConstraint.activate([
-            collectionView.topAnchor.constraint(equalTo: view.topAnchor),
+            collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 200),
             collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+            collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+        ])
+    }
+    
+    private func setupPageViewController() {
+        let homePageViewController = HomePageViewController()
+        homePageViewController.games = Array(viewModel.games.prefix(3))
+        
+        addChild(homePageViewController)
+        view.addSubview(homePageViewController.view)
+        homePageViewController.didMove(toParent: self)
+        
+        homePageViewController.view.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            homePageViewController.view.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            homePageViewController.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            homePageViewController.view.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            homePageViewController.view.heightAnchor.constraint(equalToConstant: 200)
         ])
     }
     
 }
 
+// MARK: - Configuring collection view cells data
 extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView,
                         numberOfItemsInSection section: Int) -> Int {
@@ -74,6 +100,7 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
     
 }
 
+// MARK: - Configuring collection view cells size
 extension HomeViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
@@ -110,11 +137,12 @@ extension HomeViewController: HomeViewInterface {
     
     func reloadData() {
         collectionView.reloadData()
+        setupPageViewController()
     }
     
 }
 
 #Preview {
-    let navC = UINavigationController(rootViewController: HomeViewController())
+    let navC = UINavigationController(rootViewController: HomeViewController(viewModel: HomeViewModel(networkService: NetworkService.shared)))
     return navC
 }

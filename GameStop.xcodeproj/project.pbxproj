@@ -10,6 +10,8 @@
 		1001C2FE2BFA41B500F61C24 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1001C2FD2BFA41B500F61C24 /* TabBarViewController.swift */; };
 		1001C3012BFA436300F61C24 /* FavoriteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1001C3002BFA436300F61C24 /* FavoriteViewController.swift */; };
 		1001C3042BFA628300F61C24 /* AlertPresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1001C3032BFA628300F61C24 /* AlertPresentable.swift */; };
+		1001C3082BFAB60F00F61C24 /* HomePageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1001C3072BFAB60F00F61C24 /* HomePageViewController.swift */; };
+		1001C30A2BFAB64B00F61C24 /* HomePageImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1001C3092BFAB64B00F61C24 /* HomePageImageViewController.swift */; };
 		104BB1C12BF923310049E7F5 /* UIImageViewFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 104BB1BC2BF923310049E7F5 /* UIImageViewFactory.swift */; };
 		104BB1C22BF923310049E7F5 /* UILabelFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 104BB1BD2BF923310049E7F5 /* UILabelFactory.swift */; };
 		104BB1C32BF923310049E7F5 /* UIStackViewFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 104BB1BE2BF923310049E7F5 /* UIStackViewFactory.swift */; };
@@ -37,6 +39,8 @@
 		1001C2FD2BFA41B500F61C24 /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
 		1001C3002BFA436300F61C24 /* FavoriteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteViewController.swift; sourceTree = "<group>"; };
 		1001C3032BFA628300F61C24 /* AlertPresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertPresentable.swift; sourceTree = "<group>"; };
+		1001C3072BFAB60F00F61C24 /* HomePageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePageViewController.swift; sourceTree = "<group>"; };
+		1001C3092BFAB64B00F61C24 /* HomePageImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePageImageViewController.swift; sourceTree = "<group>"; };
 		104BB1BC2BF923310049E7F5 /* UIImageViewFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIImageViewFactory.swift; sourceTree = "<group>"; };
 		104BB1BD2BF923310049E7F5 /* UILabelFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UILabelFactory.swift; sourceTree = "<group>"; };
 		104BB1BE2BF923310049E7F5 /* UIStackViewFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIStackViewFactory.swift; sourceTree = "<group>"; };
@@ -212,6 +216,8 @@
 				104BB1C52BF926C40049E7F5 /* HomeViewModel.swift */,
 				10CB1CF82BF8E97D006D5C04 /* HomeViewController.swift */,
 				10F788492BF91947003F5B67 /* HomeGameCell.swift */,
+				1001C3072BFAB60F00F61C24 /* HomePageViewController.swift */,
+				1001C3092BFAB64B00F61C24 /* HomePageImageViewController.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -292,6 +298,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1001C30A2BFAB64B00F61C24 /* HomePageImageViewController.swift in Sources */,
 				104BB1D52BF94DF70049E7F5 /* NetworkError.swift in Sources */,
 				10F7884A2BF91947003F5B67 /* HomeGameCell.swift in Sources */,
 				104BB1C42BF923310049E7F5 /* UIViewFactory.swift in Sources */,
@@ -310,6 +317,7 @@
 				1001C3012BFA436300F61C24 /* FavoriteViewController.swift in Sources */,
 				10CB1CF52BF8E97D006D5C04 /* AppDelegate.swift in Sources */,
 				10CB1CF72BF8E97D006D5C04 /* SceneDelegate.swift in Sources */,
+				1001C3082BFAB60F00F61C24 /* HomePageViewController.swift in Sources */,
 				104BB1C12BF923310049E7F5 /* UIImageViewFactory.swift in Sources */,
 				104BB1CD2BF94B500049E7F5 /* NetworkService.swift in Sources */,
 				104BB1C82BF933970049E7F5 /* UICollectionViewFactory.swift in Sources */,
