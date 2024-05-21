@@ -1,15 +1,14 @@
 //
-//  HomeGameCell.swift
+//  DetailGameCell.swift
 //  GameStop
 //
-//  Created by Güray Gül on 18.05.2024.
+//  Created by Güray Gül on 21.05.2024.
 //
 
 import UIKit
-import Kingfisher
 
-final class HomeGameCell: UICollectionViewCell {
-    static let identifier = "GameCell"
+final class DetailGameCell: UICollectionViewCell {
+    static let identifier = "DetailGameCell"
     
     let gameImageView = UIImageViewFactory()
         .build()
@@ -54,16 +53,8 @@ final class HomeGameCell: UICollectionViewCell {
             gameImageView.kf.setImage(with: url,
                                       options: [
                                         .transition(.fade(0.2)),
-                                        .cacheOriginalImage,
-                                        .downloader(KingfisherManager.shared.downloader)
+                                        .cacheOriginalImage
                                       ])
         }
     }
-    
-    override func prepareForReuse() {
-        super.prepareForReuse()
-        gameImageView.kf.cancelDownloadTask()
-        gameImageView.image = nil
-    }
-    
 }

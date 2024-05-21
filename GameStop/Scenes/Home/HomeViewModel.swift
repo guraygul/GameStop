@@ -85,7 +85,8 @@ extension HomeViewModel: HomeViewModelProtocol {
     }
     
     func didSelectItem(at indexPath: IndexPath) {
-        
+        let games = games[safe: indexPath.item]
+        view?.navigateToDetailScreen(with: games)
     }
     
 }

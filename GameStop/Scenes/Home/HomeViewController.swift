@@ -11,6 +11,7 @@ import Kingfisher
 protocol HomeViewControllerProtocol: AnyObject, AlertPresentable {
     func prepareCollectionView()
     func reloadData()
+    func navigateToDetailScreen(with game: Result?)
 }
 
 final class HomeViewController: UIViewController {
@@ -98,6 +99,9 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
         return cell
     }
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        viewModel.didSelectItem(at: indexPath)
+    }
 }
 
 // MARK: - Configuring collection view cells size
@@ -149,6 +153,13 @@ extension HomeViewController: HomeViewControllerProtocol {
     func reloadData() {
         collectionView.reloadData()
         setupPageViewController()
+    }
+    
+    func navigateToDetailScreen(with games: Result?) {
+        guard let games = games else { return }
+        let detailViewModel = DetailViewModel(games: [games])
+        let detailViewController = DetailViewController(viewModel: detailViewModel)
+        navigationController?.pushViewController(detailViewController, animated: true)
     }
     
 }
