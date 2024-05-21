@@ -51,7 +51,9 @@ final class HomeViewModel {
                     guard let self = self else { return }
                     self.view?.showAlert(title: "Error fetching games",
                                          message: "You're not connected to the internet. Please check your connection and try again.",
-                                         openSettings: true)
+                                         openSettings: true) {
+                        self.fetchGames(page: page)
+                    }
                 }
             }
             isFetching = false

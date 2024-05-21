@@ -26,6 +26,7 @@
 		104BB1D52BF94DF70049E7F5 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 104BB1D42BF94DF70049E7F5 /* NetworkError.swift */; };
 		104BB1DC2BF951780049E7F5 /* Collection+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 104BB1DB2BF951780049E7F5 /* Collection+Extension.swift */; };
 		104BB1DF2BF954C50049E7F5 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 104BB1DE2BF954C50049E7F5 /* Kingfisher */; };
+		10BCBBA52BFBFD0F0021E4A8 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10BCBBA42BFBFD0F0021E4A8 /* DetailViewController.swift */; };
 		10CB1CF52BF8E97D006D5C04 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10CB1CF42BF8E97D006D5C04 /* AppDelegate.swift */; };
 		10CB1CF72BF8E97D006D5C04 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10CB1CF62BF8E97D006D5C04 /* SceneDelegate.swift */; };
 		10CB1CF92BF8E97D006D5C04 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10CB1CF82BF8E97D006D5C04 /* HomeViewController.swift */; };
@@ -54,6 +55,7 @@
 		104BB1D22BF94DC90049E7F5 /* NetworkServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkServiceProtocol.swift; sourceTree = "<group>"; };
 		104BB1D42BF94DF70049E7F5 /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
 		104BB1DB2BF951780049E7F5 /* Collection+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Collection+Extension.swift"; sourceTree = "<group>"; };
+		10BCBBA42BFBFD0F0021E4A8 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		10CB1CF12BF8E97D006D5C04 /* GameStop.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GameStop.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		10CB1CF42BF8E97D006D5C04 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		10CB1CF62BF8E97D006D5C04 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -97,6 +99,7 @@
 			isa = PBXGroup;
 			children = (
 				10F7884B2BF91DBA003F5B67 /* Home */,
+				10BCBBA32BFBFCBD0021E4A8 /* Detail */,
 				1001C2FF2BFA434500F61C24 /* Favorite */,
 			);
 			path = Scenes;
@@ -169,6 +172,14 @@
 				104BB1D02BF94C400049E7F5 /* Constants.swift */,
 			);
 			path = Constants;
+			sourceTree = "<group>";
+		};
+		10BCBBA32BFBFCBD0021E4A8 /* Detail */ = {
+			isa = PBXGroup;
+			children = (
+				10BCBBA42BFBFD0F0021E4A8 /* DetailViewController.swift */,
+			);
+			path = Detail;
 			sourceTree = "<group>";
 		};
 		10CB1CE82BF8E97D006D5C04 = {
@@ -313,6 +324,7 @@
 				10CB1CF92BF8E97D006D5C04 /* HomeViewController.swift in Sources */,
 				10F788482BF91588003F5B67 /* Theme.swift in Sources */,
 				104BB1CF2BF94BFE0049E7F5 /* GameAPI.swift in Sources */,
+				10BCBBA52BFBFD0F0021E4A8 /* DetailViewController.swift in Sources */,
 				1001C2FE2BFA41B500F61C24 /* TabBarViewController.swift in Sources */,
 				1001C3012BFA436300F61C24 /* FavoriteViewController.swift in Sources */,
 				10CB1CF52BF8E97D006D5C04 /* AppDelegate.swift in Sources */,

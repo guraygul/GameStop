@@ -16,6 +16,7 @@ final class UIImageViewFactory {
         imageView.contentMode = .scaleAspectFit
         imageView.image = image
         imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.clipsToBounds = true
     }
     
     // MARK: - Public methods

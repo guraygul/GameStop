@@ -12,10 +12,10 @@ import Kingfisher
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-
+        
         let cache = KingfisherManager.shared.cache
-        cache.memoryStorage.config.totalCostLimit = 50 * 1024 * 1024 // 50 MB
-        cache.memoryStorage.config.expiration = .seconds(60 * 10) // 10 minutes
+        cache.memoryStorage.config.totalCostLimit = 50 * 1024 * 1024
+        cache.memoryStorage.config.expiration = .seconds(600)
 
         return true
     }

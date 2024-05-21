@@ -10,19 +10,29 @@ import UIKit
 protocol AlertPresentable {
     func showAlert(title: String,
                    message: String,
-                   openSettings: Bool?)
+                   openSettings: Bool?,
+                   retryAction: (() -> Void)?)
 }
 
 extension AlertPresentable where Self: UIViewController {
     func showAlert(title: String,
                    message: String,
-                   openSettings: Bool? = false) {
+                   openSettings: Bool? = false,
+                   retryAction: (() -> Void)? = nil) {
         
         let alert = UIAlertController(title: title,
                                       message: message,
                                       preferredStyle: .alert)
         
-        let okAction = UIAlertAction(title: "OK", style: .cancel)
+        if let retryAction = retryAction {
+            let retryAction = UIAlertAction(title: "Try Again", style: .default) { _ in
+                retryAction()
+            }
+            alert.addAction(retryAction)
+        } else {
+            let okAction = UIAlertAction(title: "OK", style: .cancel)
+            alert.addAction(okAction)
+        }
         
         if openSettings == true {
             let settingsAction = UIAlertAction(title: "Settings",
@@ -35,7 +45,6 @@ extension AlertPresentable where Self: UIViewController {
             alert.addAction(settingsAction)
         }
         
-        alert.addAction(okAction)
         present(alert, animated: true, completion: nil)
     }
 }
