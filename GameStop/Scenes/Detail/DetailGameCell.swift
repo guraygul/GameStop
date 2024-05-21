@@ -10,7 +10,7 @@ import UIKit
 final class DetailGameCell: UICollectionViewCell {
     static let identifier = "DetailGameCell"
         
-    let gameLabel = UILabelFactory(text: "Error")
+    private let gameLabel = UILabelFactory(text: "Error")
         .fontSize(of: 24, weight: .bold)
         .textColor(with: .black)
         .numberOf(lines: 0)
@@ -39,4 +39,23 @@ final class DetailGameCell: UICollectionViewCell {
     func configure(with game: Result) {
         gameLabel.text = game.name
     }
+}
+
+#Preview {
+    let navC = UINavigationController(
+        rootViewController: DetailViewController(
+            viewModel: DetailViewModel(
+                games: [Result(
+                    id: 3498,
+                    name: "Grand Theft Auto V",
+                    released: "2013-09-17",
+                    backgroundImage: "https://media.rawg.io/media/games/20a/20aa03a10cda45239fe22d035c0ebe64.jpg",
+                    rating: 4.47,
+                    ratingTop: 5,
+                    metacritic: 92
+                )]
+            )
+        )
+    )
+    return navC
 }

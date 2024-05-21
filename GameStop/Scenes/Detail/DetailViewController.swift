@@ -23,10 +23,13 @@ final class DetailViewController: UIViewController {
     
     private lazy var collectionView = UICollectionViewFactory()
         .backgroundColor(.clear)
-        .registerCellClass(DetailGameCell.self, forCellWithReuseIdentifier: "DetailGameCell")
-        .registerSupplementaryViewClass(DetailCollectionHeaderView.self,
-                                        forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
-                                        withReuseIdentifier: DetailCollectionHeaderView.identifier)
+        .registerCellClass(DetailGameCell.self,
+                           forCellWithReuseIdentifier: "DetailGameCell")
+        .registerSupplementaryViewClass(
+            DetailCollectionHeaderView.self,
+            forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
+            withReuseIdentifier: DetailCollectionHeaderView.identifier
+        )
         .contentInsetAdjustmentBehavior(.never)
         .build()
     
@@ -117,7 +120,7 @@ extension DetailViewController: UICollectionViewDelegate, UICollectionViewDataSo
                 at: indexPath
             ) {
                 headerView.configure(
-                    with: game.backgroundImage!
+                    with: game
                 )
             }
             return headerView
@@ -186,7 +189,9 @@ extension DetailViewController: DetailViewControllerProtocol {
                     name: "Grand Theft Auto V",
                     released: "2013-09-17",
                     backgroundImage: "https://media.rawg.io/media/games/20a/20aa03a10cda45239fe22d035c0ebe64.jpg",
-                    rating: 4.47
+                    rating: 4.47,
+                    ratingTop: 5,
+                    metacritic: 92
                 )]
             )
         )
