@@ -41,7 +41,7 @@ final class HomePageViewController: UIViewController {
         ])
     }
     
-    func viewController(at index: Int) -> HomePageImageViewController? {
+    private func viewController(at index: Int) -> HomePageImageViewController? {
         guard index >= 0 && index < games.count else {
             return nil
         }

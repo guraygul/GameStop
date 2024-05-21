@@ -27,6 +27,13 @@ final class UICollectionViewFactory {
         return self
     }
     
+    func registerSupplementaryViewClass(_ viewClass: AnyClass?,
+                                        forSupplementaryViewOfKind kind: String,
+                                        withReuseIdentifier identifier: String) -> Self {
+        collectionView.register(viewClass, forSupplementaryViewOfKind: kind, withReuseIdentifier: identifier)
+        return self
+    }
+    
     func delegate(_ delegate: UICollectionViewDelegate?) -> Self {
         collectionView.delegate = delegate
         return self
@@ -39,6 +46,11 @@ final class UICollectionViewFactory {
     
     func contentInset(_ insets: UIEdgeInsets) -> Self {
         collectionView.contentInset = insets
+        return self
+    }
+    
+    func contentInsetAdjustmentBehavior(_ behavior: UIScrollView.ContentInsetAdjustmentBehavior) -> Self {
+        collectionView.contentInsetAdjustmentBehavior = behavior
         return self
     }
     

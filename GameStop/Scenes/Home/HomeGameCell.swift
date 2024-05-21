@@ -11,10 +11,10 @@ import Kingfisher
 final class HomeGameCell: UICollectionViewCell {
     static let identifier = "GameCell"
     
-    let gameImageView = UIImageViewFactory()
+    private let gameImageView = UIImageViewFactory()
         .build()
     
-    let gameLabel = UILabelFactory(text: "Error")
+    private let gameLabel = UILabelFactory(text: "Error")
         .fontSize(of: 10, weight: .medium)
         .textColor(with: Theme.tintColor)
         .build()

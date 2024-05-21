@@ -15,6 +15,7 @@ protocol DetailViewControllerProtocol: AnyObject {
 
 final class DetailViewController: UIViewController {
     private var viewModel: DetailViewModelProtocol
+    private var isLiked = false
     private let sectionInsets = UIEdgeInsets(top: 20.0,
                                              left: 10.0,
                                              bottom: 20.0,
@@ -23,6 +24,18 @@ final class DetailViewController: UIViewController {
     private lazy var collectionView = UICollectionViewFactory()
         .backgroundColor(.clear)
         .registerCellClass(DetailGameCell.self, forCellWithReuseIdentifier: "DetailGameCell")
+        .registerSupplementaryViewClass(DetailCollectionHeaderView.self,
+                                        forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
+                                        withReuseIdentifier: DetailCollectionHeaderView.identifier)
+        .contentInsetAdjustmentBehavior(.never)
+        .build()
+    
+    private var headerView = UIViewFactory()
+        .build()
+    
+    private lazy var heartButton = UIButtonFactory()
+        .image(UIImage(systemName: "heart"), for: .normal)
+        .addTarget(self, action: #selector(heartButtonTapped), for: .touchUpInside)
         .build()
     
     init(viewModel: DetailViewModelProtocol) {
@@ -41,23 +54,40 @@ final class DetailViewController: UIViewController {
         
         view.backgroundColor = .white
         setupUI()
+        setupNavigationBar()
     }
     
     private func setupUI() {
         view.addSubview(collectionView)
+        collectionView.backgroundColor = .red
         
         NSLayoutConstraint.activate([
-            collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            collectionView.topAnchor.constraint(equalTo: view.topAnchor),
             collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+            collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
     }
-
+    
+    private func setupNavigationBar() {
+        let heartBarButtonItem = UIBarButtonItem(customView: heartButton)
+        navigationItem.rightBarButtonItem = heartBarButtonItem
+    }
+    
+    @objc private func heartButtonTapped() {
+        isLiked.toggle()
+        let imageName = isLiked ? "heart.fill" : "heart"
+        heartButton.setImage(UIImage(systemName: imageName), for: .normal)
+    }
+    
 }
 
 // MARK: - Configuring collection view cells data
 extension DetailViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 1
+    }
+    
     func collectionView(_ collectionView: UICollectionView,
                         numberOfItemsInSection section: Int) -> Int {
         return viewModel.games.count
@@ -70,6 +100,31 @@ extension DetailViewController: UICollectionViewDelegate, UICollectionViewDataSo
         
         if let game = viewModel.cellForItem(at: indexPath) { cell.configure(with: game) }
         return cell
+    }
+    
+    func collectionView(
+        _ collectionView: UICollectionView,
+        viewForSupplementaryElementOfKind kind: String,
+        at indexPath: IndexPath
+    ) -> UICollectionReusableView {
+        if kind == UICollectionView.elementKindSectionHeader {
+            let headerView = collectionView.dequeueReusableSupplementaryView(
+                ofKind: kind,
+                withReuseIdentifier: DetailCollectionHeaderView.identifier,
+                for: indexPath
+            ) as! DetailCollectionHeaderView
+            if let game = viewModel.cellForItem(
+                at: indexPath
+            ) {
+                headerView.configure(
+                    with: game.backgroundImage!
+                )
+            }
+            return headerView
+        }
+        fatalError(
+            "Unexpected element kind"
+        )
     }
     
 }
@@ -99,6 +154,12 @@ extension DetailViewController: UICollectionViewDelegateFlowLayout {
                         minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return sectionInsets.left
     }
+    
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        referenceSizeForHeaderInSection section: Int) -> CGSize {
+        return CGSize(width: collectionView.bounds.width, height: 400)
+    }
 }
 
 extension DetailViewController: DetailViewControllerProtocol {
@@ -114,4 +175,21 @@ extension DetailViewController: DetailViewControllerProtocol {
     }
     
     
+}
+
+#Preview {
+    let navC = UINavigationController(
+        rootViewController: DetailViewController(
+            viewModel: DetailViewModel(
+                games: [Result(
+                    id: 3498,
+                    name: "Grand Theft Auto V",
+                    released: "2013-09-17",
+                    backgroundImage: "https://media.rawg.io/media/games/20a/20aa03a10cda45239fe22d035c0ebe64.jpg",
+                    rating: 4.47
+                )]
+            )
+        )
+    )
+    return navC
 }
