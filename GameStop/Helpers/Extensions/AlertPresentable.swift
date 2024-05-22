@@ -10,14 +10,14 @@ import UIKit
 protocol AlertPresentable {
     func showAlert(title: String,
                    message: String,
-                   openSettings: Bool?,
+                   openSettings: Bool,
                    retryAction: (() -> Void)?)
 }
 
 extension AlertPresentable where Self: UIViewController {
     func showAlert(title: String,
                    message: String,
-                   openSettings: Bool? = false,
+                   openSettings: Bool,
                    retryAction: (() -> Void)? = nil) {
         
         let alert = UIAlertController(title: title,

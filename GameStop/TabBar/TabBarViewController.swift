@@ -20,7 +20,8 @@ final class TabBarViewController: UITabBarController {
     }()
     
     private lazy var favoriteViewController: UINavigationController = {
-        let vc = FavoriteViewController()
+        let viewModel = FavoriteViewModel(networkService: NetworkService.shared)
+        let vc = FavoriteViewController(viewModel: viewModel)
         let item = UITabBarItem(title: "Favorites",
                                 image: UIImage(systemName: "heart.fill"),
                                 tag: 1)

@@ -75,10 +75,22 @@ final class DetailViewController: UIViewController {
     private func setupNavigationBar() {
         let heartBarButtonItem = UIBarButtonItem(customView: heartButton)
         navigationItem.rightBarButtonItem = heartBarButtonItem
+        
+        if let firstGame = viewModel.cellForItem(at: IndexPath(item: 0,
+                                                               section: 0)) {
+            updateHeartButton(for: firstGame)
+        }
     }
     
     @objc private func heartButtonTapped() {
-        isLiked.toggle()
+        guard let selectedGame = viewModel.cellForItem(at: IndexPath(item: 0,
+                                                                     section: 0)) else { return }
+        viewModel.toggleLike(for: selectedGame)
+        updateHeartButton(for: selectedGame)
+    }
+    
+    func updateHeartButton(for game: Result) {
+        isLiked = viewModel.isGameLiked(id: game.id ?? 0)
         let imageName = isLiked ? "heart.fill" : "heart"
         heartButton.setImage(UIImage(systemName: imageName), for: .normal)
     }
@@ -105,17 +117,14 @@ extension DetailViewController: UICollectionViewDelegate, UICollectionViewDataSo
         return cell
     }
     
-    func collectionView(
-        _ collectionView: UICollectionView,
-        viewForSupplementaryElementOfKind kind: String,
-        at indexPath: IndexPath
-    ) -> UICollectionReusableView {
+    func collectionView(_ collectionView: UICollectionView,
+                        viewForSupplementaryElementOfKind kind: String,
+                        at indexPath: IndexPath) -> UICollectionReusableView {
         if kind == UICollectionView.elementKindSectionHeader {
             let headerView = collectionView.dequeueReusableSupplementaryView(
                 ofKind: kind,
                 withReuseIdentifier: DetailCollectionHeaderView.identifier,
-                for: indexPath
-            ) as! DetailCollectionHeaderView
+                for: indexPath) as! DetailCollectionHeaderView
             if let game = viewModel.cellForItem(
                 at: indexPath
             ) {
@@ -125,9 +134,7 @@ extension DetailViewController: UICollectionViewDelegate, UICollectionViewDataSo
             }
             return headerView
         }
-        fatalError(
-            "Unexpected element kind"
-        )
+        fatalError("Unexpected element kind")
     }
     
 }
@@ -176,7 +183,6 @@ extension DetailViewController: DetailViewControllerProtocol {
     func reloadData() {
         collectionView.reloadData()
     }
-    
     
 }
 

@@ -8,7 +8,6 @@
 import Foundation
 
 final class NetworkService: NetworkServiceProtocol {
-    
     static let shared = NetworkService()
     
     private init() {}
@@ -37,5 +36,4 @@ final class NetworkService: NetworkServiceProtocol {
             throw error
         }
     }
-
 }
