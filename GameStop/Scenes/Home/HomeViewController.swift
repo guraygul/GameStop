@@ -41,8 +41,8 @@ final class HomeViewController: UIViewController {
         viewModel.viewDidLoad()
         
         view.backgroundColor = Theme.backgroundColor
-        navigationItem.title = "GameStop"
         
+        setupNavigationBar()
         setupCollectionView()
         setupPageViewController()
     }
@@ -52,7 +52,16 @@ final class HomeViewController: UIViewController {
         viewModel.viewWillAppear()
     }
         
-    func setupCollectionView() {
+    private func setupNavigationBar() {
+        navigationItem.title = "GameStop"
+        
+        let offset = UIOffset(horizontal: -CGFloat.greatestFiniteMagnitude, vertical: 0)
+        navigationController?.navigationBar.standardAppearance.titlePositionAdjustment = offset
+        navigationController?.navigationBar.scrollEdgeAppearance?.titlePositionAdjustment = offset
+        navigationController?.navigationBar.compactAppearance?.titlePositionAdjustment = offset
+    }
+        
+    private func setupCollectionView() {
         view.addSubview(collectionView)
         
         NSLayoutConstraint.activate([

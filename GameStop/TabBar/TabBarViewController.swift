@@ -19,12 +19,23 @@ final class TabBarViewController: UITabBarController {
         return navController
     }()
     
+    private lazy var searchViewController: UINavigationController = {
+        let viewModel = SearchViewModel(networkService: NetworkService.shared)
+        let vc = SearchViewController(viewModel: viewModel)
+        let item = UITabBarItem(title: "Search",
+                                image: UIImage(systemName: "magnifyingglass"),
+                                tag: 1)
+        vc.tabBarItem = item
+        let navController = UINavigationController(rootViewController: vc)
+        return navController
+    }()
+    
     private lazy var favoriteViewController: UINavigationController = {
         let viewModel = FavoriteViewModel(networkService: NetworkService.shared)
         let vc = FavoriteViewController(viewModel: viewModel)
         let item = UITabBarItem(title: "Favorites",
                                 image: UIImage(systemName: "heart.fill"),
-                                tag: 1)
+                                tag: 2)
         vc.tabBarItem = item
         let navController = UINavigationController(rootViewController: vc)
         return navController
@@ -33,10 +44,10 @@ final class TabBarViewController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = .red
+        view.backgroundColor = .white
         UITabBar.appearance().barTintColor = .green
         tabBar.tintColor = .blue
-        viewControllers = [homeViewController, favoriteViewController]
+        viewControllers = [homeViewController, searchViewController, favoriteViewController]
     }
     
 }
