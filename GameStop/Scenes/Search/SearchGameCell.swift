@@ -25,7 +25,7 @@ final class SearchGameCell: UICollectionViewCell {
     private func setupUI() {
         contentView.addSubview(imageView)
         contentView.addSubview(titleLabel)
-        
+        imageView.contentMode = .scaleAspectFit
         imageView.translatesAutoresizingMaskIntoConstraints = false
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         
@@ -54,6 +54,8 @@ final class SearchGameCell: UICollectionViewCell {
                 .cacheOriginalImage,
                 .downloader(KingfisherManager.shared.downloader)
             ])
+        } else {
+            imageView.image = UIImage(named: "notFound")
         }
     }
     

@@ -45,7 +45,8 @@ final class FavoriteGameCell: UICollectionViewCell {
     func configure(with game: GameDetailModel) {
         titleLabel.text = game.name
         if let imageUrl = game.backgroundImage {
-            imageView.kf.setImage(with: URL(string: imageUrl))
+            imageView.kf.setImage(
+                with: URL(string: imageUrl))
         }
     }
 }

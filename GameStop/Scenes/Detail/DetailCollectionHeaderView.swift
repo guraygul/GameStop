@@ -118,6 +118,7 @@ final class DetailCollectionHeaderView: UICollectionReusableView {
             imageView.kf.indicatorType = .activity
             imageView.kf.setImage(
                 with: url,
+                placeholder: UIImage(named: "notFound"),
                 options: [
                     .transition(.fade(0.2)),
                     .cacheOriginalImage
