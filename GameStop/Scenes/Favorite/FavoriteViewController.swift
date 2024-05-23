@@ -8,6 +8,7 @@
 import UIKit
 
 protocol FavoriteViewControllerProtocol: AnyObject, AlertPresentable {
+    func setNavigationTitle(with title: String)
     func prepareCollectionView()
     func reloadData()
     func favoritesDidUpdate()
@@ -15,7 +16,12 @@ protocol FavoriteViewControllerProtocol: AnyObject, AlertPresentable {
 
 final class FavoriteViewController: UIViewController {
     private var viewModel: FavoriteViewModelProtocol
-    private var collectionView: UICollectionView!
+    private let sectionInsets = UIEdgeInsets(top: 20.0,
+                                             left: 10.0,
+                                             bottom: 20.0,
+                                             right: 10.0)
+    private lazy var collectionView = UICollectionViewFactory()
+        .build()
     
     init(viewModel: FavoriteViewModelProtocol) {
         self.viewModel = viewModel
@@ -31,6 +37,7 @@ final class FavoriteViewController: UIViewController {
         viewModel.view = self
         viewModel.viewDidLoad()
         
+        leftNavigationBar()
         setupUI()
         setupCollectionView()
     }
@@ -41,24 +48,17 @@ final class FavoriteViewController: UIViewController {
     }
     
     private func setupUI() {
-        view.backgroundColor = .white
+        
     }
     
     private func setupCollectionView() {
-        let layout = UICollectionViewFlowLayout()
-        layout.sectionInset = UIEdgeInsets(top: 20, left: 10, bottom: 20, right: 10)
-        layout.minimumLineSpacing = 10
-        layout.minimumInteritemSpacing = 10
-        
-        collectionView = UICollectionView(frame: self.view.bounds, collectionViewLayout: layout)
         view.addSubview(collectionView)
         
-        collectionView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            collectionView.topAnchor.constraint(equalTo: view.topAnchor),
+            collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+            collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
     }
 }
@@ -83,16 +83,37 @@ extension FavoriteViewController: UICollectionViewDelegate, UICollectionViewData
 }
 
 extension FavoriteViewController: UICollectionViewDelegateFlowLayout {
+    
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let padding: CGFloat = 20
-        let collectionViewSize = collectionView.frame.size.width - padding
-        return CGSize(width: collectionViewSize / 2, height: collectionViewSize / 2)
+        
+        let itemsPerRow: CGFloat = 1
+        let paddingSpace = sectionInsets.left * (itemsPerRow + 1)
+        let availableWidth = view.frame.width - paddingSpace
+        let widthPerItem = availableWidth / itemsPerRow
+        
+        return CGSize(width: widthPerItem, height: widthPerItem / 4)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        insetForSectionAt section: Int) -> UIEdgeInsets {
+        return sectionInsets
+    }
+    
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return sectionInsets.left
     }
 }
 
 extension FavoriteViewController: FavoriteViewControllerProtocol {
+    func setNavigationTitle(with title: String) {
+        self.title = title
+    }
+    
     func prepareCollectionView() {
         collectionView.delegate = self
         collectionView.dataSource = self

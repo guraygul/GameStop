@@ -14,6 +14,7 @@
 		1001C30A2BFAB64B00F61C24 /* HomePageImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1001C3092BFAB64B00F61C24 /* HomePageImageViewController.swift */; };
 		1015823C2BFF889C005A8994 /* GameEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1015823A2BFF889C005A8994 /* GameEntity+CoreDataClass.swift */; };
 		1015823D2BFF889C005A8994 /* GameEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1015823B2BFF889C005A8994 /* GameEntity+CoreDataProperties.swift */; };
+		101582412BFF9BD0005A8994 /* NavBar+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 101582402BFF9BD0005A8994 /* NavBar+Extension.swift */; };
 		104BB1C12BF923310049E7F5 /* UIImageViewFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 104BB1BC2BF923310049E7F5 /* UIImageViewFactory.swift */; };
 		104BB1C22BF923310049E7F5 /* UILabelFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 104BB1BD2BF923310049E7F5 /* UILabelFactory.swift */; };
 		104BB1C32BF923310049E7F5 /* UIStackViewFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 104BB1BE2BF923310049E7F5 /* UIStackViewFactory.swift */; };
@@ -59,6 +60,7 @@
 		1001C3092BFAB64B00F61C24 /* HomePageImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePageImageViewController.swift; sourceTree = "<group>"; };
 		1015823A2BFF889C005A8994 /* GameEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GameEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
 		1015823B2BFF889C005A8994 /* GameEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GameEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		101582402BFF9BD0005A8994 /* NavBar+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NavBar+Extension.swift"; sourceTree = "<group>"; };
 		104BB1BC2BF923310049E7F5 /* UIImageViewFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIImageViewFactory.swift; sourceTree = "<group>"; };
 		104BB1BD2BF923310049E7F5 /* UILabelFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UILabelFactory.swift; sourceTree = "<group>"; };
 		104BB1BE2BF923310049E7F5 /* UIStackViewFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIStackViewFactory.swift; sourceTree = "<group>"; };
@@ -206,6 +208,7 @@
 			children = (
 				104BB1DB2BF951780049E7F5 /* Collection+Extension.swift */,
 				1001C3032BFA628300F61C24 /* AlertPresentable.swift */,
+				101582402BFF9BD0005A8994 /* NavBar+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -405,6 +408,7 @@
 				1001C2FE2BFA41B500F61C24 /* TabBarViewController.swift in Sources */,
 				10ECFC742BFD096E0074892D /* UIButtonFactory.swift in Sources */,
 				1001C3012BFA436300F61C24 /* FavoriteViewController.swift in Sources */,
+				101582412BFF9BD0005A8994 /* NavBar+Extension.swift in Sources */,
 				10ECFC6E2BFCCEC00074892D /* DetailGameCell.swift in Sources */,
 				10CB1CF52BF8E97D006D5C04 /* AppDelegate.swift in Sources */,
 				10CB1CF72BF8E97D006D5C04 /* SceneDelegate.swift in Sources */,

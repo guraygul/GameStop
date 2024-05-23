@@ -37,7 +37,7 @@ extension DetailViewModel: DetailViewModelProtocol {
     }
     
     func viewWillAppear() {
-        
+        view?.prepareNavigationBar(with: .clear)
     }
     
     func cellForItem(at indexPath: IndexPath) -> Result? {

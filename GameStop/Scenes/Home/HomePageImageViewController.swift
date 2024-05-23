@@ -24,6 +24,8 @@ final class HomePageImageViewController: UIViewController {
         setupImageView()
         if let imageUrl = imageUrl, let url = URL(string: imageUrl) {
             imageView.kf.setImage(with: url)
+        } else {
+            imageView.image = UIImage(named: "notFound")
         }
     }
     

@@ -10,8 +10,12 @@ import UIKit
 final class FavoriteGameCell: UICollectionViewCell {
     static let identifier = "FavoriteGameCell"
     
-    private let imageView = UIImageView()
-    private let titleLabel = UILabel()
+    private let imageView = UIImageViewFactory()
+        .build()
+    
+    private let titleLabel = UILabelFactory(text: "Error")
+        .textColor(with: .white)
+        .build()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -26,19 +30,17 @@ final class FavoriteGameCell: UICollectionViewCell {
         contentView.addSubview(imageView)
         contentView.addSubview(titleLabel)
         
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            imageView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+            imageView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            imageView.heightAnchor.constraint(equalToConstant: 60),
+            imageView.widthAnchor.constraint(equalToConstant: 120),
+        ])
         
         NSLayoutConstraint.activate([
-            imageView.topAnchor.constraint(equalTo: contentView.topAnchor),
-            imageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            imageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            imageView.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.6),
-            
-            titleLabel.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 8),
-            titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 8),
-            titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -8),
-            titleLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8)
+            titleLabel.topAnchor.constraint(equalTo: topAnchor, constant: 10),
+            titleLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
+            titleLabel.leadingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: 10)
         ])
     }
     
@@ -47,6 +49,8 @@ final class FavoriteGameCell: UICollectionViewCell {
         if let imageUrl = game.backgroundImage {
             imageView.kf.setImage(
                 with: URL(string: imageUrl))
+        } else {
+            imageView.image = UIImage(named: "notFound")
         }
     }
 }

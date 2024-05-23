@@ -23,7 +23,6 @@ final class HomeViewController: UIViewController {
                                              right: 10.0)
     
     private lazy var collectionView = UICollectionViewFactory()
-        .backgroundColor(.clear)
         .build()
     
     init(viewModel: HomeViewModelProtocol) {
@@ -40,9 +39,7 @@ final class HomeViewController: UIViewController {
         viewModel.view = self
         viewModel.viewDidLoad()
         
-        view.backgroundColor = Theme.backgroundColor
-        
-        setupNavigationBar()
+        leftNavigationBar()
         setupCollectionView()
         setupPageViewController()
     }
@@ -51,14 +48,7 @@ final class HomeViewController: UIViewController {
         super.viewWillAppear(animated)
         viewModel.viewWillAppear()
     }
-    
-    private func setupNavigationBar() {
-        let offset = UIOffset(horizontal: -CGFloat.greatestFiniteMagnitude, vertical: 0)
-        navigationController?.navigationBar.standardAppearance.titlePositionAdjustment = offset
-        navigationController?.navigationBar.scrollEdgeAppearance?.titlePositionAdjustment = offset
-        navigationController?.navigationBar.compactAppearance?.titlePositionAdjustment = offset
-    }
-    
+        
     private func setupCollectionView() {
         view.addSubview(collectionView)
         

@@ -11,6 +11,7 @@ import Kingfisher
 protocol DetailViewControllerProtocol: AnyObject, AlertPresentable {
     func prepareCollectionView()
     func reloadData()
+    func prepareNavigationBar(with backgroundColor: UIColor)
 }
 
 final class DetailViewController: UIViewController {
@@ -22,7 +23,6 @@ final class DetailViewController: UIViewController {
                                              right: 10.0)
     
     private lazy var collectionView = UICollectionViewFactory()
-        .backgroundColor(.clear)
         .registerSupplementaryViewClass(
             DetailCollectionHeaderView.self,
             forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
@@ -53,14 +53,17 @@ final class DetailViewController: UIViewController {
         viewModel.view = self
         viewModel.viewDidLoad()
         
-        view.backgroundColor = .white
         setupUI()
-        setupNavigationBar()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        viewModel.viewWillAppear()
     }
     
     private func setupUI() {
         view.addSubview(collectionView)
-        collectionView.backgroundColor = .red
+        collectionView.backgroundColor = Theme.backgroundColor
         
         NSLayoutConstraint.activate([
             collectionView.topAnchor.constraint(equalTo: view.topAnchor),
@@ -70,19 +73,10 @@ final class DetailViewController: UIViewController {
         ])
     }
     
-    private func setupNavigationBar() {
-        let heartBarButtonItem = UIBarButtonItem(customView: heartButton)
-        navigationItem.rightBarButtonItem = heartBarButtonItem
-        
-        if let firstGame = viewModel.cellForItem(at: IndexPath(item: 0,
-                                                               section: 0)) {
-            updateHeartButton(for: firstGame)
-        }
-    }
-    
     @objc private func heartButtonTapped() {
-        guard let selectedGame = viewModel.cellForItem(at: IndexPath(item: 0,
-                                                                     section: 0)) else { return }
+        guard let selectedGame = viewModel.cellForItem(
+            at: IndexPath(item: 0,
+                          section: 0)) else { return }
         viewModel.toggleLike(for: selectedGame)
         updateHeartButton(for: selectedGame)
     }
@@ -186,6 +180,19 @@ extension DetailViewController: DetailViewControllerProtocol {
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
             self.collectionView.reloadData()
+        }
+    }
+    
+    func prepareNavigationBar(with backgroundColor: UIColor) {
+        super.leftNavigationBar(backgroundColor: backgroundColor)
+        
+        let heartBarButtonItem = UIBarButtonItem(customView: heartButton)
+        navigationItem.rightBarButtonItem = heartBarButtonItem
+        
+        if let firstGame = viewModel.cellForItem(
+            at: IndexPath(item: 0,
+                          section: 0)) {
+            updateHeartButton(for: firstGame)
         }
     }
     

@@ -123,6 +123,8 @@ final class DetailCollectionHeaderView: UICollectionReusableView {
                     .transition(.fade(0.2)),
                     .cacheOriginalImage
                 ])
+        } else {
+            imageView.image = UIImage(named: "notFound")
         }
     }
 }

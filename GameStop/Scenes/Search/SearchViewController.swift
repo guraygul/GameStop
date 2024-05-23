@@ -8,6 +8,7 @@
 import UIKit
 
 protocol SearchViewControllerProtocol: AnyObject, AlertPresentable {
+    func setNavigationTitle(with title: String)
     func prepareCollectionView()
     func reloadData()
 }
@@ -21,7 +22,6 @@ final class SearchViewController: UIViewController {
                                              right: 10.0)
     
     private lazy var collectionView = UICollectionViewFactory()
-        .backgroundColor(.clear)
         .build()
     
     init(viewModel: SearchViewModelProtocol) {
@@ -38,6 +38,8 @@ final class SearchViewController: UIViewController {
         viewModel.view = self
         viewModel.viewDidLoad()
         
+        leftNavigationBar()
+
         setupSearchBar()
         setupCollectionView()
     }
@@ -137,6 +139,10 @@ extension SearchViewController: UISearchResultsUpdating, UISearchBarDelegate {
 }
 
 extension SearchViewController: SearchViewControllerProtocol {
+    func setNavigationTitle(with title: String) {
+        self.title = title
+    }
+    
     func prepareCollectionView() {
         collectionView.delegate = self
         collectionView.dataSource = self

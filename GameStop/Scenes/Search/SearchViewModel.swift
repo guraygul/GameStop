@@ -85,6 +85,7 @@ extension SearchViewModel: SearchViewModelProtocol {
     }
     
     func viewDidLoad() {
+        view?.setNavigationTitle(with: "Search")
         view?.prepareCollectionView()
         fetchGames(page: currentPage, name: name)
     }

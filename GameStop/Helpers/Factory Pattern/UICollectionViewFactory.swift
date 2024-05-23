@@ -14,6 +14,7 @@ final class UICollectionViewFactory {
     init(layout: UICollectionViewLayout = UICollectionViewFlowLayout()) {
         collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
+        collectionView.backgroundColor = .clear
     }
     
     // MARK: - Public methods

@@ -57,6 +57,8 @@ final class HomeGameCell: UICollectionViewCell {
                 .cacheOriginalImage,
                 .downloader(KingfisherManager.shared.downloader)
             ])
+        } else {
+            gameImageView.image = UIImage(named: "notFound")
         }
     }
     

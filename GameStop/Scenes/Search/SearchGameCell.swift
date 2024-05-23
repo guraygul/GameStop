@@ -10,8 +10,14 @@ import Kingfisher
 
 final class SearchGameCell: UICollectionViewCell {
     static let identifier = "SearchGameCell"
-    private let imageView = UIImageView()
-    private let titleLabel = UILabel()
+    
+    private let imageView = UIImageViewFactory()
+        .contentMode(.scaleAspectFill)
+        .build()
+    
+    private let titleLabel = UILabelFactory(text: "Error")
+        .textColor(with: .white)
+        .build()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -25,9 +31,6 @@ final class SearchGameCell: UICollectionViewCell {
     private func setupUI() {
         contentView.addSubview(imageView)
         contentView.addSubview(titleLabel)
-        imageView.contentMode = .scaleAspectFit
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        titleLabel.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
             imageView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),

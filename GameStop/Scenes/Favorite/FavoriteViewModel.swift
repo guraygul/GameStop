@@ -63,7 +63,7 @@ final class FavoriteViewModel {
 
 extension FavoriteViewModel: FavoriteViewModelProtocol {
     func viewDidLoad() {
-        
+        view?.setNavigationTitle(with: "Favorites")
     }
     
     func viewWillAppear() {
