@@ -9,23 +9,87 @@ import Foundation
 
 protocol SearchViewModelProtocol {
     var view: SearchViewControllerProtocol? { get set }
+    var games: [SearchResult] { get }
     
     func viewDidLoad()
+    func viewWillAppear()
+    func didSelectItem(at indexPath: IndexPath)
+    func cellForItem(at indexPath: IndexPath) -> SearchResult?
+    func fetchNextPage()
+    func searchGames(with query: String)
 }
 
 final class SearchViewModel {
     weak var view: SearchViewControllerProtocol?
     private let networkService: NetworkServiceProtocol
     
+    private(set) var games: [SearchResult] = []
+    
+    private var currentPage: Int = 1
+    private var isFetching: Bool = false
+    private var hasMoreGames: Bool = true
+    private var name: String = ""
+    
+    private var debounceTimer: Timer?
+    
     init(networkService: NetworkServiceProtocol = NetworkService.shared) {
         self.networkService = networkService
+    }
+    
+    private func fetchGames(page: Int, name: String) {
+        guard !isFetching, hasMoreGames else { return }
+        isFetching = true
+        Task {
+            do {
+                print("Fetching games with query: \(name) and page: \(page)") // Logging for debugging
+                let gameModel = try await networkService.fetchData(
+                    from: GameAPI.search(page: page,
+                                         name: name),
+                    as: GameSearchModel.self)
+                self.games = page == 1 ? gameModel.results ?? [] : self.games + (gameModel.results ?? [])
+                self.hasMoreGames = gameModel.next != nil
+                self.currentPage = page + 1
+                await MainActor.run { [weak self] in
+                    self?.view?.reloadData()
+                }
+            } catch {
+                print("Error while fetching searched games: \(error.localizedDescription)") // Improved error logging
+            }
+            isFetching = false
+        }
     }
 }
 
 extension SearchViewModel: SearchViewModelProtocol {
-    func viewDidLoad() {
-        view?.prepareCollectionView()
+    func viewWillAppear() {
+        
     }
     
+    func didSelectItem(at indexPath: IndexPath) {
+        
+    }
+    
+    func cellForItem(at indexPath: IndexPath) -> SearchResult? {
+        return games[safe: indexPath.item]
+    }
+    
+    func fetchNextPage() {
+        fetchGames(page: currentPage, name: name)
+    }
+    
+    func viewDidLoad() {
+        view?.prepareCollectionView()
+        fetchGames(page: currentPage, name: name)
+    }
+    
+    func searchGames(with query: String) {
+        name = query
+        hasMoreGames = true
+        currentPage = 1
+        debounceTimer?.invalidate()
+        debounceTimer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false) { [weak self] _ in
+            self?.fetchGames(page: 1, name: query)
+        }
+    }
     
 }

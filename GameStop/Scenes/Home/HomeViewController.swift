@@ -9,6 +9,7 @@ import UIKit
 import Kingfisher
 
 protocol HomeViewControllerProtocol: AnyObject, AlertPresentable {
+    func setNavigationTitle(with title: String)
     func prepareCollectionView()
     func reloadData()
     func navigateToDetailScreen(with game: Result?)
@@ -23,7 +24,6 @@ final class HomeViewController: UIViewController {
     
     private lazy var collectionView = UICollectionViewFactory()
         .backgroundColor(.clear)
-        .registerCellClass(HomeGameCell.self, forCellWithReuseIdentifier: "GameCell")
         .build()
     
     init(viewModel: HomeViewModelProtocol) {
@@ -34,7 +34,7 @@ final class HomeViewController: UIViewController {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-        
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         viewModel.view = self
@@ -51,16 +51,14 @@ final class HomeViewController: UIViewController {
         super.viewWillAppear(animated)
         viewModel.viewWillAppear()
     }
-        
+    
     private func setupNavigationBar() {
-        navigationItem.title = "GameStop"
-        
         let offset = UIOffset(horizontal: -CGFloat.greatestFiniteMagnitude, vertical: 0)
         navigationController?.navigationBar.standardAppearance.titlePositionAdjustment = offset
         navigationController?.navigationBar.scrollEdgeAppearance?.titlePositionAdjustment = offset
         navigationController?.navigationBar.compactAppearance?.titlePositionAdjustment = offset
     }
-        
+    
     private func setupCollectionView() {
         view.addSubview(collectionView)
         
@@ -95,13 +93,14 @@ final class HomeViewController: UIViewController {
 extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView,
                         numberOfItemsInSection section: Int) -> Int {
-        return viewModel.gamesCount
+        return viewModel.numberOfGames()
     }
     
     func collectionView(_ collectionView: UICollectionView,
                         cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HomeGameCell.identifier,
-                                                      for: indexPath) as! HomeGameCell
+        let cell = collectionView.dequeueReusableCell(
+            withReuseIdentifier: HomeGameCell.identifier,
+            for: indexPath) as! HomeGameCell
         
         if let game = viewModel.cellForItem(at: indexPath) { cell.configure(with: game) }
         
@@ -152,9 +151,17 @@ extension HomeViewController: UICollectionViewDelegateFlowLayout {
 }
 
 extension HomeViewController: HomeViewControllerProtocol {
+    func setNavigationTitle(with title: String) {
+        self.title = title
+    }
+    
     func prepareCollectionView() {
         collectionView.delegate = self
         collectionView.dataSource = self
+        
+        collectionView.register(
+            HomeGameCell.self,
+            forCellWithReuseIdentifier: HomeGameCell.identifier)
         
         collectionView.reloadData()
     }
@@ -173,7 +180,7 @@ extension HomeViewController: HomeViewControllerProtocol {
     
 }
 
-#Preview {
-    let navC = UINavigationController(rootViewController: HomeViewController(viewModel: HomeViewModel(networkService: NetworkService.shared)))
-    return navC
-}
+//#Preview {
+//    let navC = UINavigationController(rootViewController: HomeViewController(viewModel: HomeViewModel(networkService: NetworkService.shared)))
+//    return navC
+//}

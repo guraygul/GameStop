@@ -52,12 +52,11 @@ final class HomeGameCell: UICollectionViewCell {
         if let imageUrl = game.backgroundImage,
            let url = URL(string: imageUrl) {
             gameImageView.kf.indicatorType = .activity
-            gameImageView.kf.setImage(with: url,
-                                      options: [
-                                        .transition(.fade(0.2)),
-                                        .cacheOriginalImage,
-                                        .downloader(KingfisherManager.shared.downloader)
-                                      ])
+            gameImageView.kf.setImage(with: url, options: [
+                .transition(.fade(0.2)),
+                .cacheOriginalImage,
+                .downloader(KingfisherManager.shared.downloader)
+            ])
         }
     }
     

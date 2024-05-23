@@ -31,7 +31,7 @@ final class FavoriteViewModel {
         self.networkService = networkService
         self.coreDataManager = coreDataManager
     }
-        
+    
     private func fetchGameDetails(for gameIDs: [Int]) {
         Task {
             var fetchedGames: [GameDetailModel] = []
@@ -52,7 +52,7 @@ final class FavoriteViewModel {
             }
             await MainActor.run { [fetchedGames] in
                 likedGames = fetchedGames
-                view?.reloadData()
+                view?.prepareCollectionView()
             }
         }
     }

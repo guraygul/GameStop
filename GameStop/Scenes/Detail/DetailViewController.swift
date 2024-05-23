@@ -23,8 +23,6 @@ final class DetailViewController: UIViewController {
     
     private lazy var collectionView = UICollectionViewFactory()
         .backgroundColor(.clear)
-        .registerCellClass(DetailGameCell.self,
-                           forCellWithReuseIdentifier: "DetailGameCell")
         .registerSupplementaryViewClass(
             DetailCollectionHeaderView.self,
             forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
@@ -176,6 +174,10 @@ extension DetailViewController: DetailViewControllerProtocol {
     func prepareCollectionView() {
         collectionView.delegate = self
         collectionView.dataSource = self
+        
+        collectionView.register(
+            DetailGameCell.self,
+            forCellWithReuseIdentifier: DetailGameCell.identifier)
         
         collectionView.reloadData()
     }

@@ -8,6 +8,7 @@
 import UIKit
 
 protocol FavoriteViewControllerProtocol: AnyObject, AlertPresentable {
+    func prepareCollectionView()
     func reloadData()
     func favoritesDidUpdate()
 }
@@ -24,7 +25,7 @@ final class FavoriteViewController: UIViewController {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         viewModel.view = self
@@ -50,9 +51,6 @@ final class FavoriteViewController: UIViewController {
         layout.minimumInteritemSpacing = 10
         
         collectionView = UICollectionView(frame: self.view.bounds, collectionViewLayout: layout)
-        collectionView.delegate = self
-        collectionView.dataSource = self
-        collectionView.register(FavoriteGameCell.self, forCellWithReuseIdentifier: "FavoriteGameCell")
         view.addSubview(collectionView)
         
         collectionView.translatesAutoresizingMaskIntoConstraints = false
@@ -95,10 +93,21 @@ extension FavoriteViewController: UICollectionViewDelegateFlowLayout {
 }
 
 extension FavoriteViewController: FavoriteViewControllerProtocol {
+    func prepareCollectionView() {
+        collectionView.delegate = self
+        collectionView.dataSource = self
+        
+        collectionView.register(
+            FavoriteGameCell.self,
+            forCellWithReuseIdentifier: FavoriteGameCell.identifier)
+        
+        collectionView.reloadData()
+    }
+    
     func favoritesDidUpdate() {
         let detailViewModel = DetailViewModel()
         let favoriteViewController = FavoriteViewController(viewModel: FavoriteViewModel())
-
+        
         detailViewModel.favoriteViewDelegate = favoriteViewController
     }
     

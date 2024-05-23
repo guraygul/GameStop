@@ -9,7 +9,6 @@ import Foundation
 
 protocol HomeViewModelProtocol {
     var view: HomeViewControllerProtocol? { get set }
-    var gamesCount: Int { get }
     var games: [Result] { get }
     
     func viewDidLoad()
@@ -17,6 +16,7 @@ protocol HomeViewModelProtocol {
     func didSelectItem(at indexPath: IndexPath)
     func cellForItem(at indexPath: IndexPath) -> Result?
     func fetchNextPage()
+    func numberOfGames() -> Int
 }
 
 final class HomeViewModel {
@@ -38,8 +38,9 @@ final class HomeViewModel {
         isFetching = true
         Task {
             do {
-                let gameModel = try await networkService.fetchData(from: GameAPI.games(page: page),
-                                                                   as: GameModel.self)
+                let gameModel = try await networkService.fetchData(
+                    from: GameAPI.games(page: page),
+                    as: GameModel.self)
                 self.games += gameModel.results ?? []
                 self.hasMoreGames = gameModel.next != nil
                 self.currentPage += 1
@@ -60,18 +61,13 @@ final class HomeViewModel {
         }
     }
     
-    func fetchNextPage() {
-        fetchGames(page: currentPage)
-    }
-    
 }
 
 extension HomeViewModel: HomeViewModelProtocol {
-    var gamesCount: Int {
-        return games.count
-    }
+    func numberOfGames() -> Int { return games.count }
     
     func viewDidLoad() {
+        view?.setNavigationTitle(with: "GameStop")
         view?.prepareCollectionView()
         fetchGames(page: currentPage)
     }
@@ -87,6 +83,10 @@ extension HomeViewModel: HomeViewModelProtocol {
     func didSelectItem(at indexPath: IndexPath) {
         let games = games[safe: indexPath.item]
         view?.navigateToDetailScreen(with: games)
+    }
+    
+    func fetchNextPage() {
+        fetchGames(page: currentPage)
     }
     
 }

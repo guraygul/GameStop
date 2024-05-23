@@ -8,6 +8,8 @@
 import UIKit
 
 final class FavoriteGameCell: UICollectionViewCell {
+    static let identifier = "FavoriteGameCell"
+    
     private let imageView = UIImageView()
     private let titleLabel = UILabel()
     

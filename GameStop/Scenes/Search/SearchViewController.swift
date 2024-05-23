@@ -7,17 +7,21 @@
 
 import UIKit
 
-protocol SearchViewControllerProtocol: AnyObject {
+protocol SearchViewControllerProtocol: AnyObject, AlertPresentable {
     func prepareCollectionView()
+    func reloadData()
 }
 
 final class SearchViewController: UIViewController {
     private var viewModel: SearchViewModelProtocol
     private let searchController = UISearchController(searchResultsController: nil)
+    private let sectionInsets = UIEdgeInsets(top: 20.0,
+                                             left: 10.0,
+                                             bottom: 20.0,
+                                             right: 10.0)
     
     private lazy var collectionView = UICollectionViewFactory()
         .backgroundColor(.clear)
-        .registerCellClass(SearchGameCell.self, forCellWithReuseIdentifier: "SearchCell")
         .build()
     
     init(viewModel: SearchViewModelProtocol) {
@@ -35,7 +39,7 @@ final class SearchViewController: UIViewController {
         viewModel.viewDidLoad()
         
         setupSearchBar()
-
+        setupCollectionView()
     }
     
     private func setupSearchBar() {
@@ -48,20 +52,87 @@ final class SearchViewController: UIViewController {
         navigationItem.hidesSearchBarWhenScrolling = false
         definesPresentationContext = true
     }
+    
+    private func setupCollectionView() {
+        view.addSubview(collectionView)
+        
+        NSLayoutConstraint.activate([
+            collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+        ])
+    }
 }
 
 // MARK: - Configuring collection view cells data
 extension SearchViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView,
                         numberOfItemsInSection section: Int) -> Int {
-        1
+        return viewModel.games.count
     }
     
     func collectionView(_ collectionView: UICollectionView,
                         cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SearchGameCell.identifier,
                                                       for: indexPath) as! SearchGameCell
-        return UICollectionViewCell()
+        if let game = viewModel.cellForItem(at: indexPath) { cell.configure(with: game) }
+        
+        return cell
+    }
+}
+
+extension SearchViewController: UICollectionViewDelegateFlowLayout {
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let offsetY = scrollView.contentOffset.y
+        let contentHeight = scrollView.contentSize.height
+        let height = scrollView.frame.size.height
+        
+        if offsetY > contentHeight - height * 2 {
+            viewModel.fetchNextPage()
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        sizeForItemAt indexPath: IndexPath) -> CGSize {
+        
+        let itemsPerRow: CGFloat = 1
+        let paddingSpace = sectionInsets.left * (itemsPerRow + 1)
+        let availableWidth = view.frame.width - paddingSpace
+        let widthPerItem = availableWidth / itemsPerRow
+        
+        return CGSize(width: widthPerItem, height: widthPerItem / 4)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        insetForSectionAt section: Int) -> UIEdgeInsets {
+        return sectionInsets
+    }
+    
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return sectionInsets.left
+    }
+}
+
+extension SearchViewController: UISearchResultsUpdating, UISearchBarDelegate {
+    func updateSearchResults(for searchController: UISearchController) {
+        guard let query = searchController.searchBar.text else { return }
+        viewModel.searchGames(with: query)
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        viewModel.searchGames(with: "")
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if searchText.isEmpty {
+            viewModel.searchGames(with: "")
+        }
     }
 }
 
@@ -70,14 +141,16 @@ extension SearchViewController: SearchViewControllerProtocol {
         collectionView.delegate = self
         collectionView.dataSource = self
         
+        collectionView.register(
+            SearchGameCell.self,
+            forCellWithReuseIdentifier: SearchGameCell.identifier)
+        
         collectionView.reloadData()
     }
-}
-
-extension SearchViewController: UISearchResultsUpdating, UISearchBarDelegate {
-    func updateSearchResults(for searchController: UISearchController) {
-        
-    }
     
-
+    func reloadData() {
+        DispatchQueue.main.async {
+            self.collectionView.reloadData()
+        }
+    }
 }
