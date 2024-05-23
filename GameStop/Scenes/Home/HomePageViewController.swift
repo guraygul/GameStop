@@ -9,14 +9,31 @@ import UIKit
 
 final class HomePageViewController: UIViewController {
     private var pageViewController: UIPageViewController!
-    var games: [Result] = []
+    var games: [Result] = [] {
+        didSet {
+            setupPageViewController()
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupPageViewController()
     }
     
+    func setGames(_ games: [Result]) {
+        self.games = games
+        if isViewLoaded {
+            setupPageViewController()
+        }
+    }
+    
     private func setupPageViewController() {
+        if pageViewController != nil {
+            pageViewController.willMove(toParent: nil)
+            pageViewController.view.removeFromSuperview()
+            pageViewController.removeFromParent()
+        }
+        
         pageViewController = UIPageViewController(transitionStyle: .scroll,
                                                   navigationOrientation: .horizontal,
                                                   options: nil)
@@ -50,25 +67,25 @@ final class HomePageViewController: UIViewController {
         viewController.pageIndex = index
         return viewController
     }
-    
 }
 
 // MARK: - UIPageViewControllerDataSource Methods
 extension HomePageViewController: UIPageViewControllerDataSource {
-    func pageViewController(_ pageViewController: UIPageViewController,
-                            viewControllerBefore viewController: UIViewController) -> UIViewController? {
-        guard let viewController = viewController as? HomePageImageViewController,
+    func pageViewController(
+        _ pageViewController: UIPageViewController,
+        viewControllerBefore viewController: UIViewController) -> UIViewController? {
+            guard let viewController = viewController as? HomePageImageViewController,
               let index = viewController.pageIndex,
               index > 0 else { return nil }
         return self.viewController(at: index - 1)
     }
     
-    func pageViewController(_ pageViewController: UIPageViewController,
-                            viewControllerAfter viewController: UIViewController) -> UIViewController? {
-        guard let viewController = viewController as? HomePageImageViewController,
+    func pageViewController(
+        _ pageViewController: UIPageViewController,
+        viewControllerAfter viewController: UIViewController) -> UIViewController? {
+            guard let viewController = viewController as? HomePageImageViewController,
               let index = viewController.pageIndex,
               index < games.count - 1 else { return nil }
         return self.viewController(at: index + 1)
     }
 }
-

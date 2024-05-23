@@ -51,7 +51,7 @@ final class SearchViewController: UIViewController {
         searchController.searchBar.delegate = self
         
         navigationItem.searchController = searchController
-        navigationItem.hidesSearchBarWhenScrolling = false
+        navigationItem.hidesSearchBarWhenScrolling = true
         definesPresentationContext = true
     }
     

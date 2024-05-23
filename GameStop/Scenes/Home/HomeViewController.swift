@@ -41,39 +41,21 @@ final class HomeViewController: UIViewController {
         
         leftNavigationBar()
         setupCollectionView()
-        setupPageViewController()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         viewModel.viewWillAppear()
     }
-        
+    
     private func setupCollectionView() {
         view.addSubview(collectionView)
         
         NSLayoutConstraint.activate([
-            collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 200),
+            collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
-        ])
-    }
-    
-    private func setupPageViewController() {
-        let homePageViewController = HomePageViewController()
-        homePageViewController.games = Array(viewModel.games.prefix(3))
-        
-        addChild(homePageViewController)
-        view.addSubview(homePageViewController.view)
-        homePageViewController.didMove(toParent: self)
-        
-        homePageViewController.view.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            homePageViewController.view.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            homePageViewController.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            homePageViewController.view.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            homePageViewController.view.heightAnchor.constraint(equalToConstant: 200)
         ])
     }
     
@@ -97,7 +79,8 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
         return cell
     }
     
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    func collectionView(_ collectionView: UICollectionView,
+                        didSelectItemAt indexPath: IndexPath) {
         viewModel.didSelectItem(at: indexPath)
     }
 }
@@ -138,6 +121,29 @@ extension HomeViewController: UICollectionViewDelegateFlowLayout {
                         minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return sectionInsets.left
     }
+    
+    func collectionView(
+        _ collectionView: UICollectionView,
+        viewForSupplementaryElementOfKind kind: String,
+        at indexPath: IndexPath) -> UICollectionReusableView {
+            guard kind == UICollectionView.elementKindSectionHeader else {
+                fatalError("Unexpected element kind")
+            }
+            
+            let headerView = collectionView.dequeueReusableSupplementaryView(
+                ofKind: kind,
+                withReuseIdentifier: HomePageHeaderView.identifier,
+                for: indexPath) as! HomePageHeaderView
+            headerView.configure(with: Array(viewModel.games.prefix(3)))
+            return headerView
+        }
+    
+    func collectionView(
+        _ collectionView: UICollectionView,
+        layout collectionViewLayout: UICollectionViewLayout,
+        referenceSizeForHeaderInSection section: Int) -> CGSize {
+            return CGSize(width: collectionView.frame.width, height: 200)
+        }
 }
 
 extension HomeViewController: HomeViewControllerProtocol {
@@ -153,7 +159,12 @@ extension HomeViewController: HomeViewControllerProtocol {
             HomeGameCell.self,
             forCellWithReuseIdentifier: HomeGameCell.identifier)
         
-        collectionView.reloadData()
+        collectionView.register(
+            HomePageHeaderView.self,
+            forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
+            withReuseIdentifier: HomePageHeaderView.identifier)
+        
+        reloadData()
     }
     
     func reloadData() {
@@ -161,7 +172,6 @@ extension HomeViewController: HomeViewControllerProtocol {
             guard let self = self else { return }
             self.collectionView.reloadData()
         }
-        setupPageViewController()
     }
     
     func navigateToDetailScreen(with games: Result?) {

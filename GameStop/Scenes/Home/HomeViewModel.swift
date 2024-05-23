@@ -45,7 +45,8 @@ final class HomeViewModel {
                 self.hasMoreGames = gameModel.next != nil
                 self.currentPage += 1
                 DispatchQueue.main.async { [weak self] in
-                    self?.view?.reloadData()
+                    guard let self = self else { return }
+                    self.view?.reloadData()
                 }
             } catch {
                 DispatchQueue.main.async { [weak self] in

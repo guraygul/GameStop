@@ -15,6 +15,7 @@
 		1015823C2BFF889C005A8994 /* GameEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1015823A2BFF889C005A8994 /* GameEntity+CoreDataClass.swift */; };
 		1015823D2BFF889C005A8994 /* GameEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1015823B2BFF889C005A8994 /* GameEntity+CoreDataProperties.swift */; };
 		101582412BFF9BD0005A8994 /* NavBar+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 101582402BFF9BD0005A8994 /* NavBar+Extension.swift */; };
+		101582432BFFB839005A8994 /* HomePageHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 101582422BFFB839005A8994 /* HomePageHeaderView.swift */; };
 		104BB1C12BF923310049E7F5 /* UIImageViewFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 104BB1BC2BF923310049E7F5 /* UIImageViewFactory.swift */; };
 		104BB1C22BF923310049E7F5 /* UILabelFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 104BB1BD2BF923310049E7F5 /* UILabelFactory.swift */; };
 		104BB1C32BF923310049E7F5 /* UIStackViewFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 104BB1BE2BF923310049E7F5 /* UIStackViewFactory.swift */; };
@@ -61,6 +62,7 @@
 		1015823A2BFF889C005A8994 /* GameEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GameEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
 		1015823B2BFF889C005A8994 /* GameEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GameEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		101582402BFF9BD0005A8994 /* NavBar+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NavBar+Extension.swift"; sourceTree = "<group>"; };
+		101582422BFFB839005A8994 /* HomePageHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePageHeaderView.swift; sourceTree = "<group>"; };
 		104BB1BC2BF923310049E7F5 /* UIImageViewFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIImageViewFactory.swift; sourceTree = "<group>"; };
 		104BB1BD2BF923310049E7F5 /* UILabelFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UILabelFactory.swift; sourceTree = "<group>"; };
 		104BB1BE2BF923310049E7F5 /* UIStackViewFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIStackViewFactory.swift; sourceTree = "<group>"; };
@@ -301,6 +303,7 @@
 				10F788492BF91947003F5B67 /* HomeGameCell.swift */,
 				1001C3072BFAB60F00F61C24 /* HomePageViewController.swift */,
 				1001C3092BFAB64B00F61C24 /* HomePageImageViewController.swift */,
+				101582422BFFB839005A8994 /* HomePageHeaderView.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -382,6 +385,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1001C30A2BFAB64B00F61C24 /* HomePageImageViewController.swift in Sources */,
+				101582432BFFB839005A8994 /* HomePageHeaderView.swift in Sources */,
 				10C69EEA2BFE266F00B035E2 /* SearchViewModel.swift in Sources */,
 				10ECFC772BFD4B210074892D /* GameEntity.xcdatamodeld in Sources */,
 				104BB1D52BF94DF70049E7F5 /* NetworkError.swift in Sources */,
