@@ -138,6 +138,16 @@
 			path = Scenes;
 			sourceTree = "<group>";
 		};
+		1015823E2BFF898A005A8994 /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				10ECFC752BFD4B210074892D /* GameEntity.xcdatamodeld */,
+				1015823A2BFF889C005A8994 /* GameEntity+CoreDataClass.swift */,
+				1015823B2BFF889C005A8994 /* GameEntity+CoreDataProperties.swift */,
+			);
+			path = CoreData;
+			sourceTree = "<group>";
+		};
 		104BB1BA2BF921FB0049E7F5 /* Supportings */ = {
 			isa = PBXGroup;
 			children = (
@@ -177,9 +187,7 @@
 				104BB1CA2BF9397B0049E7F5 /* GameModel.swift */,
 				10ECFC7E2BFD57330074892D /* GameDetailModel.swift */,
 				10C69EED2BFE306A00B035E2 /* GameSearchModel.swift */,
-				10ECFC752BFD4B210074892D /* GameEntity.xcdatamodeld */,
-				1015823A2BFF889C005A8994 /* GameEntity+CoreDataClass.swift */,
-				1015823B2BFF889C005A8994 /* GameEntity+CoreDataProperties.swift */,
+				1015823E2BFF898A005A8994 /* CoreData */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -640,8 +648,7 @@
 				10ECFC762BFD4B210074892D /* GameEntity.xcdatamodel */,
 			);
 			currentVersion = 10ECFC762BFD4B210074892D /* GameEntity.xcdatamodel */;
-			name = GameEntity.xcdatamodeld;
-			path = /Users/guraygul/Desktop/GameStop/GameStop/Models/GameEntity.xcdatamodeld;
+			path = GameEntity.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};

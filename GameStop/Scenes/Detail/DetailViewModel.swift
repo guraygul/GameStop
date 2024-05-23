@@ -62,7 +62,15 @@ extension DetailViewModel: DetailViewModelProtocol {
             CoreDataManager.shared.saveContext()
             favoriteViewDelegate?.favoritesDidUpdate()
         } catch {
-            print("Failed to toggle like: \(error)")
+            DispatchQueue.main.async { [weak self] in
+                guard let self = self else { return }
+                self.view?.showAlert(
+                    title: "Failed when toggling like",
+                    message: "An Error occured while liking.\nPlease try again.",
+                    openSettings: false) {
+                        self.toggleLike(for: game)
+                }
+            }
         }
     }
     
@@ -75,7 +83,13 @@ extension DetailViewModel: DetailViewModelProtocol {
             let results = try context.fetch(fetchRequest)
             return results.first?.isLiked ?? false
         } catch {
-            print("Failed to fetch like status: \(error)")
+            DispatchQueue.main.async { [weak self] in
+                guard let self = self else { return }
+                self.view?.showAlert(
+                    title: "Failed to fetch game's like status",
+                    message: "An Error occured while fething game's like status.\nPlease check your connection and try again.",
+                    openSettings: false) { }
+            }
             return false
         }
     }

@@ -50,9 +50,10 @@ final class HomeViewModel {
             } catch {
                 DispatchQueue.main.async { [weak self] in
                     guard let self = self else { return }
-                    self.view?.showAlert(title: "Error fetching games",
-                                         message: "You're not connected to the internet. Please check your connection and try again.",
-                                         openSettings: true) {
+                    self.view?.showAlert(
+                        title: "Failed to fetch games",
+                        message: "An Error occured while fething games.\nPlease check your connection and try again.",
+                        openSettings: true) {
                         self.fetchGames(page: page)
                     }
                 }

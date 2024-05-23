@@ -37,16 +37,19 @@ final class FavoriteViewModel {
             var fetchedGames: [GameDetailModel] = []
             for id in gameIDs {
                 do {
-                    let gameDetail = try await networkService.fetchData(from: GameAPI.gameDetails(id: id),
-                                                                        as: GameDetailModel.self)
+                    let gameDetail = try await networkService.fetchData(
+                        from: GameAPI.gameDetails(id: id),
+                        as: GameDetailModel.self)
                     fetchedGames.append(gameDetail)
                 } catch {
                     DispatchQueue.main.async { [weak self] in
                         guard let self = self else { return }
-                        self.view?.showAlert(title: "Failed to fetch game details",
-                                             message: "You're not connected to the internet. Please check your connection and try again.",
-                                             openSettings: false) {
-                        }
+                        self.view?.showAlert(
+                            title: "Failed to fetch favorite games",
+                            message: "An Error occured while fething favorite games.\nPlease check your connection and try again.",
+                            openSettings: false) {
+                                self.fetchGameDetails(for: gameIDs)
+                            }
                     }
                 }
             }
@@ -77,7 +80,13 @@ extension FavoriteViewModel: FavoriteViewModelProtocol {
             let gameIDs = gameEntities.map { Int($0.id) }
             fetchGameDetails(for: gameIDs)
         } catch {
-            print("Failed to fetch liked games: \(error)")
+            DispatchQueue.main.async { [weak self] in
+                guard let self = self else { return }
+                self.view?.showAlert(
+                    title: "Fetch Error",
+                    message: "Error while fetching favorite games",
+                    openSettings: false) { }
+            }
         }
     }
 }

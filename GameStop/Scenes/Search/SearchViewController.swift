@@ -149,7 +149,8 @@ extension SearchViewController: SearchViewControllerProtocol {
     }
     
     func reloadData() {
-        DispatchQueue.main.async {
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
             self.collectionView.reloadData()
         }
     }

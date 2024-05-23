@@ -112,6 +112,9 @@ extension FavoriteViewController: FavoriteViewControllerProtocol {
     }
     
     func reloadData() {
-        collectionView.reloadData()
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+            self.collectionView.reloadData()
+        }
     }
 }

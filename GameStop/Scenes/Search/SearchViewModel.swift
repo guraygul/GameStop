@@ -41,7 +41,6 @@ final class SearchViewModel {
         isFetching = true
         Task {
             do {
-                print("Fetching games with query: \(name) and page: \(page)") // Logging for debugging
                 let gameModel = try await networkService.fetchData(
                     from: GameAPI.search(page: page,
                                          name: name),
@@ -53,7 +52,15 @@ final class SearchViewModel {
                     self?.view?.reloadData()
                 }
             } catch {
-                print("Error while fetching searched games: \(error.localizedDescription)") // Improved error logging
+                DispatchQueue.main.async { [weak self] in
+                    guard let self = self else { return }
+                    self.view?.showAlert(
+                        title: "Failed to fetch searched games",
+                        message: "An Error occured while fething searched games.\nPlease check your connection and try again.",
+                        openSettings: false) {
+                        self.fetchGames(page: page, name: name)
+                    }
+                }
             }
             isFetching = false
         }
@@ -87,9 +94,10 @@ extension SearchViewModel: SearchViewModelProtocol {
         hasMoreGames = true
         currentPage = 1
         debounceTimer?.invalidate()
-        debounceTimer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false) { [weak self] _ in
-            self?.fetchGames(page: 1, name: query)
-        }
+        debounceTimer = Timer.scheduledTimer(
+            withTimeInterval: 0.5, repeats: false) { [weak self] _ in
+                self?.fetchGames(page: 1, name: query)
+            }
     }
     
 }
