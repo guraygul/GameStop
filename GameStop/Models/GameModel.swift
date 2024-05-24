@@ -25,7 +25,7 @@ struct Result: Decodable {
     let ratingTop: Int?
     let metacritic: Int?
     let shortScreenshots: [ShortScreenshot]?
-    
+
     enum CodingKeys: String, CodingKey {
         case id, name, released, rating, metacritic
         case ratingTop = "rating_top"
@@ -34,7 +34,23 @@ struct Result: Decodable {
     }
 }
 
+// MARK: - ShortScreenshot
 struct ShortScreenshot: Decodable {
     let id: Int?
     let image: String?
 }
+
+// MARK: - Result Extension
+extension Result {
+    init(from searchResult: SearchResult) {
+        self.id = searchResult.id
+        self.name = searchResult.name
+        self.released = searchResult.released
+        self.backgroundImage = searchResult.backgroundImage
+        self.rating = searchResult.rating
+        self.ratingTop = searchResult.ratingTop
+        self.metacritic = searchResult.metacritic
+        self.shortScreenshots = searchResult.shortScreenshots
+    }
+}
+

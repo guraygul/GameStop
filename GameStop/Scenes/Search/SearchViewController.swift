@@ -11,6 +11,7 @@ protocol SearchViewControllerProtocol: AnyObject, AlertPresentable {
     func setNavigationTitle(with title: String)
     func prepareCollectionView()
     func reloadData()
+    func navigateToDetailScreen(with game: Result?, withDetail details: GameDetailModel?)
 }
 
 final class SearchViewController: UIViewController {
@@ -81,6 +82,10 @@ extension SearchViewController: UICollectionViewDelegate, UICollectionViewDataSo
         if let game = viewModel.cellForItem(at: indexPath) { cell.configure(with: game) }
         
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        viewModel.didSelectItem(at: indexPath)
     }
 }
 
@@ -158,6 +163,19 @@ extension SearchViewController: SearchViewControllerProtocol {
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
             self.collectionView.reloadData()
+        }
+    }
+    
+    func navigateToDetailScreen(with games: Result?, withDetail details: GameDetailModel?) {
+        guard let games = games else { return }
+        guard let details = details else { return }
+        
+        let detailViewModel = DetailViewModel(games: [games], gameDetails: [details])
+        let detailViewController = DetailViewController(viewModel: detailViewModel)
+        
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+            self.navigationController?.pushViewController(detailViewController, animated: true)
         }
     }
 }

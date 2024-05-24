@@ -34,7 +34,7 @@ final class HomePageViewController: UIViewController {
             pageViewController.removeFromParent()
         }
         
-        pageViewController = UIPageViewController(transitionStyle: .scroll,
+        pageViewController = UIPageViewController(transitionStyle: .pageCurl,
                                                   navigationOrientation: .horizontal,
                                                   options: nil)
         pageViewController.dataSource = self

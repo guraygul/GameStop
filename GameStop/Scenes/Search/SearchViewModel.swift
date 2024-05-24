@@ -10,6 +10,7 @@ import Foundation
 protocol SearchViewModelProtocol {
     var view: SearchViewControllerProtocol? { get set }
     var games: [SearchResult] { get }
+    var gameDetails: [GameDetailModel] { get }
     
     func viewDidLoad()
     func viewWillAppear()
@@ -24,6 +25,7 @@ final class SearchViewModel {
     private let networkService: NetworkServiceProtocol
     
     private(set) var games: [SearchResult] = []
+    private(set) var gameDetails: [GameDetailModel] = []
     
     private var currentPage: Int = 1
     private var isFetching: Bool = false
@@ -65,6 +67,27 @@ final class SearchViewModel {
             isFetching = false
         }
     }
+    
+    private func fetchGameDetails(for gameID: Int, completion: @escaping (GameDetailModel?) -> Void) {
+        Task {
+            do {
+                let gameDetail = try await networkService.fetchData(
+                    from: GameAPI.gameDetails(id: gameID),
+                    as: GameDetailModel.self)
+                completion(gameDetail)
+            } catch {
+                DispatchQueue.main.async { [weak self] in
+                    guard let self = self else { return }
+                    self.view?.showAlert(
+                        title: "Failed to fetch game details",
+                        message: "An Error occured while fetching game details.\nPlease check your connection and try again.",
+                        openSettings: false) {
+                            self.fetchGameDetails(for: gameID, completion: completion)
+                        }
+                }
+            }
+        }
+    }
 }
 
 extension SearchViewModel: SearchViewModelProtocol {
@@ -73,7 +96,21 @@ extension SearchViewModel: SearchViewModelProtocol {
     }
     
     func didSelectItem(at indexPath: IndexPath) {
+        guard let game = games[safe: indexPath.item] else { return }
+        guard let gameId = game.id else { return }
         
+        fetchGameDetails(for: gameId) { [weak self] gameDetail in
+            guard let self = self else { return }
+            guard let gameDetail = gameDetail else {
+                self.view?.showAlert(
+                    title: "No Details",
+                    message: "Details for the selected game could not be fetched.",
+                    openSettings: false) { }
+                return
+            }
+            let resultGame = Result(from: game)
+            self.view?.navigateToDetailScreen(with: resultGame, withDetail: gameDetail)
+        }
     }
     
     func cellForItem(at indexPath: IndexPath) -> SearchResult? {
