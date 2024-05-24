@@ -69,7 +69,7 @@ final class DetailViewController: UIViewController {
             collectionView.topAnchor.constraint(equalTo: view.topAnchor),
             collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+            collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
     }
     
@@ -105,7 +105,10 @@ extension DetailViewController: UICollectionViewDelegate, UICollectionViewDataSo
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DetailGameCell.identifier,
                                                       for: indexPath) as! DetailGameCell
         
-        if let game = viewModel.cellForItem(at: indexPath) { cell.configure(with: game) }
+        if let game = viewModel.cellForItem(at: indexPath),
+           let gameDetails = viewModel.cellForItemForDetail(at: indexPath) {
+            cell.configure(with: game, withDetails: gameDetails)
+        }
         return cell
     }
     
@@ -138,7 +141,7 @@ extension DetailViewController: UICollectionViewDelegateFlowLayout {
         let widthPerItem = availableWidth
         let heightPerItem = widthPerItem / 1.5
         
-        return CGSize(width: widthPerItem, height: heightPerItem)
+        return CGSize(width: widthPerItem, height: heightPerItem * 2.2 )
     }
     
     func collectionView(_ collectionView: UICollectionView,
@@ -194,23 +197,23 @@ extension DetailViewController: DetailViewControllerProtocol {
     
 }
 
-#Preview {
-    let navC = UINavigationController(
-        rootViewController: DetailViewController(
-            viewModel: DetailViewModel(
-                games: [Result(
-                    id: 3498,
-                    name: "Grand Theft Auto V",
-                    released: "2013-09-17",
-                    backgroundImage: "https://media.rawg.io/media/games/20a/20aa03a10cda45239fe22d035c0ebe64.jpg",
-                    rating: 4.47,
-                    ratingTop: 5,
-                    metacritic: 92,
-                    shortScreenshots: [ShortScreenshot(id: -1,
-                                                       image: "https://media.rawg.io/media/games/20a/20aa03a10cda45239fe22d035c0ebe64.jpg")]
-                )]
-            )
-        )
-    )
-    return navC
-}
+//#Preview {
+//    let navC = UINavigationController(
+//        rootViewController: DetailViewController(
+//            viewModel: DetailViewModel(
+//                games: [Result(
+//                    id: 3498,
+//                    name: "Grand Theft Auto V",
+//                    released: "2013-09-17",
+//                    backgroundImage: "https://media.rawg.io/media/games/20a/20aa03a10cda45239fe22d035c0ebe64.jpg",
+//                    rating: 4.47,
+//                    ratingTop: 5,
+//                    metacritic: 92,
+//                    shortScreenshots: [ShortScreenshot(id: -1,
+//                                                       image: "https://media.rawg.io/media/games/20a/20aa03a10cda45239fe22d035c0ebe64.jpg")]
+//                )]
+//            )
+//        )
+//    )
+//    return navC
+//}

@@ -12,10 +12,12 @@ protocol DetailViewModelProtocol {
     var view: DetailViewControllerProtocol? { get set }
     var favoriteViewDelegate: FavoriteViewControllerProtocol? { get set }
     var games: [Result] { get }
+    var gameDetails: [GameDetailModel] { get }
     
     func viewDidLoad()
     func viewWillAppear()
     func cellForItem(at indexPath: IndexPath) -> Result?
+    func cellForItemForDetail(at indexPath: IndexPath) -> GameDetailModel?
     func toggleLike(for game: Result)
     func isGameLiked(id: Int) -> Bool
     func numberOfGameScreenshots() -> Int
@@ -24,11 +26,19 @@ protocol DetailViewModelProtocol {
 final class DetailViewModel {
     weak var view: DetailViewControllerProtocol?
     weak var favoriteViewDelegate: FavoriteViewControllerProtocol?
-    private(set) var games: [Result]
     
-    init(view: DetailViewControllerProtocol? = nil, games: [Result] = []) {
+    private let networkService: NetworkServiceProtocol
+    private(set) var games: [Result]
+    private(set) var gameDetails: [GameDetailModel] = []
+    
+    init(view: DetailViewControllerProtocol? = nil,
+         games: [Result] = [],
+         gameDetails: [GameDetailModel] = [],
+         networkService: NetworkServiceProtocol = NetworkService.shared) {
         self.view = view
         self.games = games
+        self.gameDetails = gameDetails
+        self.networkService = networkService
     }
 }
 
@@ -43,6 +53,10 @@ extension DetailViewModel: DetailViewModelProtocol {
     
     func cellForItem(at indexPath: IndexPath) -> Result? {
         return games[safe: indexPath.item]
+    }
+    
+    func cellForItemForDetail(at indexPath: IndexPath) -> GameDetailModel? {
+        return gameDetails[safe: indexPath.item]
     }
     
     func toggleLike(for game: Result) {

@@ -126,7 +126,7 @@ extension FavoriteViewController: FavoriteViewControllerProtocol {
     }
     
     func favoritesDidUpdate() {
-        let detailViewModel = DetailViewModel()
+        let detailViewModel = DetailViewModel(gameDetails: [])
         let favoriteViewController = FavoriteViewController(viewModel: FavoriteViewModel())
         
         detailViewModel.favoriteViewDelegate = favoriteViewController
