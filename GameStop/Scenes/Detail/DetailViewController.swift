@@ -141,7 +141,7 @@ extension DetailViewController: UICollectionViewDelegateFlowLayout {
         let widthPerItem = availableWidth
         let heightPerItem = widthPerItem / 1.5
         
-        return CGSize(width: widthPerItem, height: heightPerItem * 2.2 )
+        return CGSize(width: widthPerItem, height: heightPerItem * 3 )
     }
     
     func collectionView(_ collectionView: UICollectionView,

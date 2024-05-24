@@ -72,7 +72,7 @@ final class UICollectionViewFactory {
         layout.minimumInteritemSpacing = insets
         return self
     }
-    
+        
     func build() -> UICollectionView {
         return collectionView
     }

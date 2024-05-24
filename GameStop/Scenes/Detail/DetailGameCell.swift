@@ -21,7 +21,7 @@ final class DetailGameCell: UICollectionViewCell {
         .build()
     
     private let gameDescriptionLabel = UILabelFactory(text: "Error")
-        .fontSize(of: 8, weight: .regular)
+        .fontSize(of: 14, weight: .regular)
         .textColor(with: .white)
         .numberOf(lines: 0)
         .build()
@@ -41,8 +41,7 @@ final class DetailGameCell: UICollectionViewCell {
         .delegate(self)
         .dataSource(self)
         .build()
-    
-    
+        
     private var shortScreenshots: [ShortScreenshot] = []
     
     override init(frame: CGRect) {
@@ -80,15 +79,25 @@ final class DetailGameCell: UICollectionViewCell {
             screenshotsCollectionView.topAnchor.constraint(equalTo: screenshotsLabel.bottomAnchor, constant: 8),
             screenshotsCollectionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 8),
             screenshotsCollectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            screenshotsCollectionView.heightAnchor.constraint(equalToConstant: widthPerItem * 0.75)
+            screenshotsCollectionView.heightAnchor.constraint(equalToConstant: 200), // Set a fixed height
+            
         ])
     }
     
     func configure(with game: Result, withDetails gameDetails: GameDetailModel) {
-        gameDescriptionLabel.text = gameDetails.description
+        gameDescriptionLabel.text = extractEnglishDescription(from: gameDetails.description ?? "Error")
         gameLabel.text = game.name
         self.shortScreenshots = game.shortScreenshots ?? []
         screenshotsCollectionView.reloadData()
+    }
+    
+    private func extractEnglishDescription(from htmlString: String) -> String {
+        let sections = htmlString.components(separatedBy: "<p>Español")
+        guard let englishSection = sections.first else { return "Description not available" }
+        
+        var cleanString = englishSection.replacingOccurrences(of: "<br />", with: "\n")
+        cleanString = cleanString.replacingOccurrences(of: "<[^>]+>", with: "", options: .regularExpression, range: nil)
+        return cleanString.trimmingCharacters(in: .whitespacesAndNewlines)
     }
 }
 
@@ -99,30 +108,30 @@ extension DetailGameCell: UICollectionViewDataSource,
     func collectionView(
         _ collectionView: UICollectionView,
         numberOfItemsInSection section: Int) -> Int {
-        print("Number of items in section: \(shortScreenshots.count)")
-        return shortScreenshots.count
-    }
+            print("Number of items in section: \(shortScreenshots.count)")
+            return shortScreenshots.count
+        }
     
     func collectionView(
         _ collectionView: UICollectionView,
         cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(
-            withReuseIdentifier: DetailScreenshotCell.identifier,
-            for: indexPath) as! DetailScreenshotCell
-        let screenshot = shortScreenshots[indexPath.item]
-        cell.configure(with: screenshot)
-        return cell
-    }
+            let cell = collectionView.dequeueReusableCell(
+                withReuseIdentifier: DetailScreenshotCell.identifier,
+                for: indexPath) as! DetailScreenshotCell
+            let screenshot = shortScreenshots[indexPath.item]
+            cell.configure(with: screenshot)
+            return cell
+        }
     
     func collectionView(
         _ collectionView: UICollectionView,
         layout collectionViewLayout: UICollectionViewLayout,
         sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let paddingSpace = sectionInsets.left * 2
-        let availableWidth = collectionView.frame.width - paddingSpace
-        let widthPerItem = availableWidth / 1.5
-        return CGSize(width: widthPerItem, height: widthPerItem * 0.75)
-    }
+            let paddingSpace = sectionInsets.left * 2
+            let availableWidth = collectionView.frame.width - paddingSpace
+            let widthPerItem = availableWidth / 1.5
+            return CGSize(width: widthPerItem, height: widthPerItem * 0.75)
+        }
     
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
