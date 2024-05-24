@@ -55,8 +55,25 @@ final class UICollectionViewFactory {
         return self
     }
     
+    func scrollDirection(_ direction: UICollectionView.ScrollDirection) -> Self {
+        if let layout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout {
+            layout.scrollDirection = direction
+        }
+        return self
+    }
+    
+    func showsHorizontalScrollIndicator(_ shows: Bool) -> Self {
+        collectionView.showsHorizontalScrollIndicator = shows
+        return self
+    }
+    
+    func minimumInteritemSpacing(_ insets: CGFloat) -> Self {
+        let layout = UICollectionViewFlowLayout()
+        layout.minimumInteritemSpacing = insets
+        return self
+    }
+    
     func build() -> UICollectionView {
         return collectionView
     }
 }
-

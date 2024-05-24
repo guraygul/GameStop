@@ -18,9 +18,9 @@ final class DetailViewController: UIViewController {
     private var viewModel: DetailViewModelProtocol
     private var isLiked = false
     private let sectionInsets = UIEdgeInsets(top: 20.0,
-                                             left: 10.0,
+                                             left: 0,
                                              bottom: 20.0,
-                                             right: 10.0)
+                                             right: 0)
     
     private lazy var collectionView = UICollectionViewFactory()
         .registerSupplementaryViewClass(
@@ -117,18 +117,14 @@ extension DetailViewController: UICollectionViewDelegate, UICollectionViewDataSo
                 ofKind: kind,
                 withReuseIdentifier: DetailCollectionHeaderView.identifier,
                 for: indexPath) as! DetailCollectionHeaderView
-            if let game = viewModel.cellForItem(
-                at: indexPath
-            ) {
-                headerView.configure(
-                    with: game
-                )
+            
+            if let game = viewModel.cellForItem(at: indexPath) {
+                headerView.configure(with: game)
             }
             return headerView
         }
         fatalError("Unexpected element kind")
     }
-    
 }
 
 // MARK: - Configuring collection view cells size
@@ -137,12 +133,12 @@ extension DetailViewController: UICollectionViewDelegateFlowLayout {
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
         
-        let itemsPerRow: CGFloat = 1
-        let paddingSpace = sectionInsets.left * (itemsPerRow + 1)
+        let paddingSpace = sectionInsets.left * 2
         let availableWidth = view.frame.width - paddingSpace
-        let widthPerItem = availableWidth / itemsPerRow
+        let widthPerItem = availableWidth
+        let heightPerItem = widthPerItem / 1.5
         
-        return CGSize(width: widthPerItem, height: widthPerItem / 4)
+        return CGSize(width: widthPerItem, height: heightPerItem)
     }
     
     func collectionView(_ collectionView: UICollectionView,
@@ -209,7 +205,9 @@ extension DetailViewController: DetailViewControllerProtocol {
                     backgroundImage: "https://media.rawg.io/media/games/20a/20aa03a10cda45239fe22d035c0ebe64.jpg",
                     rating: 4.47,
                     ratingTop: 5,
-                    metacritic: 92
+                    metacritic: 92,
+                    shortScreenshots: [ShortScreenshot(id: -1,
+                                                       image: "https://media.rawg.io/media/games/20a/20aa03a10cda45239fe22d035c0ebe64.jpg")]
                 )]
             )
         )

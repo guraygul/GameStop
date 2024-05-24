@@ -30,6 +30,7 @@
 		104BB1D52BF94DF70049E7F5 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 104BB1D42BF94DF70049E7F5 /* NetworkError.swift */; };
 		104BB1DC2BF951780049E7F5 /* Collection+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 104BB1DB2BF951780049E7F5 /* Collection+Extension.swift */; };
 		104BB1DF2BF954C50049E7F5 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 104BB1DE2BF954C50049E7F5 /* Kingfisher */; };
+		10AAD8832C00A80600420DDC /* DetailScreenshotCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10AAD8822C00A80600420DDC /* DetailScreenshotCell.swift */; };
 		10BCBBA52BFBFD0F0021E4A8 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10BCBBA42BFBFD0F0021E4A8 /* DetailViewController.swift */; };
 		10C69EE82BFE25D600B035E2 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10C69EE72BFE25D600B035E2 /* SearchViewController.swift */; };
 		10C69EEA2BFE266F00B035E2 /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10C69EE92BFE266F00B035E2 /* SearchViewModel.swift */; };
@@ -76,6 +77,7 @@
 		104BB1D22BF94DC90049E7F5 /* NetworkServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkServiceProtocol.swift; sourceTree = "<group>"; };
 		104BB1D42BF94DF70049E7F5 /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
 		104BB1DB2BF951780049E7F5 /* Collection+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Collection+Extension.swift"; sourceTree = "<group>"; };
+		10AAD8822C00A80600420DDC /* DetailScreenshotCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailScreenshotCell.swift; sourceTree = "<group>"; };
 		10BCBBA42BFBFD0F0021E4A8 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		10C69EE72BFE25D600B035E2 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		10C69EE92BFE266F00B035E2 /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
@@ -242,6 +244,7 @@
 				10BCBBA42BFBFD0F0021E4A8 /* DetailViewController.swift */,
 				10ECFC6D2BFCCEC00074892D /* DetailGameCell.swift */,
 				10ECFC712BFCF0220074892D /* DetailCollectionHeaderView.swift */,
+				10AAD8822C00A80600420DDC /* DetailScreenshotCell.swift */,
 			);
 			path = Detail;
 			sourceTree = "<group>";
@@ -302,8 +305,8 @@
 				10CB1CF82BF8E97D006D5C04 /* HomeViewController.swift */,
 				10F788492BF91947003F5B67 /* HomeGameCell.swift */,
 				1001C3072BFAB60F00F61C24 /* HomePageViewController.swift */,
-				1001C3092BFAB64B00F61C24 /* HomePageImageViewController.swift */,
 				101582422BFFB839005A8994 /* HomePageHeaderView.swift */,
+				1001C3092BFAB64B00F61C24 /* HomePageImageViewController.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -394,6 +397,7 @@
 				104BB1C22BF923310049E7F5 /* UILabelFactory.swift in Sources */,
 				10ECFC7B2BFD50430074892D /* FavoriteViewModel.swift in Sources */,
 				104BB1C62BF926C40049E7F5 /* HomeViewModel.swift in Sources */,
+				10AAD8832C00A80600420DDC /* DetailScreenshotCell.swift in Sources */,
 				104BB1D32BF94DC90049E7F5 /* NetworkServiceProtocol.swift in Sources */,
 				104BB1C32BF923310049E7F5 /* UIStackViewFactory.swift in Sources */,
 				1001C3042BFA628300F61C24 /* AlertPresentable.swift in Sources */,

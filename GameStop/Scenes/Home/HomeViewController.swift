@@ -39,13 +39,13 @@ final class HomeViewController: UIViewController {
         viewModel.view = self
         viewModel.viewDidLoad()
         
-        leftNavigationBar()
         setupCollectionView()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         viewModel.viewWillAppear()
+        leftNavigationBar(backgroundColor: .clear)
     }
     
     private func setupCollectionView() {
