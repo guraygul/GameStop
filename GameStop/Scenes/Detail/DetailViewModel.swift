@@ -8,12 +8,17 @@
 import Foundation
 import CoreData
 
+enum Media {
+    case screenshot(ShortScreenshot)
+    case trailer(GameTrailer)
+}
+
 protocol DetailViewModelProtocol {
     var view: DetailViewControllerProtocol? { get set }
     var favoriteViewDelegate: FavoriteViewControllerProtocol? { get set }
     var game: [Result] { get set }
     var gameDetails: [GameDetailModel] { get set }
-    var gameTrailers: [GameTrailerModelResultTrailers] { get }
+    var gameTrailers: [GameTrailer] { get }
     
     func viewDidLoad()
     func viewWillAppear()
@@ -22,6 +27,7 @@ protocol DetailViewModelProtocol {
     func toggleLike(for game: Result)
     func isGameLiked(id: Int) -> Bool
     func numberOfGameScreenshots() -> Int
+    func getCombinedMedia() -> [Media]
 }
 
 final class DetailViewModel {
@@ -31,7 +37,7 @@ final class DetailViewModel {
     
     var game: [Result]
     var gameDetails: [GameDetailModel] = []
-    private(set) var gameTrailers: [GameTrailerModelResultTrailers] = []
+    private(set) var gameTrailers: [GameTrailer] = []
     
     init(view: DetailViewControllerProtocol? = nil,
          game: [Result] = [],
@@ -88,7 +94,7 @@ extension DetailViewModel: DetailViewModelProtocol {
                     message: "An Error occured while liking.\nPlease try again.",
                     openSettings: false) {
                         self.toggleLike(for: game)
-                }
+                    }
             }
         }
     }
@@ -117,38 +123,21 @@ extension DetailViewModel: DetailViewModelProtocol {
         return game.reduce(0) { $0 + ($1.shortScreenshots?.count ?? 0) }
     }
     
-//    private func fetchGameTrailers(for gameID: Int, completion: @escaping (GameTrailerModelResultTrailers?) -> Void) {
-//        Task {
-//            do {
-//                let gameDetail = try await networkService.fetchData(
-//                    from: GameAPI.gameTrailers(id: gameID),
-//                    as: GameTrailerModelResultTrailers.self)
-//                completion(gameDetail)
-//            } catch {
-//                DispatchQueue.main.async { [weak self] in
-//                    guard let self = self else { return }
-//                    self.view?.showAlert(
-//                        title: "Failed to fetch game details",
-//                        message: "An Error occured while fetching game details.\nPlease check your connection and try again.",
-//                        openSettings: false) {
-//                            self.fetchGameTrailers(for: gameID, completion: completion)
-//                        }
-//                }
-//            }
-//        }
-//    }
-    
     func fetchGameDetails(for gameID: Int) {
         Task {
             do {
                 let gameDetail = try await networkService.fetchData(
                     from: GameAPI.gameDetails(id: gameID),
                     as: GameDetailModel.self)
+                
+                let gameDetailTrailers = try await networkService.fetchData(
+                    from: GameAPI.gameTrailers(id: gameID),
+                    as: GameTrailerModelResult.self)
+                
+                self.gameTrailers.append(contentsOf: gameDetailTrailers.results)
                 self.gameDetails.append(gameDetail)
-                DispatchQueue.main.async { [weak self] in
-                    guard let self = self else { return }
-                    self.view?.reloadData()
-                }
+                
+                self.view?.reloadData()
             } catch {
                 DispatchQueue.main.async { [weak self] in
                     guard let self = self else { return }
@@ -163,4 +152,9 @@ extension DetailViewModel: DetailViewModelProtocol {
         }
     }
     
+    func getCombinedMedia() -> [Media] {
+        let trailers = gameTrailers.map { Media.trailer($0) }
+        let screenshots = game.compactMap { $0.shortScreenshots }.flatMap { $0 }
+        return trailers + screenshots.map { Media.screenshot($0) }
+    }
 }

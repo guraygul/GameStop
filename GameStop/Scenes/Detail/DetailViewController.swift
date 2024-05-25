@@ -7,6 +7,7 @@
 
 import UIKit
 import Kingfisher
+import AVKit
 
 protocol DetailViewControllerProtocol: AnyObject, AlertPresentable {
     func prepareCollectionView()
@@ -100,7 +101,8 @@ extension DetailViewController: UICollectionViewDelegate, UICollectionViewDataSo
         
         if let game = viewModel.cellForItem(at: indexPath),
            let gameDetails = viewModel.cellForItemForDetail(at: indexPath) {
-            cell.configure(with: game, withDetails: gameDetails)
+            let media = viewModel.getCombinedMedia()
+            cell.configure(with: game, withDetails: gameDetails, media: media, delegate: self)
         }
         return cell
     }
@@ -165,7 +167,7 @@ extension DetailViewController: DetailViewControllerProtocol {
             DetailGameCell.self,
             forCellWithReuseIdentifier: DetailGameCell.identifier)
         
-        collectionView.reloadData()
+        reloadData()
     }
     
     func reloadData() {
@@ -191,6 +193,17 @@ extension DetailViewController: DetailViewControllerProtocol {
         }
     }
     
+}
+
+extension DetailViewController: DetailScreenshotCellDelegate {
+    func playVideo(with url: URL) {
+        let player = AVPlayer(url: url)
+        let playerViewController = AVPlayerViewController()
+        playerViewController.player = player
+        present(playerViewController, animated: true) {
+            player.play()
+        }
+    }
 }
 
 //#Preview {

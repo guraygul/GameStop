@@ -8,6 +8,8 @@
 import UIKit
 
 final class DetailGameCell: UICollectionViewCell {
+    private var mediaItems: [Media] = []
+    weak var delegate: DetailScreenshotCellDelegate?
     static let identifier = "DetailGameCell"
     private let sectionInsets = UIEdgeInsets(top: 0,
                                              left: 10.0,
@@ -41,7 +43,7 @@ final class DetailGameCell: UICollectionViewCell {
         .delegate(self)
         .dataSource(self)
         .build()
-        
+    
     private var shortScreenshots: [ShortScreenshot] = []
     
     override init(frame: CGRect) {
@@ -80,10 +82,14 @@ final class DetailGameCell: UICollectionViewCell {
         ])
     }
     
-    func configure(with game: Result, withDetails gameDetails: GameDetailModel) {
+    func configure(with game: Result,
+                   withDetails gameDetails: GameDetailModel,
+                   media: [Media],
+                   delegate: DetailScreenshotCellDelegate) {
         gameDescriptionLabel.text = gameDetails.description?.extractEnglishDescription() ?? "Error"
         gameLabel.text = game.name
-        self.shortScreenshots = game.shortScreenshots ?? []
+        self.mediaItems = media
+        self.delegate = delegate
         screenshotsCollectionView.reloadData()
     }
     
@@ -96,7 +102,7 @@ extension DetailGameCell: UICollectionViewDataSource,
     func collectionView(
         _ collectionView: UICollectionView,
         numberOfItemsInSection section: Int) -> Int {
-            return shortScreenshots.count
+            return mediaItems.count
         }
     
     func collectionView(
@@ -105,8 +111,9 @@ extension DetailGameCell: UICollectionViewDataSource,
             let cell = collectionView.dequeueReusableCell(
                 withReuseIdentifier: DetailScreenshotCell.identifier,
                 for: indexPath) as! DetailScreenshotCell
-            let screenshot = shortScreenshots[indexPath.item]
-            cell.configure(with: screenshot)
+            
+            let media = mediaItems[indexPath.item]
+            cell.configure(with: media, delegate: delegate!)
             return cell
         }
     

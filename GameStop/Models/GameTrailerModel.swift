@@ -7,29 +7,26 @@
 
 import Foundation
 
-// MARK: - Welcome
-struct GameTrailerModel: Decodable {
+struct GameTrailerModelResult: Decodable {
     let count: Int?
     let next: String?
     let previous: String?
-    let results: [Result]?
+    let results: [GameTrailer]
 }
 
-// MARK: - Result
-struct GameTrailerModelResult: Decodable {
-    let id: Int?
-    let name: String?
-    let preview: String?
-    let data: GameTrailerModelResultTrailers?
+struct GameTrailer: Decodable {
+    let id: Int
+    let name: String
+    let preview: String
+    let data: TrailerData
 }
 
-// MARK: - DataClass
-struct GameTrailerModelResultTrailers: Decodable {
-    let the480: String?
-    let max: String?
-
+struct TrailerData: Decodable {
+    let low: URL?
+    let high: URL?
+    
     enum CodingKeys: String, CodingKey {
-        case max
-        case the480 = "480"
+        case low = "480"
+        case high = "max"
     }
 }
