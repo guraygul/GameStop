@@ -31,9 +31,6 @@ final class DetailViewController: UIViewController {
         .contentInsetAdjustmentBehavior(.never)
         .build()
     
-    private var headerView = UIViewFactory()
-        .build()
-    
     private lazy var heartButton = UIButtonFactory()
         .image(UIImage(systemName: "heart"), for: .normal)
         .addTarget(self, action: #selector(heartButtonTapped), for: .touchUpInside)
@@ -183,15 +180,18 @@ extension DetailViewController: DetailViewControllerProtocol {
     }
     
     func prepareNavigationBar(with backgroundColor: UIColor) {
-        super.leftNavigationBar(backgroundColor: backgroundColor)
-        
-        let heartBarButtonItem = UIBarButtonItem(customView: heartButton)
-        navigationItem.rightBarButtonItem = heartBarButtonItem
-        
-        if let firstGame = viewModel.cellForItem(
-            at: IndexPath(item: 0,
-                          section: 0)) {
-            updateHeartButton(for: firstGame)
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+            self.leftNavigationBar(backgroundColor: backgroundColor)
+            
+            let heartBarButtonItem = UIBarButtonItem(customView: self.heartButton)
+            self.navigationItem.rightBarButtonItem = heartBarButtonItem
+            
+            if let firstGame = self.viewModel.cellForItem(
+                at: IndexPath(item: 0,
+                              section: 0)) {
+                self.updateHeartButton(for: firstGame)
+            }
         }
     }
     

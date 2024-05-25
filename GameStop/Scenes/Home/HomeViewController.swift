@@ -179,17 +179,20 @@ extension HomeViewController: HomeViewControllerProtocol {
         guard let details = details else { return }
         
         let detailViewModel = DetailViewModel(games: [games], gameDetails: [details])
-        let detailViewController = DetailViewController(viewModel: detailViewModel)
         
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
+            let detailViewController = DetailViewController(viewModel: detailViewModel)
             self.navigationController?.pushViewController(detailViewController, animated: true)
         }
     }
-    
+
 }
 
-//#Preview {
-//    let navC = UINavigationController(rootViewController: HomeViewController(viewModel: HomeViewModel(networkService: NetworkService.shared)))
-//    return navC
-//}
+#Preview {
+//    let navC = UINavigationController(rootViewController: HomeViewController(
+//        viewModel: HomeViewModel(
+//            networkService: NetworkService.shared)))
+    let navC = UINavigationController(rootViewController: TabBarViewController())
+    return navC
+}

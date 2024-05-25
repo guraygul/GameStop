@@ -7,7 +7,7 @@
 
 import UIKit
 
-class HomePageHeaderView: UICollectionReusableView {
+final class HomePageHeaderView: UICollectionReusableView {
     static let identifier = "HomePageHeaderView"
     
     private let homePageViewController = HomePageViewController()
