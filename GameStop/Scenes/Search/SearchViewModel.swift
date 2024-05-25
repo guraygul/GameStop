@@ -9,13 +9,13 @@ import Foundation
 
 protocol SearchViewModelProtocol {
     var view: SearchViewControllerProtocol? { get set }
-    var games: [SearchResult] { get }
+    var games: [Result] { get }
     var gameDetails: [GameDetailModel] { get }
     
     func viewDidLoad()
     func viewWillAppear()
     func didSelectItem(at indexPath: IndexPath)
-    func cellForItem(at indexPath: IndexPath) -> SearchResult?
+    func cellForItem(at indexPath: IndexPath) -> Result?
     func fetchNextPage()
     func searchGames(with query: String)
 }
@@ -24,7 +24,7 @@ final class SearchViewModel {
     weak var view: SearchViewControllerProtocol?
     private let networkService: NetworkServiceProtocol
     
-    private(set) var games: [SearchResult] = []
+    private(set) var games: [Result] = []
     private(set) var gameDetails: [GameDetailModel] = []
     
     private var currentPage: Int = 1
@@ -46,7 +46,7 @@ final class SearchViewModel {
                 let gameModel = try await networkService.fetchData(
                     from: GameAPI.search(page: page,
                                          name: name),
-                    as: GameSearchModel.self)
+                    as: GameModel.self)
                 self.games = page == 1 ? gameModel.results ?? [] : self.games + (gameModel.results ?? [])
                 self.hasMoreGames = gameModel.next != nil
                 self.currentPage = page + 1
@@ -108,12 +108,11 @@ extension SearchViewModel: SearchViewModelProtocol {
                     openSettings: false) { }
                 return
             }
-            let resultGame = Result(from: game)
-            self.view?.navigateToDetailScreen(with: resultGame, withDetail: gameDetail)
+            self.view?.navigateToDetailScreen(with: game, withDetail: gameDetail)
         }
     }
     
-    func cellForItem(at indexPath: IndexPath) -> SearchResult? {
+    func cellForItem(at indexPath: IndexPath) -> Result? {
         return games[safe: indexPath.item]
     }
     

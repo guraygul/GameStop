@@ -46,7 +46,7 @@ final class SearchGameCell: UICollectionViewCell {
         ])
     }
     
-    func configure(with game: SearchResult) {
+    func configure(with game: Result) {
         titleLabel.text = game.name
         
         if let imageUrl = game.backgroundImage,

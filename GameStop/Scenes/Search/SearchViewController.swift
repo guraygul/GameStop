@@ -171,10 +171,10 @@ extension SearchViewController: SearchViewControllerProtocol {
         guard let details = details else { return }
         
         let detailViewModel = DetailViewModel(games: [games], gameDetails: [details])
-        let detailViewController = DetailViewController(viewModel: detailViewModel)
         
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
+            let detailViewController = DetailViewController(viewModel: detailViewModel)
             self.navigationController?.pushViewController(detailViewController, animated: true)
         }
     }

@@ -59,10 +59,6 @@ final class DetailGameCell: UICollectionViewCell {
         contentView.addSubview(screenshotsLabel)
         contentView.addSubview(screenshotsCollectionView)
         
-        let paddingSpace = sectionInsets.left * 2
-        let availableWidth = contentView.frame.width - paddingSpace
-        let widthPerItem = availableWidth / 1.5
-        
         NSLayoutConstraint.activate([
             gameLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 16),
             gameLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
@@ -79,26 +75,18 @@ final class DetailGameCell: UICollectionViewCell {
             screenshotsCollectionView.topAnchor.constraint(equalTo: screenshotsLabel.bottomAnchor, constant: 8),
             screenshotsCollectionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 8),
             screenshotsCollectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            screenshotsCollectionView.heightAnchor.constraint(equalToConstant: 200), // Set a fixed height
+            screenshotsCollectionView.heightAnchor.constraint(equalToConstant: 200),
             
         ])
     }
     
     func configure(with game: Result, withDetails gameDetails: GameDetailModel) {
-        gameDescriptionLabel.text = extractEnglishDescription(from: gameDetails.description ?? "Error")
+        gameDescriptionLabel.text = gameDetails.description?.extractEnglishDescription() ?? "Error"
         gameLabel.text = game.name
         self.shortScreenshots = game.shortScreenshots ?? []
         screenshotsCollectionView.reloadData()
     }
     
-    private func extractEnglishDescription(from htmlString: String) -> String {
-        let sections = htmlString.components(separatedBy: "<p>Español")
-        guard let englishSection = sections.first else { return "Description not available" }
-        
-        var cleanString = englishSection.replacingOccurrences(of: "<br />", with: "\n")
-        cleanString = cleanString.replacingOccurrences(of: "<[^>]+>", with: "", options: .regularExpression, range: nil)
-        return cleanString.trimmingCharacters(in: .whitespacesAndNewlines)
-    }
 }
 
 // MARK: - UICollectionViewDataSource, UICollectionViewDelegate
@@ -108,7 +96,6 @@ extension DetailGameCell: UICollectionViewDataSource,
     func collectionView(
         _ collectionView: UICollectionView,
         numberOfItemsInSection section: Int) -> Int {
-            print("Number of items in section: \(shortScreenshots.count)")
             return shortScreenshots.count
         }
     
