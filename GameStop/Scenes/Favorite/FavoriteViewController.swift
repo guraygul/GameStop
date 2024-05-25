@@ -36,7 +36,7 @@ final class FavoriteViewController: UIViewController {
         viewModel.view = self
         viewModel.viewDidLoad()
         
-        leftNavigationBar()
+        leftNavigationBar(backgroundColor: .clear)
         setupUI()
         setupCollectionView()
     }

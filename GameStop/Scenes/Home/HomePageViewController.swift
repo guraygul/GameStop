@@ -78,7 +78,7 @@ final class HomePageViewController: UIViewController {
         pageControl.numberOfPages = games.count
         pageControl.currentPage = 0
         pageControl.translatesAutoresizingMaskIntoConstraints = false
-        pageControl.currentPageIndicatorTintColor = Theme.mainColor
+        pageControl.currentPageIndicatorTintColor = Theme.yellowColor
         pageControl.pageIndicatorTintColor = .lightGray
         
         applyShadowToPageControl()

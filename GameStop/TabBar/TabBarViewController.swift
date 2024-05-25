@@ -44,9 +44,11 @@ final class TabBarViewController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = Theme.backgroundColor
-        UITabBar.appearance().barTintColor = Theme.mainColor
-        tabBar.tintColor = Theme.tintColor
+        let gradientLayer = Theme.gradientLayer(for: self.view)
+        self.view.layer.insertSublayer(gradientLayer, at: 0)
+        
+        UITabBar.appearance().barTintColor = Theme.blackColor
+        tabBar.tintColor = Theme.whiteColor
         viewControllers = [homeViewController, searchViewController, favoriteViewController]
     }
     

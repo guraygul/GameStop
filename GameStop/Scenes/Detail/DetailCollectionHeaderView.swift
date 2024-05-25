@@ -27,7 +27,7 @@ final class DetailCollectionHeaderView: UICollectionReusableView {
     private let gradientLayerTop: CAGradientLayer = {
         let layer = CAGradientLayer()
         layer.colors = [UIColor.black.cgColor, UIColor.clear.cgColor]
-        layer.locations = [0.0, 0.5]
+        layer.locations = [0.1, 1.0]
         return layer
     }()
     
@@ -48,7 +48,7 @@ final class DetailCollectionHeaderView: UICollectionReusableView {
     private let gameLabel = UILabelFactory(text: "Error")
         .fontSize(of: 24, weight: .bold)
         .textColor(with: Theme.whiteColor)
-        .numberOf(lines: 1)
+        .numberOf(lines: 2)
         .build()
     
     private let metacriticImageView = UIImageViewFactory(image: UIImage(named: "meta"))

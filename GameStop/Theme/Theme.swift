@@ -14,11 +14,11 @@ class Theme {
         blue: 229/255,
         alpha: 1.0
     )
-
+    
     static let backgroundColor = UIColor(
-        red: 43/255,
-        green: 20/255,
-        blue: 97/255,
+        red: 31/255,
+        green: 31/255,
+        blue: 31/255,
         alpha: 1.0
     )
     
@@ -29,11 +29,34 @@ class Theme {
         alpha: 1.0
     )
     
+    static let blackColor = UIColor(
+        red: 0/255,
+        green: 0/255,
+        blue: 0/255,
+        alpha: 1.0
+    )
+    
     static let whiteColor = UIColor(
         red: 1.0,
         green: 1.0,
         blue: 1.0,
         alpha: 1.0
     )
+    
+    static let yellowColor = UIColor(
+        red: 255/255,
+        green: 204/255,
+        blue: 0/255,
+        alpha: 1.0
+    )
 
+    static func gradientLayer(for view: UIView) -> CAGradientLayer {
+        let gradientLayer = CAGradientLayer()
+        gradientLayer.frame = view.bounds
+        gradientLayer.colors = [
+            UIColor(red: 11/255, green: 11/255, blue: 11/255, alpha: 1.0).cgColor,
+            UIColor(red: 31/255, green: 31/255, blue: 31/255, alpha: 1.0).cgColor
+        ]
+        return gradientLayer
+    }
 }

@@ -39,8 +39,7 @@ final class SearchViewController: UIViewController {
         viewModel.view = self
         viewModel.viewDidLoad()
         
-        leftNavigationBar()
-
+        leftNavigationBar(backgroundColor: .clear)
         setupSearchBar()
         setupCollectionView()
     }

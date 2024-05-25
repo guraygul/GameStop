@@ -60,6 +60,8 @@ final class DetailViewController: UIViewController {
     }
     
     private func setupUI() {
+        setBackBarButtonItemTitleToEmpty()
+        setNavigationBarItemsColor(.systemYellow)
         view.addSubview(collectionView)
         collectionView.backgroundColor = Theme.backgroundColor
         

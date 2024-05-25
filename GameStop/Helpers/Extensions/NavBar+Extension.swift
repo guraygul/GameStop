@@ -11,7 +11,7 @@ extension UIViewController {
     func leftNavigationBar(backgroundColor: UIColor = Theme.mainColor) {
         let offset = UIOffset(horizontal: -CGFloat.greatestFiniteMagnitude, vertical: 0)
         let appearance = UINavigationBarAppearance()
-        appearance.titleTextAttributes = [.foregroundColor: Theme.tintColor]
+        appearance.titleTextAttributes = [.foregroundColor: Theme.yellowColor]
         appearance.backgroundColor = backgroundColor
         appearance.backgroundEffect = nil
         appearance.titlePositionAdjustment = offset
@@ -22,6 +22,15 @@ extension UIViewController {
         navigationController?.hideHairline()
         
         navigationItem.titleView = nil
+    }
+    
+    func setNavigationBarItemsColor(_ color: UIColor) {
+        navigationController?.navigationBar.tintColor = color
+    }
+    
+    func setBackBarButtonItemTitleToEmpty() {
+        let backItem = UIBarButtonItem(title: "", style: .done, target: nil, action: nil)
+        navigationController?.navigationBar.topItem?.backBarButtonItem = backItem
     }
 }
 
