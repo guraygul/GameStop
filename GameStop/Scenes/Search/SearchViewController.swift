@@ -11,7 +11,7 @@ protocol SearchViewControllerProtocol: AnyObject, AlertPresentable {
     func setNavigationTitle(with title: String)
     func prepareCollectionView()
     func reloadData()
-    func navigateToDetailScreen(with game: Result?, withDetail details: GameDetailModel?)
+    func navigateToDetailScreen(with game: Result?)
 }
 
 final class SearchViewController: UIViewController {
@@ -166,11 +166,9 @@ extension SearchViewController: SearchViewControllerProtocol {
         }
     }
     
-    func navigateToDetailScreen(with games: Result?, withDetail details: GameDetailModel?) {
-        guard let games = games else { return }
-        guard let details = details else { return }
-        
-        let detailViewModel = DetailViewModel(game: [games], gameDetails: [details])
+    func navigateToDetailScreen(with game: Result?) {
+        guard let game = game else { return }
+        let detailViewModel = DetailViewModel(game: [game])
         
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }

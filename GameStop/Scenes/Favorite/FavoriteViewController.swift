@@ -11,7 +11,6 @@ protocol FavoriteViewControllerProtocol: AnyObject, AlertPresentable {
     func setNavigationTitle(with title: String)
     func prepareCollectionView()
     func reloadData()
-    func favoritesDidUpdate()
 }
 
 final class FavoriteViewController: UIViewController {
@@ -74,12 +73,12 @@ extension FavoriteViewController: UICollectionViewDelegate, UICollectionViewData
     
     func collectionView(_ collectionView: UICollectionView,
                         cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "FavoriteGameCell",
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FavoriteGameCell.identifier,
                                                       for: indexPath) as! FavoriteGameCell
-        let game = viewModel.likedGames[indexPath.item]
-        cell.configure(with: game)
+        if let game = viewModel.cellForItem(at: indexPath) { cell.configure(with: game) }
         return cell
     }
+    
 }
 
 extension FavoriteViewController: UICollectionViewDelegateFlowLayout {
@@ -122,14 +121,7 @@ extension FavoriteViewController: FavoriteViewControllerProtocol {
             FavoriteGameCell.self,
             forCellWithReuseIdentifier: FavoriteGameCell.identifier)
         
-        collectionView.reloadData()
-    }
-    
-    func favoritesDidUpdate() {
-        let detailViewModel = DetailViewModel(gameDetails: [])
-        let favoriteViewController = FavoriteViewController(viewModel: FavoriteViewModel())
-        
-        detailViewModel.favoriteViewDelegate = favoriteViewController
+        reloadData()
     }
     
     func reloadData() {
@@ -138,4 +130,5 @@ extension FavoriteViewController: FavoriteViewControllerProtocol {
             self.collectionView.reloadData()
         }
     }
+    
 }

@@ -80,7 +80,6 @@ extension DetailViewModel: DetailViewModelProtocol {
                 newEntity.isLiked = true
             }
             CoreDataManager.shared.saveContext()
-            favoriteViewDelegate?.favoritesDidUpdate()
         } catch {
             DispatchQueue.main.async { [weak self] in
                 guard let self = self else { return }
@@ -163,6 +162,5 @@ extension DetailViewModel: DetailViewModelProtocol {
             }
         }
     }
-    
     
 }
