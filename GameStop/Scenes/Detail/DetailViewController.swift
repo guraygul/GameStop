@@ -88,13 +88,9 @@ final class DetailViewController: UIViewController {
 
 // MARK: - Configuring collection view cells data
 extension DetailViewController: UICollectionViewDelegate, UICollectionViewDataSource {
-    func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 1
-    }
-    
     func collectionView(_ collectionView: UICollectionView,
                         numberOfItemsInSection section: Int) -> Int {
-        return viewModel.games.count
+        return 1
     }
     
     func collectionView(_ collectionView: UICollectionView,

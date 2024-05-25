@@ -170,7 +170,7 @@ extension SearchViewController: SearchViewControllerProtocol {
         guard let games = games else { return }
         guard let details = details else { return }
         
-        let detailViewModel = DetailViewModel(games: [games], gameDetails: [details])
+        let detailViewModel = DetailViewModel(game: [games], gameDetails: [details])
         
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }

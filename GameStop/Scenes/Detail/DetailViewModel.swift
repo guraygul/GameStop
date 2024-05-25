@@ -11,8 +11,9 @@ import CoreData
 protocol DetailViewModelProtocol {
     var view: DetailViewControllerProtocol? { get set }
     var favoriteViewDelegate: FavoriteViewControllerProtocol? { get set }
-    var games: [Result] { get }
-    var gameDetails: [GameDetailModel] { get }
+    var game: [Result] { get set }
+    var gameDetails: [GameDetailModel] { get set }
+    var gameTrailers: [GameTrailerModelResultTrailers] { get }
     
     func viewDidLoad()
     func viewWillAppear()
@@ -26,17 +27,18 @@ protocol DetailViewModelProtocol {
 final class DetailViewModel {
     weak var view: DetailViewControllerProtocol?
     weak var favoriteViewDelegate: FavoriteViewControllerProtocol?
-    
     private let networkService: NetworkServiceProtocol
-    private(set) var games: [Result]
-    private(set) var gameDetails: [GameDetailModel] = []
+    
+    var game: [Result]
+    var gameDetails: [GameDetailModel] = []
+    private(set) var gameTrailers: [GameTrailerModelResultTrailers] = []
     
     init(view: DetailViewControllerProtocol? = nil,
-         games: [Result] = [],
+         game: [Result] = [],
          gameDetails: [GameDetailModel] = [],
          networkService: NetworkServiceProtocol = NetworkService.shared) {
         self.view = view
-        self.games = games
+        self.game = game
         self.gameDetails = gameDetails
         self.networkService = networkService
     }
@@ -45,6 +47,9 @@ final class DetailViewModel {
 extension DetailViewModel: DetailViewModelProtocol {
     func viewDidLoad() {
         view?.prepareCollectionView()
+        if let gameID = game.first?.id {
+            fetchGameDetails(for: gameID)
+        }
     }
     
     func viewWillAppear() {
@@ -52,7 +57,7 @@ extension DetailViewModel: DetailViewModelProtocol {
     }
     
     func cellForItem(at indexPath: IndexPath) -> Result? {
-        return games[safe: indexPath.item]
+        return game[safe: indexPath.item]
     }
     
     func cellForItemForDetail(at indexPath: IndexPath) -> GameDetailModel? {
@@ -110,7 +115,54 @@ extension DetailViewModel: DetailViewModelProtocol {
     }
     
     func numberOfGameScreenshots() -> Int {
-        return games.reduce(0) { $0 + ($1.shortScreenshots?.count ?? 0) }
+        return game.reduce(0) { $0 + ($1.shortScreenshots?.count ?? 0) }
     }
+    
+//    private func fetchGameTrailers(for gameID: Int, completion: @escaping (GameTrailerModelResultTrailers?) -> Void) {
+//        Task {
+//            do {
+//                let gameDetail = try await networkService.fetchData(
+//                    from: GameAPI.gameTrailers(id: gameID),
+//                    as: GameTrailerModelResultTrailers.self)
+//                completion(gameDetail)
+//            } catch {
+//                DispatchQueue.main.async { [weak self] in
+//                    guard let self = self else { return }
+//                    self.view?.showAlert(
+//                        title: "Failed to fetch game details",
+//                        message: "An Error occured while fetching game details.\nPlease check your connection and try again.",
+//                        openSettings: false) {
+//                            self.fetchGameTrailers(for: gameID, completion: completion)
+//                        }
+//                }
+//            }
+//        }
+//    }
+    
+    func fetchGameDetails(for gameID: Int) {
+        Task {
+            do {
+                let gameDetail = try await networkService.fetchData(
+                    from: GameAPI.gameDetails(id: gameID),
+                    as: GameDetailModel.self)
+                self.gameDetails.append(gameDetail)
+                DispatchQueue.main.async { [weak self] in
+                    guard let self = self else { return }
+                    self.view?.reloadData()
+                }
+            } catch {
+                DispatchQueue.main.async { [weak self] in
+                    guard let self = self else { return }
+                    self.view?.showAlert(
+                        title: "Failed to fetch game details",
+                        message: "An Error occurred while fetching game details.\nPlease check your connection and try again.",
+                        openSettings: false) {
+                            self.fetchGameDetails(for: gameID)
+                        }
+                }
+            }
+        }
+    }
+    
     
 }

@@ -12,7 +12,7 @@ protocol HomeViewControllerProtocol: AnyObject, AlertPresentable {
     func setNavigationTitle(with title: String)
     func prepareCollectionView()
     func reloadData()
-    func navigateToDetailScreen(with game: Result?, withDetail details: GameDetailModel?)
+    func navigateToDetailScreen(with game: Result?)
 }
 
 final class HomeViewController: UIViewController {
@@ -174,15 +174,13 @@ extension HomeViewController: HomeViewControllerProtocol {
         }
     }
     
-    func navigateToDetailScreen(with games: Result?, withDetail details: GameDetailModel?) {
-        guard let games = games else { return }
-        guard let details = details else { return }
-        
-        let detailViewModel = DetailViewModel(games: [games], gameDetails: [details])
+    func navigateToDetailScreen(with game: Result?) {        
+        guard let game = game else { return }
+        let detailViewModel = DetailViewModel(game: [game])
+        let detailViewController = DetailViewController(viewModel: detailViewModel)
         
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
-            let detailViewController = DetailViewController(viewModel: detailViewModel)
             self.navigationController?.pushViewController(detailViewController, animated: true)
         }
     }

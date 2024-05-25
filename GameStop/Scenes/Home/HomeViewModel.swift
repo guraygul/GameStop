@@ -64,27 +64,6 @@ final class HomeViewModel {
             isFetching = false
         }
     }
-    
-    private func fetchGameDetails(for gameID: Int, completion: @escaping (GameDetailModel?) -> Void) {
-        Task {
-            do {
-                let gameDetail = try await networkService.fetchData(
-                    from: GameAPI.gameDetails(id: gameID),
-                    as: GameDetailModel.self)
-                completion(gameDetail)
-            } catch {
-                DispatchQueue.main.async { [weak self] in
-                    guard let self = self else { return }
-                    self.view?.showAlert(
-                        title: "Failed to fetch game details",
-                        message: "An Error occured while fetching game details.\nPlease check your connection and try again.",
-                        openSettings: false) {
-                            self.fetchGameDetails(for: gameID, completion: completion)
-                        }
-                }
-            }
-        }
-    }
 }
 
 extension HomeViewModel: HomeViewModelProtocol {
@@ -106,18 +85,10 @@ extension HomeViewModel: HomeViewModelProtocol {
     
     func didSelectItem(at indexPath: IndexPath) {
         guard let game = games[safe: indexPath.item] else { return }
-        guard let gameId = game.id else { return }
         
-        fetchGameDetails(for: gameId) { [weak self] gameDetail in
+        DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
-            guard let gameDetail = gameDetail else {
-                self.view?.showAlert(
-                    title: "No Details",
-                    message: "Details for the selected game could not be fetched.",
-                    openSettings: false) { }
-                return
-            }
-            self.view?.navigateToDetailScreen(with: game, withDetail: gameDetail)
+            self.view?.navigateToDetailScreen(with: game)
         }
     }
     
