@@ -23,9 +23,9 @@ class Theme {
     )
     
     static let tintColor = UIColor(
-        red: 244/255,
-        green: 244/255,
-        blue: 254/255,
+        red: 199/255,
+        green: 200/255,
+        blue: 204/255,
         alpha: 1.0
     )
     

@@ -13,8 +13,9 @@ extension String {
         guard let englishSection = sections.first else { return "Description not available" }
 
         var cleanString = englishSection.replacingOccurrences(of: "<br />", with: "\n")
-        cleanString = cleanString.replacingOccurrences(of: "<[^>]+>", with: "", options: .regularExpression, range: nil)
+        cleanString = cleanString.replacingOccurrences(of: "<[^>]+>", with: "",
+                                                       options: .regularExpression, range: nil)
+        cleanString = cleanString.replacingOccurrences(of: "&#39;", with: "'")
         return cleanString.trimmingCharacters(in: .whitespacesAndNewlines)
     }
 }
-

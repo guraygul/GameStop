@@ -16,21 +16,21 @@ final class DetailGameCell: UICollectionViewCell {
                                              bottom: 0,
                                              right: 10.0)
     
-    private let gameLabel = UILabelFactory(text: "Error")
+    private let gameLabel = UILabelFactory(text: "Description")
         .fontSize(of: 24, weight: .bold)
-        .textColor(with: .black)
+        .textColor(with: Theme.whiteColor)
         .numberOf(lines: 0)
         .build()
     
     private let gameDescriptionLabel = UILabelFactory(text: "Error")
         .fontSize(of: 14, weight: .regular)
-        .textColor(with: .white)
+        .textColor(with: Theme.tintColor)
         .numberOf(lines: 0)
         .build()
     
-    private let screenshotsLabel = UILabelFactory(text: "Preview")
+    private let previewLabel = UILabelFactory(text: "Preview")
         .fontSize(of: 16, weight: .medium)
-        .textColor(with: Theme.tintColor)
+        .textColor(with: Theme.whiteColor)
         .numberOf(lines: 1)
         .build()
     
@@ -58,11 +58,11 @@ final class DetailGameCell: UICollectionViewCell {
     private func setupUI() {
         contentView.addSubview(gameLabel)
         contentView.addSubview(gameDescriptionLabel)
-        contentView.addSubview(screenshotsLabel)
+        contentView.addSubview(previewLabel)
         contentView.addSubview(screenshotsCollectionView)
         
         NSLayoutConstraint.activate([
-            gameLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 16),
+            gameLabel.topAnchor.constraint(equalTo: contentView.topAnchor),
             gameLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
             gameLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
             
@@ -70,15 +70,14 @@ final class DetailGameCell: UICollectionViewCell {
             gameDescriptionLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
             gameDescriptionLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
             
-            screenshotsLabel.topAnchor.constraint(equalTo: gameDescriptionLabel.bottomAnchor, constant: 16),
-            screenshotsLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
-            screenshotsLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
+            previewLabel.topAnchor.constraint(equalTo: gameDescriptionLabel.bottomAnchor, constant: 16),
+            previewLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+            previewLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
             
-            screenshotsCollectionView.topAnchor.constraint(equalTo: screenshotsLabel.bottomAnchor, constant: 8),
+            screenshotsCollectionView.topAnchor.constraint(equalTo: previewLabel.bottomAnchor, constant: 8),
             screenshotsCollectionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 8),
             screenshotsCollectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            screenshotsCollectionView.heightAnchor.constraint(equalToConstant: 200),
-            
+            screenshotsCollectionView.heightAnchor.constraint(equalToConstant: 200)
         ])
     }
     
@@ -87,7 +86,6 @@ final class DetailGameCell: UICollectionViewCell {
                    media: [Media],
                    delegate: DetailScreenshotCellDelegate) {
         gameDescriptionLabel.text = gameDetails.description?.extractEnglishDescription() ?? "Error"
-        gameLabel.text = game.name
         self.mediaItems = media
         self.delegate = delegate
         screenshotsCollectionView.reloadData()
@@ -124,7 +122,7 @@ extension DetailGameCell: UICollectionViewDataSource,
             let paddingSpace = sectionInsets.left * 2
             let availableWidth = collectionView.frame.width - paddingSpace
             let widthPerItem = availableWidth / 1.5
-            return CGSize(width: widthPerItem, height: widthPerItem * 0.75)
+            return CGSize(width: widthPerItem, height: widthPerItem * 0.5)
         }
     
     func collectionView(_ collectionView: UICollectionView,
@@ -140,23 +138,23 @@ extension DetailGameCell: UICollectionViewDataSource,
     }
 }
 
-//#Preview {
-//    let navC = UINavigationController(
-//        rootViewController: DetailViewController(
-//            viewModel: DetailViewModel(
-//                games: [Result(
-//                    id: 3498,
-//                    name: "Grand Theft Auto V",
-//                    released: "2013-09-17",
-//                    backgroundImage: "https://media.rawg.io/media/games/20a/20aa03a10cda45239fe22d035c0ebe64.jpg",
-//                    rating: 4.47,
-//                    ratingTop: 5,
-//                    metacritic: 92,
-//                    shortScreenshots: [ShortScreenshot(id: -1,
-//                                                       image: "https://media.rawg.io/media/games/20a/20aa03a10cda45239fe22d035c0ebe64.jpg")]
-//                )]
-//            )
-//        )
-//    )
-//    return navC
-//}
+#Preview {
+    let navC = UINavigationController(
+        rootViewController: DetailViewController(
+            viewModel: DetailViewModel(
+                game: [Result(
+                    id: 3498,
+                    name: "Grand Theft Auto V",
+                    released: "2013-09-17",
+                    backgroundImage: "https://media.rawg.io/media/games/20a/20aa03a10cda45239fe22d035c0ebe64.jpg",
+                    rating: 4.47,
+                    ratingTop: 5,
+                    metacritic: 92,
+                    shortScreenshots: [ShortScreenshot(id: -1,
+                                                       image: "https://media.rawg.io/media/games/20a/20aa03a10cda45239fe22d035c0ebe64.jpg")]
+                )]
+            )
+        )
+    )
+    return navC
+}

@@ -11,16 +11,43 @@ final class DetailCollectionHeaderView: UICollectionReusableView {
     static let identifier = "DetailCollectionHeaderView"
     
     private let headerView = UIViewFactory()
-        .backgroundColor(.blue)
         .build()
     
     private let imageView = UIImageViewFactory()
         .contentMode(.scaleAspectFill)
         .build()
     
+    private let gradientLayerBottom: CAGradientLayer = {
+        let layer = CAGradientLayer()
+        layer.colors = [UIColor.clear.cgColor, UIColor.black.cgColor]
+        layer.locations = [0.5, 1.0]
+        return layer
+    }()
+    
+    private let gradientLayerTop: CAGradientLayer = {
+        let layer = CAGradientLayer()
+        layer.colors = [UIColor.black.cgColor, UIColor.clear.cgColor]
+        layer.locations = [0.0, 0.5]
+        return layer
+    }()
+    
+    private let blurEffectViewBottom: UIVisualEffectView = {
+        let blurEffect = UIBlurEffect(style: .systemChromeMaterialDark)
+        let view = UIVisualEffectView(effect: blurEffect)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
+    private let blurEffectViewTop: UIVisualEffectView = {
+        let blurEffect = UIBlurEffect(style: .systemChromeMaterialDark)
+        let view = UIVisualEffectView(effect: blurEffect)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
     private let gameLabel = UILabelFactory(text: "Error")
         .fontSize(of: 24, weight: .bold)
-        .textColor(with: .black)
+        .textColor(with: Theme.whiteColor)
         .numberOf(lines: 1)
         .build()
     
@@ -31,23 +58,24 @@ final class DetailCollectionHeaderView: UICollectionReusableView {
         .fontSize(of: 16, weight: .semibold)
         .numberOf(lines: 1)
         .textAlignment(.right)
-        .textColor(with: .yellow)
+        .textColor(with: .systemYellow)
         .build()
     
     private let ratingImageView = UIImageViewFactory(image: UIImage(systemName: "star.fill"))
+        .tintColor(.systemYellow)
         .build()
     
     private let ratingLabel = UILabelFactory(text: "Error")
         .fontSize(of: 16, weight: .semibold)
         .numberOf(lines: 1)
         .textAlignment(.right)
-        .textColor(with: .red)
+        .textColor(with: .systemYellow)
         .build()
     
     private lazy var metacriticHStack = UIStackViewFactory(axis: .horizontal)
         .addArrangedSubview(metacriticImageView)
         .addArrangedSubview(metacriticLabel)
-        .distribution(.fillEqually)
+        .distribution(.fill)
         .build()
     
     private lazy var ratingHStack = UIStackViewFactory(axis: .horizontal)
@@ -70,6 +98,12 @@ final class DetailCollectionHeaderView: UICollectionReusableView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        gradientLayerBottom.frame = blurEffectViewBottom.bounds
+        gradientLayerTop.frame = blurEffectViewTop.bounds
+    }
+    
     private func setupViews() {
         addSubview(headerView)
         
@@ -89,6 +123,24 @@ final class DetailCollectionHeaderView: UICollectionReusableView {
             imageView.bottomAnchor.constraint(equalTo: headerView.bottomAnchor)
         ])
         
+        headerView.addSubview(blurEffectViewBottom)
+        headerView.addSubview(blurEffectViewTop)
+        
+        NSLayoutConstraint.activate([
+            blurEffectViewBottom.leadingAnchor.constraint(equalTo: headerView.leadingAnchor),
+            blurEffectViewBottom.trailingAnchor.constraint(equalTo: headerView.trailingAnchor),
+            blurEffectViewBottom.bottomAnchor.constraint(equalTo: headerView.bottomAnchor),
+            blurEffectViewBottom.heightAnchor.constraint(equalTo: headerView.heightAnchor, multiplier: 0.5),
+            
+            blurEffectViewTop.leadingAnchor.constraint(equalTo: headerView.leadingAnchor),
+            blurEffectViewTop.trailingAnchor.constraint(equalTo: headerView.trailingAnchor),
+            blurEffectViewTop.topAnchor.constraint(equalTo: headerView.topAnchor),
+            blurEffectViewTop.heightAnchor.constraint(equalTo: headerView.heightAnchor, multiplier: 0.5)
+        ])
+        
+        blurEffectViewBottom.layer.mask = gradientLayerBottom
+        blurEffectViewTop.layer.mask = gradientLayerTop
+        
         headerView.addSubview(gameLabel)
         
         NSLayoutConstraint.activate([
@@ -102,12 +154,16 @@ final class DetailCollectionHeaderView: UICollectionReusableView {
             ratingVStack.leadingAnchor.constraint(greaterThanOrEqualTo: gameLabel.trailingAnchor, constant: 16),
             ratingVStack.trailingAnchor.constraint(equalTo: headerView.trailingAnchor, constant: -16),
             ratingVStack.bottomAnchor.constraint(equalTo: headerView.bottomAnchor, constant: -16),
-            ratingVStack.heightAnchor.constraint(equalToConstant: 100),
+            ratingVStack.heightAnchor.constraint(equalToConstant: 70),
             ratingVStack.widthAnchor.constraint(equalToConstant: 80),
         ])
         
+        NSLayoutConstraint.activate([
+            metacriticImageView.widthAnchor.constraint(equalToConstant: 30),
+            metacriticImageView.heightAnchor.constraint(equalToConstant: 30)
+        ])
     }
-    
+
     func configure(with game: Result) {
         gameLabel.text = game.name
         metacriticLabel.text = String(describing: game.metacritic ?? 0)
@@ -129,23 +185,23 @@ final class DetailCollectionHeaderView: UICollectionReusableView {
     }
 }
 
-//#Preview {
-//    let navC = UINavigationController(
-//        rootViewController: DetailViewController(
-//            viewModel: DetailViewModel(
-//                games: [Result(
-//                    id: 3498,
-//                    name: "Grand Theft Auto V",
-//                    released: "2013-09-17",
-//                    backgroundImage: "https://media.rawg.io/media/games/20a/20aa03a10cda45239fe22d035c0ebe64.jpg",
-//                    rating: 4.47,
-//                    ratingTop: 5,
-//                    metacritic: 92,
-//                    shortScreenshots: [ShortScreenshot(id: -1,
-//                                                       image: "https://media.rawg.io/media/games/20a/20aa03a10cda45239fe22d035c0ebe64.jpg")]
-//                )]
-//            )
-//        )
-//    )
-//    return navC
-//}
+#Preview {
+    let navC = UINavigationController(
+        rootViewController: DetailViewController(
+            viewModel: DetailViewModel(
+                game: [Result(
+                    id: 3498,
+                    name: "Grand Theft Auto V",
+                    released: "2013-09-17",
+                    backgroundImage: "https://media.rawg.io/media/games/20a/20aa03a10cda45239fe22d035c0ebe64.jpg",
+                    rating: 4.47,
+                    ratingTop: 5,
+                    metacritic: 92,
+                    shortScreenshots: [ShortScreenshot(id: -1,
+                                                       image: "https://media.rawg.io/media/games/20a/20aa03a10cda45239fe22d035c0ebe64.jpg")]
+                )]
+            )
+        )
+    )
+    return navC
+}

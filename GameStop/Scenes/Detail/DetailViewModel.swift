@@ -26,7 +26,6 @@ protocol DetailViewModelProtocol {
     func cellForItemForDetail(at indexPath: IndexPath) -> GameDetailModel?
     func toggleLike(for game: Result)
     func isGameLiked(id: Int) -> Bool
-    func numberOfGameScreenshots() -> Int
     func getCombinedMedia() -> [Media]
 }
 
@@ -117,10 +116,6 @@ extension DetailViewModel: DetailViewModelProtocol {
             }
             return false
         }
-    }
-    
-    func numberOfGameScreenshots() -> Int {
-        return game.reduce(0) { $0 + ($1.shortScreenshots?.count ?? 0) }
     }
     
     func fetchGameDetails(for gameID: Int) {

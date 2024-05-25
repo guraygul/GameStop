@@ -14,6 +14,7 @@ final class UIViewFactory {
     init() {
         view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
+        view.clipsToBounds = true
     }
     
     // MARK: - Public methods
