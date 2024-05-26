@@ -13,6 +13,7 @@ protocol DetailViewControllerProtocol: AnyObject, AlertPresentable {
     func prepareCollectionView()
     func reloadData()
     func prepareNavigationBar(with backgroundColor: UIColor)
+    func updateHeartButton(for game: Result)
 }
 
 final class DetailViewController: UIViewController {

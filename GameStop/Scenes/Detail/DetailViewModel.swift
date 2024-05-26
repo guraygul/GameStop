@@ -71,6 +71,24 @@ extension DetailViewModel: DetailViewModelProtocol {
     
     func toggleLike(for game: Result) {
         guard let id = game.id else { return }
+        
+        if isGameLiked(id: id) {
+            DispatchQueue.main.async { [weak self] in
+                guard let self = self else { return }
+                self.view?.showConfirmationAlert(
+                    title: "Remove Like",
+                    message: "Are you sure you want to remove the like for this game?",
+                    confirmAction: { [weak self] in
+                        self?.performToggleLike(for: game)
+                })
+            }
+        } else {
+            performToggleLike(for: game)
+        }
+    }
+    
+    private func performToggleLike(for game: Result) {
+        guard let id = game.id else { return }
         let context = CoreDataManager.shared.context
         let fetchRequest: NSFetchRequest<GameEntity> = GameEntity.fetchRequest()
         fetchRequest.predicate = NSPredicate(format: "id == %d", id)
@@ -85,12 +103,13 @@ extension DetailViewModel: DetailViewModelProtocol {
                 newEntity.isLiked = true
             }
             CoreDataManager.shared.saveContext()
+            view?.updateHeartButton(for: game)
         } catch {
             DispatchQueue.main.async { [weak self] in
                 guard let self = self else { return }
                 self.view?.showAlert(
                     title: "Failed when toggling like",
-                    message: "An Error occured while liking.\nPlease try again.",
+                    message: "An Error occurred while liking.\nPlease try again.",
                     openSettings: false) {
                         self.toggleLike(for: game)
                     }

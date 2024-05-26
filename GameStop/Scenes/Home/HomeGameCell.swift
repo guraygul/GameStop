@@ -69,10 +69,10 @@ final class HomeGameCell: UICollectionViewCell {
     func configure(with game: Result) {
         gameLabel.text = game.name
         
-        genresStackView.arrangedSubviews.forEach { $0.removeFromSuperview() }  // Clear existing genres
+        genresStackView.arrangedSubviews.forEach { $0.removeFromSuperview() }
         
         if let genres = game.genres, !genres.isEmpty {
-            let displayedGenres = genres.prefix(2)  // Limit to 2 genres
+            let displayedGenres = genres.prefix(2)
             displayedGenres.forEach { genre in
                 let genreLabel = createGenreLabel(text: genre.name ?? "Unknown")
                 genresStackView.addArrangedSubview(genreLabel)
@@ -125,11 +125,9 @@ final class HomeGameCell: UICollectionViewCell {
         super.prepareForReuse()
         gameImageView.kf.cancelDownloadTask()
         gameImageView.image = nil
-        genresStackView.arrangedSubviews.forEach { $0.removeFromSuperview() }  // Clear genres on reuse
+        genresStackView.arrangedSubviews.forEach { $0.removeFromSuperview() }
     }
 }
-
-
 
 #Preview {
     let navC = UINavigationController(rootViewController: TabBarViewController())

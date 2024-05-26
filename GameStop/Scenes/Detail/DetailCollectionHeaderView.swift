@@ -100,8 +100,8 @@ final class DetailCollectionHeaderView: UICollectionReusableView {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        gradientLayerBottom.frame = blurEffectViewBottom.bounds
         gradientLayerTop.frame = blurEffectViewTop.bounds
+        gradientLayerBottom.frame = blurEffectViewBottom.bounds
     }
     
     private func setupViews() {
@@ -138,8 +138,8 @@ final class DetailCollectionHeaderView: UICollectionReusableView {
             blurEffectViewTop.heightAnchor.constraint(equalTo: headerView.heightAnchor, multiplier: 0.5)
         ])
         
-        blurEffectViewBottom.layer.mask = gradientLayerBottom
         blurEffectViewTop.layer.mask = gradientLayerTop
+        blurEffectViewBottom.layer.mask = gradientLayerBottom
         
         headerView.addSubview(gameLabel)
         

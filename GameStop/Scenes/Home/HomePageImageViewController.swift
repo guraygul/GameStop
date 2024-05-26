@@ -11,6 +11,7 @@ import Kingfisher
 final class HomePageImageViewController: UIViewController {
     var imageUrl: String?
     var pageIndex: Int?
+    var gameName: String?
     
     private let imageView: UIImageView = {
         let imageView = UIImageView()
@@ -19,22 +20,44 @@ final class HomePageImageViewController: UIViewController {
         return imageView
     }()
     
-    private let gradientLayer: CAGradientLayer = {
+    private let gradientLayerBottom: CAGradientLayer = {
         let layer = CAGradientLayer()
-        layer.colors = [UIColor.clear.cgColor, UIColor.black.cgColor]
-        layer.locations = [0.7, 1.0]
+        layer.colors = [UIColor.clear.cgColor, Theme.blackColor.cgColor]
+        layer.locations = [0.8, 1.0]
         return layer
+    }()
+    
+    private let gradientLayerTop: CAGradientLayer = {
+        let layer = CAGradientLayer()
+        layer.colors = [Theme.blackColor.cgColor, UIColor.clear.cgColor]
+        layer.locations = [0.01, 1.0]
+        return layer
+    }()
+    
+    private let nameLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.textColor = .white
+        label.font = UIFont.boldSystemFont(ofSize: 14)
+        label.numberOfLines = 2
+        label.textAlignment = .left
+        return label
     }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupImageView()
         setupGradientLayer()
+        setupNameLabel()
         
         if let imageUrl = imageUrl, let url = URL(string: imageUrl) {
             imageView.kf.setImage(with: url)
         } else {
             imageView.image = UIImage(named: "notFound")
+        }
+        
+        if let gameName = gameName {
+            nameLabel.text = gameName
         }
     }
     
@@ -50,11 +73,28 @@ final class HomePageImageViewController: UIViewController {
     }
     
     private func setupGradientLayer() {
-        imageView.layer.addSublayer(gradientLayer)
+        imageView.layer.addSublayer(gradientLayerTop)
+        imageView.layer.addSublayer(gradientLayerBottom)
+    }
+    
+    private func setupNameLabel() {
+        view.addSubview(nameLabel)
+        
+        NSLayoutConstraint.activate([
+            nameLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 16),
+            nameLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 24),
+            nameLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -8)
+        ])
+        
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        gradientLayer.frame = imageView.bounds
+        gradientLayerTop.frame = imageView.bounds
+        gradientLayerBottom.frame = imageView.bounds
     }
+}
+#Preview {
+    let navC = UINavigationController(rootViewController: TabBarViewController())
+    return navC
 }

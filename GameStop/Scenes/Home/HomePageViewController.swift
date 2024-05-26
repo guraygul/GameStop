@@ -11,6 +11,7 @@ final class HomePageViewController: UIViewController {
     private var pageViewController: UIPageViewController!
     private var timer: Timer?
     private var pageControl: UIPageControl!
+    
     var games: [Result] = [] {
         didSet {
             setupPageViewController()
@@ -86,7 +87,7 @@ final class HomePageViewController: UIViewController {
         view.addSubview(pageControl)
         
         NSLayoutConstraint.activate([
-            pageControl.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 30),
+            pageControl.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -16),
             pageControl.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         ])
     }
@@ -106,6 +107,8 @@ final class HomePageViewController: UIViewController {
         let viewController = HomePageImageViewController()
         viewController.imageUrl = games[index].backgroundImage
         viewController.pageIndex = index
+        viewController.gameName = games[index].name
+        
         return viewController
     }
     
@@ -133,6 +136,7 @@ final class HomePageViewController: UIViewController {
             applyShadowToPageControl()
         }
     }
+    
 }
 
 // MARK: - UIPageViewControllerDataSource Methods

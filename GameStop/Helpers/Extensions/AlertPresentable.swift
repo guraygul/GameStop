@@ -12,6 +12,10 @@ protocol AlertPresentable {
                    message: String,
                    openSettings: Bool,
                    retryAction: (() -> Void)?)
+    
+    func showConfirmationAlert(title: String,
+                               message: String,
+                               confirmAction: @escaping () -> Void)
 }
 
 extension AlertPresentable where Self: UIViewController {
@@ -45,6 +49,21 @@ extension AlertPresentable where Self: UIViewController {
             alert.addAction(settingsAction)
         }
         
+        present(alert, animated: true, completion: nil)
+    }
+    
+    func showConfirmationAlert(title: String,
+                               message: String,
+                               confirmAction: @escaping () -> Void) {
+        let alert = UIAlertController(title: title,
+                                      message: message,
+                                      preferredStyle: .alert)
+        let confirmAction = UIAlertAction(title: "OK", style: .destructive) { _ in
+            confirmAction()
+        }
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
+        alert.addAction(confirmAction)
+        alert.addAction(cancelAction)
         present(alert, animated: true, completion: nil)
     }
 }
