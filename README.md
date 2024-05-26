@@ -22,9 +22,13 @@
 - Drop a heart for your favorite games.
 
 ## In app Gifs and Screenshots
-| App Gif | Home Screen | Detail Screen |
-| -------- | -------- | -------- |
-|  ![GameStopGif](https://github.com/guraygul/GameStop/assets/58820744/d655cef4-0bad-4bbf-b597-2eea1c1b216d) | ![SCR-20240526-tfay](https://github.com/guraygul/GameStop/assets/58820744/0ac9c6df-69c9-4ea6-a7a9-6d409554484c) | <img width="545" alt="SCR-20240526-tffn" src="https://github.com/guraygul/GameStop/assets/58820744/d9303c85-bf8c-4950-934b-59a57dd444f6"> |
+| App Gif |
+| -------- |
+| ![GameStopGif](https://github.com/guraygul/GameStop/assets/58820744/d655cef4-0bad-4bbf-b597-2eea1c1b216d) |
+
+| Home Screen | Detail Screen |
+| -------- | -------- |
+| ![SCR-20240526-tfay](https://github.com/guraygul/GameStop/assets/58820744/dd4fd054-fbd7-4188-aa2b-ce1865bbdd0f) | <img width="545" alt="SCR-20240526-tikx" src="https://github.com/guraygul/GameStop/assets/58820744/6c7eec7b-d8ff-4be6-a2a4-33b1cbdeb6e7">
 
 | Search Screen | Favorite Screen |
 | -------- | -------- |
