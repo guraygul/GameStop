@@ -174,7 +174,7 @@ extension HomeViewController: HomeViewControllerProtocol {
         }
     }
     
-    func navigateToDetailScreen(with game: Result?) {        
+    func navigateToDetailScreen(with game: Result?) {
         guard let game = game else { return }
         let detailViewModel = DetailViewModel(game: [game])
         
@@ -184,13 +184,10 @@ extension HomeViewController: HomeViewControllerProtocol {
             self.navigationController?.pushViewController(detailViewController, animated: true)
         }
     }
-
+    
 }
 
 #Preview {
-//    let navC = UINavigationController(rootViewController: HomeViewController(
-//        viewModel: HomeViewModel(
-//            networkService: NetworkService.shared)))
     let navC = UINavigationController(rootViewController: TabBarViewController())
     return navC
 }

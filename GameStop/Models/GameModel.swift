@@ -24,10 +24,11 @@ struct Result: Decodable {
     let rating: Double?
     let ratingTop: Int?
     let metacritic: Int?
+    let genres: [Genre]?
     let shortScreenshots: [ShortScreenshot]?
 
     enum CodingKeys: String, CodingKey {
-        case id, name, released, rating, metacritic
+        case id, name, released, rating, metacritic, genres
         case ratingTop = "rating_top"
         case backgroundImage = "background_image"
         case shortScreenshots = "short_screenshots"
@@ -38,4 +39,9 @@ struct Result: Decodable {
 struct ShortScreenshot: Decodable {
     let id: Int?
     let image: String?
+}
+
+// MARK: - Genre
+struct Genre: Decodable {
+    let name: String?
 }

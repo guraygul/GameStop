@@ -12,12 +12,22 @@ final class HomeGameCell: UICollectionViewCell {
     static let identifier = "GameCell"
     
     private let gameImageView = UIImageViewFactory()
+        .contentMode(.scaleAspectFill)
         .build()
     
     private let gameLabel = UILabelFactory(text: "Error")
-        .fontSize(of: 10, weight: .medium)
-        .textColor(with: Theme.tintColor)
+        .fontSize(of: 16, weight: .medium)
+        .textColor(with: Theme.whiteColor)
         .build()
+    
+    private let genresStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .horizontal
+        stackView.spacing = 8
+        stackView.distribution = .fillProportionally
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        return stackView
+    }()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -31,23 +41,46 @@ final class HomeGameCell: UICollectionViewCell {
     private func setupUI() {
         addSubview(gameImageView)
         addSubview(gameLabel)
+        addSubview(genresStackView)
+        
+        gameImageView.layer.cornerRadius = 10
         
         NSLayoutConstraint.activate([
             gameImageView.topAnchor.constraint(equalTo: topAnchor),
             gameImageView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            gameImageView.heightAnchor.constraint(equalToConstant: 100),
-            gameImageView.widthAnchor.constraint(equalToConstant: 100),
+            gameImageView.bottomAnchor.constraint(equalTo: bottomAnchor),
+            gameImageView.widthAnchor.constraint(equalToConstant: 160)
         ])
         
         NSLayoutConstraint.activate([
-            gameLabel.topAnchor.constraint(equalTo: topAnchor, constant: 10),
-            gameLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
-            gameLabel.leadingAnchor.constraint(equalTo: gameImageView.trailingAnchor, constant: 10)
+            gameLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 16),
+            gameLabel.leadingAnchor.constraint(equalTo: gameImageView.trailingAnchor, constant: 8),
+            gameLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -8)
+        ])
+        
+        NSLayoutConstraint.activate([
+            genresStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -16),
+            genresStackView.leadingAnchor.constraint(equalTo: gameImageView.trailingAnchor, constant: 8),
+            genresStackView.trailingAnchor.constraint(lessThanOrEqualTo: contentView.trailingAnchor, constant: -8),
+            genresStackView.heightAnchor.constraint(equalToConstant: 30)
         ])
     }
     
     func configure(with game: Result) {
         gameLabel.text = game.name
+        
+        genresStackView.arrangedSubviews.forEach { $0.removeFromSuperview() }  // Clear existing genres
+        
+        if let genres = game.genres, !genres.isEmpty {
+            let displayedGenres = genres.prefix(2)  // Limit to 2 genres
+            displayedGenres.forEach { genre in
+                let genreLabel = createGenreLabel(text: genre.name ?? "Unknown")
+                genresStackView.addArrangedSubview(genreLabel)
+            }
+        } else {
+            let genreLabel = createGenreLabel(text: "Unknown Genre")
+            genresStackView.addArrangedSubview(genreLabel)
+        }
         
         if let imageUrl = game.backgroundImage,
            let url = URL(string: imageUrl) {
@@ -62,10 +95,43 @@ final class HomeGameCell: UICollectionViewCell {
         }
     }
     
+    private func createGenreLabel(text: String) -> UIView {
+        let label = UILabelFactory(text: text)
+            .fontSize(of: 12, weight: .medium)
+            .textColor(with: Theme.blackColor)
+            .build()
+        
+        let container = UIViewFactory()
+            .backgroundColor(Theme.yellowColor)
+            .cornerRadius(15)
+            .build()
+        
+        container.translatesAutoresizingMaskIntoConstraints = false
+        label.translatesAutoresizingMaskIntoConstraints = false
+        
+        container.addSubview(label)
+        
+        NSLayoutConstraint.activate([
+            label.centerYAnchor.constraint(equalTo: container.centerYAnchor),
+            label.leadingAnchor.constraint(equalTo: container.leadingAnchor, constant: 8),
+            label.trailingAnchor.constraint(equalTo: container.trailingAnchor, constant: -8),
+            container.heightAnchor.constraint(equalToConstant: 30)
+        ])
+        
+        return container
+    }
+    
     override func prepareForReuse() {
         super.prepareForReuse()
         gameImageView.kf.cancelDownloadTask()
         gameImageView.image = nil
+        genresStackView.arrangedSubviews.forEach { $0.removeFromSuperview() }  // Clear genres on reuse
     }
-    
+}
+
+
+
+#Preview {
+    let navC = UINavigationController(rootViewController: TabBarViewController())
+    return navC
 }

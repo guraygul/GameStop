@@ -7,6 +7,7 @@
 
 import Foundation
 
+// MARK: - GameTrailerModelResult
 struct GameTrailerModelResult: Decodable {
     let count: Int?
     let next: String?
@@ -14,6 +15,7 @@ struct GameTrailerModelResult: Decodable {
     let results: [GameTrailer]
 }
 
+// MARK: - GameTrailer
 struct GameTrailer: Decodable {
     let id: Int
     let name: String
@@ -21,6 +23,7 @@ struct GameTrailer: Decodable {
     let data: TrailerData
 }
 
+// MARK: - TrailerData
 struct TrailerData: Decodable {
     let low: URL?
     let high: URL?

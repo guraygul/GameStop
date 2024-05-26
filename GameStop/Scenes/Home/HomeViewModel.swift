@@ -10,7 +10,6 @@ import Foundation
 protocol HomeViewModelProtocol {
     var view: HomeViewControllerProtocol? { get set }
     var games: [Result] { get }
-    var gameDetails: [GameDetailModel] { get }
     
     func viewDidLoad()
     func viewWillAppear()
@@ -25,7 +24,6 @@ final class HomeViewModel {
     private let networkService: NetworkServiceProtocol
     
     private(set) var games: [Result] = []
-    private(set) var gameDetails: [GameDetailModel] = []
     
     private var currentPage: Int = 1
     private var isFetching: Bool = false
@@ -57,8 +55,8 @@ final class HomeViewModel {
                         title: "Failed to fetch games",
                         message: "An Error occured while fething games.\nPlease check your connection and try again.",
                         openSettings: true) {
-                        self.fetchGames(page: page)
-                    }
+                            self.fetchGames(page: page)
+                        }
                 }
             }
             isFetching = false

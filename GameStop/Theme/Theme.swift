@@ -8,13 +8,6 @@
 import UIKit
 
 class Theme {
-    static let mainColor = UIColor(
-        red: 117/255,
-        green: 66/255,
-        blue: 229/255,
-        alpha: 1.0
-    )
-    
     static let backgroundColor = UIColor(
         red: 31/255,
         green: 31/255,
@@ -49,7 +42,7 @@ class Theme {
         blue: 0/255,
         alpha: 1.0
     )
-
+    
     static func gradientLayer(for view: UIView) -> CAGradientLayer {
         let gradientLayer = CAGradientLayer()
         gradientLayer.frame = view.bounds

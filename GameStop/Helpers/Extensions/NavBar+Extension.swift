@@ -8,7 +8,7 @@
 import UIKit
 
 extension UIViewController {
-    func leftNavigationBar(backgroundColor: UIColor = Theme.mainColor) {
+    func leftNavigationBar(backgroundColor: UIColor = Theme.yellowColor) {
         let offset = UIOffset(horizontal: -CGFloat.greatestFiniteMagnitude, vertical: 0)
         let appearance = UINavigationBarAppearance()
         appearance.titleTextAttributes = [.foregroundColor: Theme.yellowColor]

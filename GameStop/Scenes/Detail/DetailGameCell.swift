@@ -150,6 +150,7 @@ extension DetailGameCell: UICollectionViewDataSource,
                     rating: 4.47,
                     ratingTop: 5,
                     metacritic: 92,
+                    genres: [Genre(name: "Action")],
                     shortScreenshots: [ShortScreenshot(id: -1,
                                                        image: "https://media.rawg.io/media/games/20a/20aa03a10cda45239fe22d035c0ebe64.jpg")]
                 )]
