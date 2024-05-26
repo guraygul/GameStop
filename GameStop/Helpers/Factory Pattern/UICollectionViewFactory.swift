@@ -23,17 +23,22 @@ final class UICollectionViewFactory {
         return self
     }
     
-    func registerCellClass(_ cellClass: AnyClass?, forCellWithReuseIdentifier identifier: String) -> Self {
-        collectionView.register(cellClass, forCellWithReuseIdentifier: identifier)
-        return self
-    }
+    func registerCellClass(
+        _ cellClass: AnyClass?,
+        forCellWithReuseIdentifier identifier: String) -> Self {
+            collectionView.register(cellClass, forCellWithReuseIdentifier: identifier)
+            return self
+        }
     
-    func registerSupplementaryViewClass(_ viewClass: AnyClass?,
-                                        forSupplementaryViewOfKind kind: String,
-                                        withReuseIdentifier identifier: String) -> Self {
-        collectionView.register(viewClass, forSupplementaryViewOfKind: kind, withReuseIdentifier: identifier)
-        return self
-    }
+    func registerSupplementaryViewClass(
+        _ viewClass: AnyClass?,
+        forSupplementaryViewOfKind kind: String,
+        withReuseIdentifier identifier: String) -> Self {
+            collectionView.register(viewClass,
+                                    forSupplementaryViewOfKind: kind,
+                                    withReuseIdentifier: identifier)
+            return self
+        }
     
     func delegate(_ delegate: UICollectionViewDelegate?) -> Self {
         collectionView.delegate = delegate
@@ -72,7 +77,7 @@ final class UICollectionViewFactory {
         layout.minimumInteritemSpacing = insets
         return self
     }
-        
+    
     func build() -> UICollectionView {
         return collectionView
     }

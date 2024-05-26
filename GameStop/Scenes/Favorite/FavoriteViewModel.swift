@@ -74,7 +74,7 @@ extension FavoriteViewModel: FavoriteViewModelProtocol {
     func viewWillAppear() {
         fetchLikedGames()
     }
-        
+    
     func cellForItem(at indexPath: IndexPath) -> Result? {
         return likedGames[safe: indexPath.item]
     }

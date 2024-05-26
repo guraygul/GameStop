@@ -11,7 +11,7 @@ final class HomePageHeaderView: UICollectionReusableView {
     static let identifier = "HomePageHeaderView"
     
     private let homePageViewController = HomePageViewController()
-
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupHomePageViewController()

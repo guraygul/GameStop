@@ -142,8 +142,3 @@ final class HomeGameCell: UICollectionViewCell {
         genresStackView.arrangedSubviews.forEach { $0.removeFromSuperview() }
     }
 }
-
-#Preview {
-    let navC = UINavigationController(rootViewController: TabBarViewController())
-    return navC
-}

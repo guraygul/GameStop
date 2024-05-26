@@ -42,12 +42,7 @@ final class HomeViewController: UIViewController {
         leftNavigationBar(backgroundColor: .clear)
         setupCollectionView()
     }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        viewModel.viewWillAppear()
-    }
-    
+        
     private func setupCollectionView() {
         view.addSubview(collectionView)
         
@@ -58,7 +53,6 @@ final class HomeViewController: UIViewController {
             collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
     }
-    
 }
 
 // MARK: - Configuring collection view cells data
@@ -186,10 +180,4 @@ extension HomeViewController: HomeViewControllerProtocol {
             self.navigationController?.pushViewController(detailViewController, animated: true)
         }
     }
-    
-}
-
-#Preview {
-    let navC = UINavigationController(rootViewController: TabBarViewController())
-    return navC
 }

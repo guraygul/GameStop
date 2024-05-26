@@ -12,7 +12,6 @@ protocol HomeViewModelProtocol {
     var games: [Result] { get }
     
     func viewDidLoad()
-    func viewWillAppear()
     func didSelectItem(at indexPath: IndexPath)
     func cellForItem(at indexPath: IndexPath) -> Result?
     func fetchNextPage()
@@ -71,10 +70,6 @@ extension HomeViewModel: HomeViewModelProtocol {
         view?.setNavigationTitle(with: "GameStop")
         view?.prepareCollectionView()
         fetchGames(page: currentPage)
-    }
-    
-    func viewWillAppear() {
-        
     }
     
     func cellForItem(at indexPath: IndexPath) -> Result? {

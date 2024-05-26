@@ -12,7 +12,7 @@ extension UISearchController {
                             placeholderColor: UIColor,
                             backgroundColor: UIColor,
                             tintColor: UIColor) {
-        self.obscuresBackgroundDuringPresentation = true
+        self.obscuresBackgroundDuringPresentation = false
         self.searchBar.placeholder = placeholder
         
         if let searchTextField = self.searchBar.value(forKey: "searchField") as? UITextField {

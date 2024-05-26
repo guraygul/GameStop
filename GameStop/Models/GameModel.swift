@@ -26,7 +26,7 @@ struct Result: Decodable {
     let metacritic: Int?
     let genres: [Genre]?
     let shortScreenshots: [ShortScreenshot]?
-
+    
     enum CodingKeys: String, CodingKey {
         case id, name, released, rating, metacritic, genres
         case ratingTop = "rating_top"

@@ -39,13 +39,14 @@ extension AlertPresentable where Self: UIViewController {
         }
         
         if openSettings == true {
-            let settingsAction = UIAlertAction(title: "Settings",
-                                               style: .default) { _ in
-                guard let settingsURL = URL(string: UIApplication.openSettingsURLString) else { return }
-                if UIApplication.shared.canOpenURL(settingsURL) {
-                    UIApplication.shared.open(settingsURL, options: [:], completionHandler: nil)
+            let settingsAction = UIAlertAction(
+                title: "Settings",
+                style: .default) { _ in
+                    guard let settingsURL = URL(string: UIApplication.openSettingsURLString) else { return }
+                    if UIApplication.shared.canOpenURL(settingsURL) {
+                        UIApplication.shared.open(settingsURL, options: [:], completionHandler: nil)
+                    }
                 }
-            }
             alert.addAction(settingsAction)
         }
         

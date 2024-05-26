@@ -45,4 +45,3 @@ final class UIStackViewFactory {
         return stackView
     }
 }
-

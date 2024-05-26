@@ -92,7 +92,3 @@ final class HomePageImageViewController: UIViewController {
         gradientLayerBottom.frame = imageView.bounds
     }
 }
-#Preview {
-    let navC = UINavigationController(rootViewController: TabBarViewController())
-    return navC
-}

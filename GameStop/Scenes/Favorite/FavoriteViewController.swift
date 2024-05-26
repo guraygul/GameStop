@@ -19,6 +19,7 @@ final class FavoriteViewController: UIViewController {
                                              left: 10.0,
                                              bottom: 20.0,
                                              right: 10.0)
+    
     private lazy var collectionView = UICollectionViewFactory()
         .build()
     
@@ -177,6 +178,6 @@ extension FavoriteViewController: FavoriteGameCellDelegate {
             message: "Are you sure you want to remove the like for this game?") { [weak self] in
                 guard let self = self else { return }
                 self.viewModel.toggleLike(for: game)
-        }
+            }
     }
 }

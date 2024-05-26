@@ -51,5 +51,4 @@ final class TabBarViewController: UITabBarController {
         tabBar.tintColor = Theme.whiteColor
         viewControllers = [homeViewController, searchViewController, favoriteViewController]
     }
-    
 }

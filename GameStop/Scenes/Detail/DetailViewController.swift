@@ -196,7 +196,6 @@ extension DetailViewController: DetailViewControllerProtocol {
             }
         }
     }
-    
 }
 
 extension DetailViewController: DetailScreenshotCellDelegate {
@@ -209,24 +208,3 @@ extension DetailViewController: DetailScreenshotCellDelegate {
         }
     }
 }
-
-//#Preview {
-//    let navC = UINavigationController(
-//        rootViewController: DetailViewController(
-//            viewModel: DetailViewModel(
-//                games: [Result(
-//                    id: 3498,
-//                    name: "Grand Theft Auto V",
-//                    released: "2013-09-17",
-//                    backgroundImage: "https://media.rawg.io/media/games/20a/20aa03a10cda45239fe22d035c0ebe64.jpg",
-//                    rating: 4.47,
-//                    ratingTop: 5,
-//                    metacritic: 92,
-//                    shortScreenshots: [ShortScreenshot(id: -1,
-//                                                       image: "https://media.rawg.io/media/games/20a/20aa03a10cda45239fe22d035c0ebe64.jpg")]
-//                )]
-//            )
-//        )
-//    )
-//    return navC
-//}

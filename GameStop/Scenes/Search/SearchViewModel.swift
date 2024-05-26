@@ -13,7 +13,6 @@ protocol SearchViewModelProtocol {
     var gameDetails: [GameDetailModel] { get }
     
     func viewDidLoad()
-    func viewWillAppear()
     func didSelectItem(at indexPath: IndexPath)
     func cellForItem(at indexPath: IndexPath) -> Result?
     func fetchNextPage()
@@ -67,34 +66,9 @@ final class SearchViewModel {
             isFetching = false
         }
     }
-    
-//    private func fetchGameDetails(for gameID: Int, completion: @escaping (GameDetailModel?) -> Void) {
-//        Task {
-//            do {
-//                let gameDetail = try await networkService.fetchData(
-//                    from: GameAPI.gameDetails(id: gameID),
-//                    as: GameDetailModel.self)
-//                completion(gameDetail)
-//            } catch {
-//                DispatchQueue.main.async { [weak self] in
-//                    guard let self = self else { return }
-//                    self.view?.showAlert(
-//                        title: "Failed to fetch game details",
-//                        message: "An Error occured while fetching game details.\nPlease check your connection and try again.",
-//                        openSettings: false) {
-//                            self.fetchGameDetails(for: gameID, completion: completion)
-//                        }
-//                }
-//            }
-//        }
-//    }
 }
 
 extension SearchViewModel: SearchViewModelProtocol {
-    func viewWillAppear() {
-        
-    }
-    
     func didSelectItem(at indexPath: IndexPath) {
         guard let game = games[safe: indexPath.item] else { return }
         
@@ -128,5 +102,4 @@ extension SearchViewModel: SearchViewModelProtocol {
                 self?.fetchGames(page: 1, name: query)
             }
     }
-    
 }

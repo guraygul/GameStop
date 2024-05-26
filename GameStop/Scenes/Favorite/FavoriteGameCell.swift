@@ -124,10 +124,3 @@ final class FavoriteGameCell: UICollectionViewCell {
         }
     }
 }
-
-#Preview {
-    let tabBarController = TabBarViewController()
-    tabBarController.selectedIndex = 2
-    let navC = UINavigationController(rootViewController: tabBarController)
-    return navC
-}

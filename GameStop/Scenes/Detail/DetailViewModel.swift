@@ -80,7 +80,7 @@ extension DetailViewModel: DetailViewModelProtocol {
                     message: "Are you sure you want to remove the like for this game?",
                     confirmAction: { [weak self] in
                         self?.performToggleLike(for: game)
-                })
+                    })
             }
         } else {
             performToggleLike(for: game)

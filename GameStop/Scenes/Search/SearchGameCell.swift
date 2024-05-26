@@ -80,5 +80,4 @@ final class SearchGameCell: UICollectionViewCell {
         imageView.kf.cancelDownloadTask()
         imageView.image = nil
     }
-    
 }

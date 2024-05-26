@@ -25,7 +25,7 @@ struct GameDetailModel: Decodable {
     let dominantColor: String?
     let publishers: [Publisher]?
     let descriptionRaw: String?
-
+    
     enum CodingKeys: String, CodingKey {
         case id, name, description, metacritic, released, website, rating, publishers
         case nameOriginal = "name_original"
@@ -46,7 +46,7 @@ struct Publisher: Decodable {
     let slug: String?
     let gamesCount: Int?
     let imageBackground: String?
-
+    
     enum CodingKeys: String, CodingKey {
         case id, name, slug, gamesCount, imageBackground
     }

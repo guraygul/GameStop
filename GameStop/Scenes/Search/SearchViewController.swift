@@ -177,7 +177,11 @@ extension SearchViewController: UISearchResultsUpdating, UISearchBarDelegate {
     }
     
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
-        searchController.resignFirstResponder()
+        searchController.searchBar.endEditing(true)
+    }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.resignFirstResponder()
     }
 }
 

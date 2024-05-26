@@ -9,9 +9,9 @@ import CoreData
 
 final class CoreDataManager {
     static let shared = CoreDataManager()
-
+    
     private init() {}
-
+    
     lazy var persistentContainer: NSPersistentContainer = {
         let container = NSPersistentContainer(name: "GameEntity")
         container.loadPersistentStores { _, error in
@@ -21,11 +21,11 @@ final class CoreDataManager {
         }
         return container
     }()
-
+    
     var context: NSManagedObjectContext {
         return persistentContainer.viewContext
     }
-
+    
     func saveContext() {
         let context = persistentContainer.viewContext
         if context.hasChanges {
@@ -38,4 +38,3 @@ final class CoreDataManager {
         }
     }
 }
-
