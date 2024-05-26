@@ -46,12 +46,15 @@ final class SearchViewController: UIViewController {
     
     private func setupSearchBar() {
         searchController.searchResultsUpdater = self
-        searchController.obscuresBackgroundDuringPresentation = false
-        searchController.searchBar.placeholder = "Search Games"
         searchController.searchBar.delegate = self
         
+        searchController.applyCustomStyling(
+            placeholder: "Search by game name...",
+            placeholderColor: Theme.tintColor,
+            backgroundColor: Theme.backgroundColor,
+            tintColor: Theme.yellowColor
+        )
         navigationItem.searchController = searchController
-        navigationItem.hidesSearchBarWhenScrolling = true
         definesPresentationContext = true
     }
     
@@ -89,7 +92,6 @@ extension SearchViewController: UICollectionViewDelegate, UICollectionViewDataSo
 }
 
 extension SearchViewController: UICollectionViewDelegateFlowLayout {
-    
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let offsetY = scrollView.contentOffset.y
         let contentHeight = scrollView.contentSize.height
@@ -98,6 +100,8 @@ extension SearchViewController: UICollectionViewDelegateFlowLayout {
         if offsetY > contentHeight - height * 2 {
             viewModel.fetchNextPage()
         }
+        
+        showNavigationBarOnScrollUp(scrollView)
     }
     
     func collectionView(_ collectionView: UICollectionView,
@@ -139,6 +143,10 @@ extension SearchViewController: UISearchResultsUpdating, UISearchBarDelegate {
         if searchText.isEmpty {
             viewModel.searchGames(with: "")
         }
+    }
+    
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        searchController.resignFirstResponder()
     }
 }
 

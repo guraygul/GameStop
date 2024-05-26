@@ -96,6 +96,8 @@ extension HomeViewController: UICollectionViewDelegateFlowLayout {
         if offsetY > contentHeight - height * 2 {
             viewModel.fetchNextPage()
         }
+        
+        showNavigationBarOnScrollUp(scrollView)
     }
     
     func collectionView(_ collectionView: UICollectionView,

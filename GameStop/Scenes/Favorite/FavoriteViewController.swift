@@ -82,6 +82,9 @@ extension FavoriteViewController: UICollectionViewDelegate, UICollectionViewData
 }
 
 extension FavoriteViewController: UICollectionViewDelegateFlowLayout {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        showNavigationBarOnScrollUp(scrollView)
+    }
     
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,

@@ -33,6 +33,7 @@
 		108DEAA52C01A33400A8C957 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 108DEAA42C01A33400A8C957 /* String+Extension.swift */; };
 		108DEAA72C01AADD00A8C957 /* GameTrailerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 108DEAA62C01AADD00A8C957 /* GameTrailerModel.swift */; };
 		10AAD8832C00A80600420DDC /* DetailScreenshotCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10AAD8822C00A80600420DDC /* DetailScreenshotCell.swift */; };
+		10BA33022C03899E0050D91E /* SearchBar+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10BA33012C03899E0050D91E /* SearchBar+Extension.swift */; };
 		10BCBBA52BFBFD0F0021E4A8 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10BCBBA42BFBFD0F0021E4A8 /* DetailViewController.swift */; };
 		10C69EE82BFE25D600B035E2 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10C69EE72BFE25D600B035E2 /* SearchViewController.swift */; };
 		10C69EEA2BFE266F00B035E2 /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10C69EE92BFE266F00B035E2 /* SearchViewModel.swift */; };
@@ -81,6 +82,7 @@
 		108DEAA42C01A33400A8C957 /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
 		108DEAA62C01AADD00A8C957 /* GameTrailerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameTrailerModel.swift; sourceTree = "<group>"; };
 		10AAD8822C00A80600420DDC /* DetailScreenshotCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailScreenshotCell.swift; sourceTree = "<group>"; };
+		10BA33012C03899E0050D91E /* SearchBar+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SearchBar+Extension.swift"; sourceTree = "<group>"; };
 		10BCBBA42BFBFD0F0021E4A8 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		10C69EE72BFE25D600B035E2 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		10C69EE92BFE266F00B035E2 /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
@@ -216,6 +218,7 @@
 				1001C3032BFA628300F61C24 /* AlertPresentable.swift */,
 				101582402BFF9BD0005A8994 /* NavBar+Extension.swift */,
 				108DEAA42C01A33400A8C957 /* String+Extension.swift */,
+				10BA33012C03899E0050D91E /* SearchBar+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -425,6 +428,7 @@
 				10CB1CF72BF8E97D006D5C04 /* SceneDelegate.swift in Sources */,
 				1015823C2BFF889C005A8994 /* GameEntity+CoreDataClass.swift in Sources */,
 				1015823D2BFF889C005A8994 /* GameEntity+CoreDataProperties.swift in Sources */,
+				10BA33022C03899E0050D91E /* SearchBar+Extension.swift in Sources */,
 				1001C3082BFAB60F00F61C24 /* HomePageViewController.swift in Sources */,
 				104BB1C12BF923310049E7F5 /* UIImageViewFactory.swift in Sources */,
 				10ECFC7F2BFD57330074892D /* GameDetailModel.swift in Sources */,

@@ -20,6 +20,7 @@ extension UIViewController {
         navigationController?.navigationBar.scrollEdgeAppearance = appearance
         navigationController?.navigationBar.compactAppearance = appearance
         navigationController?.hideHairline()
+        navigationController?.hidesBarsOnSwipe = true
         
         navigationItem.titleView = nil
     }
@@ -31,6 +32,12 @@ extension UIViewController {
     func setBackBarButtonItemTitleToEmpty() {
         let backItem = UIBarButtonItem(title: "", style: .done, target: nil, action: nil)
         navigationController?.navigationBar.topItem?.backBarButtonItem = backItem
+    }
+    
+    func showNavigationBarOnScrollUp(_ scrollView: UIScrollView) {
+        if scrollView.contentOffset.y <= 0 {
+            navigationController?.setNavigationBarHidden(false, animated: true)
+        }
     }
 }
 
