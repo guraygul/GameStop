@@ -35,6 +35,11 @@ final class UIImageViewFactory {
         return self
     }
     
+    func cornerRadius(_ radius: CGFloat) -> Self {
+        imageView.layer.cornerRadius = radius
+        return self
+    }
+    
     func build() -> UIImageView {
         return imageView
     }

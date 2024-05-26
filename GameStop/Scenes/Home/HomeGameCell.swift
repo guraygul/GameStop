@@ -13,10 +13,11 @@ final class HomeGameCell: UICollectionViewCell {
     
     private let gameImageView = UIImageViewFactory()
         .contentMode(.scaleAspectFill)
+        .cornerRadius(10)
         .build()
     
     private let gameLabel = UILabelFactory(text: "Error")
-        .fontSize(of: 16, weight: .medium)
+        .fontSize(of: 14, weight: .medium)
         .textColor(with: Theme.whiteColor)
         .build()
     
@@ -42,8 +43,6 @@ final class HomeGameCell: UICollectionViewCell {
         addSubview(gameImageView)
         addSubview(gameLabel)
         addSubview(genresStackView)
-        
-        gameImageView.layer.cornerRadius = 10
         
         NSLayoutConstraint.activate([
             gameImageView.topAnchor.constraint(equalTo: topAnchor),

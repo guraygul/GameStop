@@ -16,7 +16,7 @@ final class FavoriteGameCell: UICollectionViewCell {
     weak var delegate: FavoriteGameCellDelegate?
     
     private let imageViewContainer = UIViewFactory()
-        .cornerRadius(30)
+        .cornerRadius(10)
         .build()
     
     private let titleLabelContainer = UIViewFactory()

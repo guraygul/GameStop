@@ -13,10 +13,17 @@ final class SearchGameCell: UICollectionViewCell {
     
     private let imageView = UIImageViewFactory()
         .contentMode(.scaleAspectFill)
+        .cornerRadius(10)
         .build()
     
     private let titleLabel = UILabelFactory(text: "Error")
-        .textColor(with: .white)
+        .fontSize(of: 14, weight: .medium)
+        .numberOf(lines: 3)
+        .textColor(with: Theme.whiteColor)
+        .build()
+    
+    private let arrowImageView = UIImageViewFactory(image: UIImage(systemName: "chevron.right"))
+        .tintColor(Theme.yellowColor)
         .build()
     
     override init(frame: CGRect) {
@@ -30,19 +37,25 @@ final class SearchGameCell: UICollectionViewCell {
     
     private func setupUI() {
         contentView.addSubview(imageView)
+        contentView.addSubview(arrowImageView)
         contentView.addSubview(titleLabel)
         
         NSLayoutConstraint.activate([
-            imageView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-            imageView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            imageView.heightAnchor.constraint(equalToConstant: 60),
-            imageView.widthAnchor.constraint(equalToConstant: 120),
+            imageView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            imageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            imageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            imageView.widthAnchor.constraint(equalToConstant: 120)
         ])
         
         NSLayoutConstraint.activate([
-            titleLabel.topAnchor.constraint(equalTo: topAnchor, constant: 10),
-            titleLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
-            titleLabel.leadingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: 10)
+            arrowImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -4),
+            arrowImageView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+        ])
+        
+        NSLayoutConstraint.activate([
+            titleLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 16),
+            titleLabel.leadingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: 8),
+            titleLabel.trailingAnchor.constraint(lessThanOrEqualTo: arrowImageView.leadingAnchor, constant: -8)
         ])
     }
     
