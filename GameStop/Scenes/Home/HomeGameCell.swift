@@ -18,6 +18,7 @@ final class HomeGameCell: UICollectionViewCell {
     
     private let gameLabel = UILabelFactory(text: "Error")
         .fontSize(of: 14, weight: .medium)
+        .numberOf(lines: 1)
         .textColor(with: Theme.whiteColor)
         .build()
     
@@ -30,6 +31,10 @@ final class HomeGameCell: UICollectionViewCell {
         return stackView
     }()
     
+    private let arrowImageView = UIImageViewFactory(image: UIImage(systemName: "chevron.right"))
+        .tintColor(Theme.yellowColor)
+        .build()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupUI()
@@ -41,8 +46,13 @@ final class HomeGameCell: UICollectionViewCell {
     
     private func setupUI() {
         addSubview(gameImageView)
+        addSubview(arrowImageView)
         addSubview(gameLabel)
         addSubview(genresStackView)
+        
+        arrowImageView.setContentCompressionResistancePriority(.required, for: .horizontal)
+        gameLabel.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
+        genresStackView.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
         
         NSLayoutConstraint.activate([
             gameImageView.topAnchor.constraint(equalTo: topAnchor),
@@ -52,15 +62,20 @@ final class HomeGameCell: UICollectionViewCell {
         ])
         
         NSLayoutConstraint.activate([
+            arrowImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -4),
+            arrowImageView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+        ])
+        
+        NSLayoutConstraint.activate([
             gameLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 16),
             gameLabel.leadingAnchor.constraint(equalTo: gameImageView.trailingAnchor, constant: 8),
-            gameLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -8)
+            gameLabel.trailingAnchor.constraint(lessThanOrEqualTo: arrowImageView.leadingAnchor, constant: -8)
         ])
         
         NSLayoutConstraint.activate([
             genresStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -16),
             genresStackView.leadingAnchor.constraint(equalTo: gameImageView.trailingAnchor, constant: 8),
-            genresStackView.trailingAnchor.constraint(lessThanOrEqualTo: contentView.trailingAnchor, constant: -8),
+            genresStackView.trailingAnchor.constraint(lessThanOrEqualTo: arrowImageView.leadingAnchor, constant: -8),
             genresStackView.heightAnchor.constraint(equalToConstant: 30)
         ])
     }

@@ -13,24 +13,22 @@ final class HomePageImageViewController: UIViewController {
     var pageIndex: Int?
     var gameName: String?
     
-    private let imageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.contentMode = .scaleAspectFill
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        return imageView
-    }()
+    private let imageView = UIImageViewFactory()
+        .cornerRadius(10)
+        .contentMode(.scaleAspectFill)
+        .build()
     
     private let gradientLayerBottom: CAGradientLayer = {
         let layer = CAGradientLayer()
-        layer.colors = [UIColor.clear.cgColor, Theme.blackColor.cgColor]
-        layer.locations = [0.8, 1.0]
+        layer.colors = [UIColor.clear.cgColor, Theme.blackColor.withAlphaComponent(0.6).cgColor]
+        layer.locations = [0.9, 1.0]
         return layer
     }()
     
     private let gradientLayerTop: CAGradientLayer = {
         let layer = CAGradientLayer()
-        layer.colors = [Theme.blackColor.cgColor, UIColor.clear.cgColor]
-        layer.locations = [0.01, 1.0]
+        layer.colors = [Theme.blackColor.withAlphaComponent(0.6).cgColor, UIColor.clear.cgColor]
+        layer.locations = [0.0, 0.3]
         return layer
     }()
     
@@ -81,8 +79,8 @@ final class HomePageImageViewController: UIViewController {
         view.addSubview(nameLabel)
         
         NSLayoutConstraint.activate([
-            nameLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 16),
-            nameLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 24),
+            nameLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 16),
+            nameLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             nameLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -8)
         ])
         
