@@ -28,8 +28,7 @@
 
 | Home Screen | Detail Screen |
 | -------- | -------- |
-| ![SCR-20240526-tfay](https://github.com/guraygul/GameStop/assets/58820744/dd4fd054-fbd7-4188-aa2b-ce1865bbdd0f) | <img width="594" alt="detailScreen" src="https://github.com/guraygul/GameStop/assets/58820744/6e876955-a802-484d-a006-1d4cc032d7d5"> |
-
+| <img src="https://github.com/guraygul/GameStop/assets/58820744/dd4fd054-fbd7-4188-aa2b-ce1865bbdd0f" alt="HomeScreen" width="300" height="500"> | <img src="https://github.com/guraygul/GameStop/assets/58820744/6e876955-a802-484d-a006-1d4cc032d7d5" alt="DetailScreen" width="300" height="500"> |
 
 | Search Screen | Favorite Screen |
 | -------- | -------- |
