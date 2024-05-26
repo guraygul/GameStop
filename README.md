@@ -24,15 +24,15 @@
 ## In app Gifs and Screenshots
 | App Gif |
 | -------- |
-| <img src="https://github.com/guraygul/GameStop/assets/58820744/d655cef4-0bad-4bbf-b597-2eea1c1b216d" alt="GameStopGif" width="300" height="600"> |
+| ![GameStopGif](https://github.com/guraygul/GameStop/assets/58820744/689eed44-a9c7-4162-b250-83fb5ffb3620) |
 
 | Home Screen | Detail Screen |
 | -------- | -------- |
-| <img src="https://github.com/guraygul/GameStop/assets/58820744/dd4fd054-fbd7-4188-aa2b-ce1865bbdd0f" alt="HomeScreen" width="300" height="600"> | <img src="https://github.com/guraygul/GameStop/assets/58820744/6e876955-a802-484d-a006-1d4cc032d7d5" alt="DetailScreen" width="300" height="600"> |
+| <img width="510" alt="SCR-20240526-tpwu" src="https://github.com/guraygul/GameStop/assets/58820744/a82a5474-e97c-4219-8515-c497402497f8"> | <img width="554" alt="SCR-20240526-tpzz" src="https://github.com/guraygul/GameStop/assets/58820744/0b7be651-60dd-48ba-a323-5f19c5bafb74"> |
 
 | Search Screen | Favorite Screen |
 | -------- | -------- |
-| <img src="https://github.com/guraygul/GameStop/assets/58820744/0a698bb8-c262-4491-a468-11e96b91bc96" alt="SearchScreen" width="300" height="600"> | <img src="https://github.com/guraygul/GameStop/assets/58820744/dc62cd7c-d9b3-474f-b6c4-718acfa0b932" alt="FavoriteScreen" width="300" height="600"> |
+| <img width="554" alt="SCR-20240526-tqeh" src="https://github.com/guraygul/GameStop/assets/58820744/4143f50f-1633-430e-a7c3-968c897cf4d7"> | <img width="554" alt="SCR-20240526-tqev" src="https://github.com/guraygul/GameStop/assets/58820744/dadcccc5-cdb0-4665-8c77-ec5f7327d25e"> |
 
 ## Tech Stack
 - Xcode: Version 15.3
