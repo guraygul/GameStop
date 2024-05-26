@@ -16,6 +16,7 @@ protocol FavoriteViewModelProtocol {
     func viewWillAppear()
     func fetchLikedGames()
     func cellForItem(at indexPath: IndexPath) -> Result?
+    func toggleLike(for game: Result)
 }
 
 final class FavoriteViewModel {
@@ -93,6 +94,32 @@ extension FavoriteViewModel: FavoriteViewModelProtocol {
                 self.view?.showAlert(
                     title: "Fetch Error",
                     message: "Error while fetching favorite games",
+                    openSettings: false) { }
+            }
+        }
+    }
+    
+    func toggleLike(for game: Result) {
+        guard let id = game.id else { return }
+        
+        let context = coreDataManager.context
+        let fetchRequest: NSFetchRequest<GameEntity> = GameEntity.fetchRequest()
+        fetchRequest.predicate = NSPredicate(format: "id == %d", id)
+        
+        do {
+            let results = try context.fetch(fetchRequest)
+            if let entity = results.first {
+                context.delete(entity)
+                coreDataManager.saveContext()
+                likedGames.removeAll { $0.id == id }
+                view?.reloadData()
+            }
+        } catch {
+            DispatchQueue.main.async { [weak self] in
+                guard let self = self else { return }
+                self.view?.showAlert(
+                    title: "Failed to remove like",
+                    message: "An Error occurred while removing the like.\nPlease try again.",
                     openSettings: false) { }
             }
         }

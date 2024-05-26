@@ -66,6 +66,11 @@ final class UIButtonFactory {
         return self
     }
     
+    func tintColor(_ color: UIColor) -> Self {
+        button.tintColor = color
+        return self
+    }
+    
     func build() -> UIButton {
         return button
     }

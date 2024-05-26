@@ -48,6 +48,26 @@ final class UIViewFactory {
         return self
     }
     
+    func shadowOpacity(_ opacity: Float) -> Self {
+        view.layer.shadowOpacity = opacity
+        return self
+    }
+    
+    func shadowOffset(_ offset: CGSize) -> Self {
+        view.layer.shadowOffset = offset
+        return self
+    }
+    
+    func shadowColor(_ color: UIColor) -> Self {
+        view.layer.shadowColor = color.cgColor
+        return self
+    }
+    
+    func shadowRadius(_ radius: CGFloat) -> Self {
+        view.layer.shadowRadius = radius
+        return self
+    }
+    
     func build() -> UIView {
         return view
     }

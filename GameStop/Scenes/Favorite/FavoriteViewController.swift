@@ -103,7 +103,9 @@ extension FavoriteViewController: UICollectionViewDelegate, UICollectionViewData
                         cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FavoriteGameCell.identifier,
                                                       for: indexPath) as! FavoriteGameCell
-        if let game = viewModel.cellForItem(at: indexPath) { cell.configure(with: game) }
+        if let game = viewModel.cellForItem(at: indexPath) {
+            cell.delegate = self
+            cell.configure(with: game) }
         return cell
     }
     
@@ -123,7 +125,7 @@ extension FavoriteViewController: UICollectionViewDelegateFlowLayout {
         let availableWidth = view.frame.width - paddingSpace
         let widthPerItem = availableWidth / itemsPerRow
         
-        return CGSize(width: widthPerItem, height: widthPerItem / 4)
+        return CGSize(width: widthPerItem, height: widthPerItem / 2)
     }
     
     func collectionView(_ collectionView: UICollectionView,
@@ -163,4 +165,18 @@ extension FavoriteViewController: FavoriteViewControllerProtocol {
         }
     }
     
+}
+
+extension FavoriteViewController: FavoriteGameCellDelegate {
+    func didTapHeartButton(in cell: FavoriteGameCell) {
+        guard let indexPath = collectionView.indexPath(for: cell),
+              let game = viewModel.cellForItem(at: indexPath) else { return }
+        
+        showConfirmationAlert(
+            title: "Remove From Favorites",
+            message: "Are you sure you want to remove the like for this game?") { [weak self] in
+                guard let self = self else { return }
+                self.viewModel.toggleLike(for: game)
+        }
+    }
 }
