@@ -3,7 +3,9 @@
 
 ## Table Of Contents
 - [Features](#features)
-  - [In app Gifs](#in-app-gifs)
+  - [In app Gifs and Screenshots](#in-app-gifs-and-screenshots)
+  - [Screens](#screens)
+  - [Used Technologies](#used-technologies)
   - [Tech Stack](#tech-stack)
   - [Architecture](#architecture)
 - [Getting Started](#getting-started)
@@ -12,15 +14,7 @@
 - [Known Issues](#known-issues)
 - [Nice to have](#nice-to-have)
 
-## Features
-#### Browse Games:
-- Explore the Gaming world.
-- The data for the games comes from a real-time database. You may need to retry several times for the app to load as there may be API related issues.
-
-#### Game Details
-- Learn more about games with videos, photos, and information.
-- Drop a heart for your favorite games.
-
+# Features
 ## In app Gifs and Screenshots
 | App Gif |
 | -------- |
@@ -33,6 +27,22 @@
 | Search Screen | Favorite Screen |
 | -------- | -------- |
 | <img width="554" alt="SCR-20240526-tqeh" src="https://github.com/guraygul/GameStop/assets/58820744/4143f50f-1633-430e-a7c3-968c897cf4d7"> | <img width="554" alt="SCR-20240526-tqev" src="https://github.com/guraygul/GameStop/assets/58820744/dadcccc5-cdb0-4665-8c77-ec5f7327d25e"> |
+
+## Screens
+#### Browse Games:
+- Explore the Gaming world.
+- The data for the games comes from a real-time database. You may need to retry several times for the app to load as there may be API related issues.
+
+#### Game Details
+- Learn more about games with videos, photos, and information.
+- Drop a heart for your favorite games.
+
+## Used Technologies
+- UIKit
+- MVVM
+- Programmatic UI
+- Kingfisher
+- AVKit
 
 ## Tech Stack
 - Xcode: Version 15.3
